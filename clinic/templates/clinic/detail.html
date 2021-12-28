@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+
+    <!-- App Favicon -->
+    <link rel="shortcut icon" href="{% static 'config/images/TLOGO.png' %}">
+
+    <!-- App title -->
+    <title>دنتینو | خدمات آنلاین پزشکی</title>
+    {% block header_static %}
+        <!-- App CSS -->
+        <link href="{% static 'config/css/bootstrap-rtl.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'config/css/core.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'config/css/components.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'config/css/icons.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'config/css/pages.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'config/css/menu.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'config/css/responsive.css' %}" rel="stylesheet" type="text/css"/>
+
+        <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="{% static 'config/js/modernizr.min.js' %}"></script>
+    {% endblock %}
+
+    {% block content %}
+
+        <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="bg-picture card-box">
+                        <div class="profile-info-name">
+                            <img src="{{ clinic.logo.url }}"
+                                 class="img-thumbnail" alt="profile-image">
+
+                            <div class="profile-info-detail">
+                                <h1 class="m-t-0 m-b-0 text-center">{{ clinic.name }}</h1>
+                                <a class="btn btn-danger" href="{% url "clinic:delete" clinic.id %}">حذف</a>
+                                <a class="btn btn-warning" href="{% url "clinic:update" clinic.id %}">ویرایش</a>
+                                <h3 class="text-muted m-b-20">آدرس:<i>{{ clinic.address }}</i></h3>
+                                <h3>درباره مرکز درمانی:{{ object.description | safe }}</h3>
+                                <h3></h3>
+                                <h3>نوع مرکز درمانی :{{ clinic.type }}</h3>
+                                <h3>لیست سازمان های طرف قرارداد:</h3>
+                                {% for compamy in clinic.company.all %}
+                                <p>{{ compamy.title }}</p>
+                                {% endfor %}
+                                <div>
+                                       <h3>لیست شرکت های بیمه طرف قرارداد:</h3>
+                                {% for insurance in insurance_list %}
+                                <p>{{ insurance.name }}</p>
+                                {% endfor %}
+                                <div>
+                                    <h3>تصاویر کلینیک</h3>
+                                    <a><img src="{{ object.image1.url }}"></a>
+                                    <a><img src="{{ object.image2.url }}"></a>
+                                    <a><img src="{{ object.image3.url }}"></a>
+                                </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+                                <div class="button-list m-t-20">
+                                    <a href="{{ object.instagram }}" type="button" class="btn btn-facebook btn-sm waves-effect waves-light">
+                                        اینستاگرام کلینیک<i class="fa fa-instagram"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+                        <br>
+                          <h4 class="header-title m-t-0 m-b-30">لیست نوبت ها رزرو شده</h4>
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>نام</th>
+                                                <th>نام خانوادگی</th>
+                                                <th>شماره تلفن</th>
+                                                <th>دکتر</th>
+                                                <th>مرکز درمانی</th>
+                                                <th>تاریح ثبت</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for  clinic_reserve in reserve %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ clinic_reserve.name }}</td>
+                                                    <td>{{ clinic_reserve.family }}</td>
+                                                    <td>{{ clinic_reserve.phone_number }}</td>
+                                                    <td>{{ clinic_reserve.doctor }}</td>
+                                                    <td>{{ clinic_reserve.doctor.clinic }}</td>
+                                                    <td>{{ clinic_reserve.created }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <!--/ meta -->
+
+
+
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card-box">
+                        <div class="dropdown pull-right">
+                            <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                <i class="zmdi zmdi-more-vert"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">متن اول</a></li>
+                                <li><a href="#">متن دوم</a></li>
+                                <li><a href="#">متن سوم</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">متن چهارم</a></li>
+                            </ul>
+
+
+                        </div>
+
+                        <h4 class="header-title m-t-0 m-b-30">لیست پزشک ها</h4>
+
+                        <ul class="list-group m-b-0 user-list">
+                            {% for dr in doctor_list%}
+
+                                <li class="list-group-item">
+                                    <a href="#" class="user-list-item">
+                                        <div class="avatar">
+                                            <img src="{{ dr.profile.url }}" alt="">
+                                        </div>
+                                        <div class="user-desc">
+                                            <a href="{% url "doctor:detail" dr.id %}"
+                                               class="name">{{ dr.full_name }}</a>
+{#                                            {% for exper in dr.expertise.all %}#}
+{#                                                <span class="desc">{{ exper }}</span>#}
+{#                                            {% endfor %}#}
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+
+                </div> <!-- container -->
+
+            </div> <!-- content -->
+
+
+        </div>
+        <!-- End content-page -->
+    {% endblock %}
+
+    {% block js %}
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="{% static 'config/js/jquery.min.js' %}"></script>
+        <script src="{% static 'config/js/bootstrap-rtl.min.js' %}"></script>
+        <script src="{% static 'config/js/detect.js' %}"></script>
+        <script src="{% static 'config/js/fastclick.js' %}"></script>
+        <script src="{% static 'config/js/jquery.slimscroll.js' %}"></script>
+        <script src="{% static 'config/js/jquery.blockUI.js' %}"></script>
+        <script src="{% static 'config/js/waves.js' %}"></script>
+        <script src="{% static 'config/js/jquery.nicescroll.js' %}"></script>
+        <script src="{% static 'config/js/jquery.scrollTo.min.js' %}"></script>
+
+        <!-- App js -->
+        <script src="{% static 'config/js/jquery.core.js' %}"></script>
+        <script src="{% static 'config/js/jquery.app.js' %}"></script>
+
+{#    {% for time in reserve %}#}
+{#            <p>{{ time.doctor }}</p>#}
+{#  {% endfor %}#}
+
+
+    {% endblock %}

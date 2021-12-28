@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header_static %}
+        <!--Morris Chart CSS -->
+		<link rel="stylesheet" href="{% static 'config/plugins/morris/morris.css' %}">
+
+        <!-- App css -->
+        <link href="{% static 'config/css/bootstrap-rtl.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/core.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/components.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/icons.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/pages.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/menu.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/responsive.css' %}" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="{% static 'config/js/modernizr.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                    <div class="container">
+<h1 class="text-center">لیست پزشکان</h1>
+
+                        <div class="row">
+                            {% for doctor in object_list %}
+                            <div class="col-lg-3 col-md-6">
+                        		<div class="card-box">
+                                    <a href="{% url  "doctor:detail" doctor.id %}"  title="Screenshot-11">
+                                    <img src="{{ doctor.profile.url }}" class="thumb-img" alt="work-thumbnail">
+                        			<h2 class="text-center">{{ doctor }}</h2>
+                                    </div>
+                        		</div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+{% endblock %}
+
+
+
+{% block js %}
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="{% static 'config/js/jquery.min.js' %}"></script>
+        <script src="{% static 'config/js/bootstrap-rtl.min.js' %}"></script>
+        <script src="{% static 'config/js/detect.js' %}"></script>
+        <script src="{% static 'config/js/fastclick.js' %}"></script>
+        <script src="{% static 'config/js/jquery.blockUI.js' %}"></script>
+        <script src="{% static 'config/js/waves.js' %}"></script>
+        <script src="{% static 'config/js/jquery.nicescroll.js' %}"></script>
+        <script src="{% static 'config/js/jquery.slimscroll.js' %}"></script>
+        <script src="{% static 'config/js/jquery.scrollTo.min.js' %}"></script>
+
+        <!-- KNOB JS -->
+        <!--[if IE]>
+        <script type="text/javascript" src="{% static 'config/plugins/jquery-knob/excanvas.js' %}"></script>
+        <![endif]-->
+        <script src="{% static 'config/plugins/jquery-knob/jquery.knob.js' %}"></script>
+
+        <!--Morris Chart-->
+		<script src="{% static 'config/plugins/morris/morris.min.js' %}"></script>
+		<script src="{% static 'config/plugins/raphael/raphael-min.js' %}"></script>
+
+        <!-- Dashboard init -->
+        <script src="{% static 'config/pages/jquery.dashboard.js' %}"></script>
+
+        <!-- App js -->
+        <script src="{% static 'config/js/jquery.core.js' %}"></script>
+        <script src="{% static 'config/js/jquery.app.js' %}"></script>
+{% endblock %}

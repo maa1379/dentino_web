@@ -1,0 +1,276 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+        <meta name="author" content="Coderthemes">
+
+        <link rel="shortcut icon" href="{% static 'config/images/TLOGO.png' %}">
+
+        <title>دنتینو| خدمات پزشکی انلاین</title>
+
+        <!--Morris Chart CSS -->
+{% block header_static %}{% endblock %}
+
+    </head>
+  <body class="fixed-left">
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <!-- Top Bar Start -->
+            <div class="topbar">
+
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <a href="{%  url "config:Panel" %}" class="logo"><span>DEN<span>TINO</span></span><i class="zmdi zmdi-layers"></i></a>
+                </div>
+
+                <!-- Button mobile view to collapse sidebar menu -->
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="container">
+
+                        <!-- Page title -->
+                        <ul class="nav navbar-nav navbar-left">
+                                <h4 class="page-title" style="margin-right:25% ">  داشبورد</h4>
+
+                        </ul>
+                    </div><!-- end container -->
+                </div><!-- end navbar -->
+            </div>
+            <!-- Top Bar End -->
+
+
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="left side-menu">
+                <div class="sidebar-inner slimscrollleft">
+
+                    <!-- User -->
+                    <div class="user-box">
+                        <div class="user-img">
+                            <img src="{% static 'images/TLOGO.png' %}" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+                        </div>
+{#                        <h3><a href="#">DENTINO</a> </h3>#}
+                    </div>
+                    <div id="sidebar-menu">
+                        <ul>
+                            <li class="text-muted menu-title">دسته بندی ها</li>
+
+                            <li>
+                                <a href="{% url "config:Panel" %}" class="waves-effect active"><i
+                                        class="zmdi zmdi-view-dashboard"></i> <span> داشبورد </span> </a>
+                            </li>
+                            {% if request.user.is_superuser %}
+                                <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i
+                                        class="zmdi zmdi-invert-colors"></i> <span>مراکز درمانی </span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{% url 'clinic:Home' %}">لیست مراکز</a></li>
+                                    <li><a href="{% url 'clinic:create' %}">افزودن مراکز</a></li>
+                                    </ul>
+                                          <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-list"></i>
+                                    <span>  خدمات </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{% url "doctor:expertise_list" %}">لیست خدمات</a></li>
+                                    <li><a href="{% url "doctor:expertise_create" %}">افزودن خدمات</a></li>
+                                </ul>
+                                          </li>
+
+                            {% endif %}
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-list"></i>
+                                    <span>  پزشکان </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{% url "doctor:list" %}">لیست پزشکان</a></li>
+                                    <li><a href="{% url "doctor:create" %}">افزودن پزشک</a></li>
+                                </ul>
+                            </li>
+                            {% if request.user.is_superuser %}
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span> کاربران </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "account:user_list" %}">لیست کاربران</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span> محل ارایه خدمات </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "location:province" %}">لیست استان ها</a></li>
+                                        <li><a href="{% url "location:province_create" %}">افزودن استان</a></li>
+                                        <li><a href="{% url "location:city_list" %}">لیست شهر ها</a></li>
+                                        <li><a href="{% url "location:city_create" %}">افزودن شهر</a></li>
+                                        <li><a href="{% url "location:zone_list" %}">لیست مناطق</a></li>
+                                        <li><a href="{% url "location:zone_create" %}">افزودن منطقه</a></li>
+                                    </ul>
+                                </li>
+                                            <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span> فروشگاه </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "shop:product_list" %}">لیست محصولات</a></li>
+
+                                        <li><a href="{% url "shop:product_create" %}">افزودن محصول</a></li>
+                                                <li><a href="{% url "shop:category_list" %}">لیست دسته بندی ها</a></li>
+
+                                        <li><a href="{% url "shop:category_create" %}">افزودن دسته بندی</a></li>
+                                    </ul>
+                                </li>
+                                        <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect "><i
+                                        class="zmdi zmdi-chart"></i><span> نوبت دهی </span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{% url "reserve:list" %}">لیست نوبت ها</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+
+                            {% if request.user.is_superuser %}
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span> وبلاگ </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "blog:list" %}">لیست مقالات</a></li>
+                                        <li><a href="{% url "blog:create" %}">افزودن مقاله</a></li>
+                                    </ul>
+                                </li>
+                                       <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span> ویزیت </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "blog:list" %}">لیست ویزیت</a></li>
+                                        <li><a href="{% url "doctor:visit_time" %}"> افزودن ویزیت </a></li>
+                                    </ul>
+                                </li>
+                                            <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span> شکایات </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "partial:compliment" %}">لیست شکایت ها</a></li>
+                                    </ul>
+                                </li>
+                                               <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span> دانشنامه تخصصی</span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "partial:dict_list" %}">نمایش لیست</a></li>
+                                        <li><a href="{% url "partial:dict_create" %}">افزودن</a></li>
+                                        <li><a href="{% url "partial:dict_create" %}">لیست دسته بندی ها</a></li>
+                                        <li><a href="{% url "partial:dict_create" %}">افزودن دسته بندی</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span>  نسخه ها </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "partial:prescription_list" %}">لیست نسخه ها</a></li>
+                                        <li><a href="{% url "partial:prescription_create" %}">افزودن نسخه </a></li>
+                                    </ul>
+                                </li>
+                                       <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span>  آموزش های عمومی </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "commmon_course:list" %}">لیست آموزش ها</a></li>
+                                        <li><a href="{% url "commmon_course:create" %}">افزودن آموزش </a></li>
+                                    </ul>
+                                </li>
+                                              <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span>  شرکت های طرف قرارداد </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "partial:company_list" %}">لیست شرکت ها</a></li>
+                                        <li><a href="{% url "partial:company_create" %}">افزودن شرکت  </a></li>
+                                    </ul>
+                                </li>
+                                            <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span>  شرکت های بیمه </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "doctor:insurance_list" %}">لیست شرکت ها </a></li>
+                                        <li><a href="{% url "doctor:insurance_create" %}">افزودن شرکت بیمه  </a></li>
+                                    </ul>
+                                </li>
+                                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span>  تعرفه ها </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "partial:price_list" %}">لیست تعرفه ها </a></li>
+                                        <li><a href="{% url "partial:price_create" %}">افزودن تعرفه ها  </a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect "><i
+                                        class="zmdi zmdi-chart"></i><span> تنظیمات </span> <span
+                                        class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span> اسلایدرها </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "config:slider_list" %}">لیست اسلایدرها</a></li>
+                                        <li><a href="{% url "config:slider_add" %}">افزودن اسلایدر</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+
+                                    <a href="{% url "config:site_config" %}" class="-align-left"> <i
+                                            class="fa fa-lock"></i>تنظیمات کلی</a>
+                                </li>
+
+                                <li>
+
+                                    <a href="{% url "config:about_us" %}" class="-align-left"> <i
+                                            class="fa fa-lock"></i>درباره ما</a>
+                                </li>
+
+                            {% endif %}
+
+                            </ul>
+                            </li>
+
+                            <li>
+
+                                <a href="{% url "config:logout" %}" class="text-danger -align-left"> <i
+                                        class="fa fa-lock"></i>خروج</a>
+                            </li>
+
+                            </li></ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- Sidebar -->
+                    <div class="clearfix"></div>
+
+                </div>
+
+            </div>
+            <!-- Left Sidebar End -->
+
+            {% block content %}{% endblock %}
+        </div>
+{% block js %}{% endblock %}
+
+    </body>
+</html>

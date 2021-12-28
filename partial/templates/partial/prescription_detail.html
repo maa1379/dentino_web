@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header_static %}
+        <!-- App CSS -->
+        <link href="{% static 'config/css/bootstrap-rtl.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/core.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/components.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/icons.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/pages.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/menu.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'config/css/responsive.css' %}" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="{% static 'config/js/modernizr.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="bg-picture card-box">
+                                    <div class="profile-info-name">
+                                        <img src="{{ object.image.url }}"
+                                             class="img-thumbnail" alt="profile-image">
+
+                                        <div class="profile-info-detail">
+                                            <h3 class="m-t-0 m-b-0">{{ object }}</h3>
+                                            <a class="btn btn-danger" href="{% url "partial:prescription_delete" object.pk %}">حذف</a>
+                                            <a class="btn btn-warning" href="{% url "partial:prescription_update" object.pk %}">ویرایش</a>
+{#                                            <p class="text-muted m-b-20"><i>{{ clinic.address }}</i></p>#}
+                                            <p>{{ prescriptions.description }}</p>
+
+                                            <div class="button-list m-t-20">
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <!--/ meta -->
+
+                                <div class="card-box">
+                                    <div class="comment">
+                                        <img src="{% static 'config/' %}images/users/avatar-1.jpg" alt="" class="comment-avatar">
+                                        <div class="comment-body">
+                                            <div class="comment-text">
+                                                <div class="comment-header">
+                                                    <a href="#" title="">نام کاربر </a><span>در 2 دقیقه پیش</span>
+                                                </div>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+
+                                                <div class="m-t-15">
+                                                    <a href="">
+                                                        <img src="{% static 'config/' %}images/small/img1.jpg" class="thumb-md">
+                                                    </a>
+                                                    <a href="">
+                                                        <img src="{% static 'config/' %}images/small/img2.jpg" class="thumb-md">
+                                                    </a>
+                                                    <a href="">
+                                                        <img src="{% static 'config/' %}images/small/img3.jpg" class="thumb-md">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="comment-footer">
+                                                <a href="#"><i class="fa fa-thumbs-o-up"></i></a>
+                                                <a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+                                                <a href="#">Reply</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="comment">
+                                            <img src="{% static 'config/' %}images/users/avatar-2.jpg" alt="" class="comment-avatar">
+                                            <div class="comment-body">
+                                                <div class="comment-text">
+                                                    <div class="comment-header">
+                                                        <a href="#" title="">نام کارب</a><span>در 1 ساعت قبل</span>
+                                                    </div>
+                                                    سلام به تو دوست عزیز .
+                                                </div>
+                                                <div class="comment-footer">
+                                                    <a href="#"><i class="fa fa-thumbs-o-up"></i></a>
+                                                    <a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+                                                    <a href="#">جواب دادن</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="comment">
+                                            <img src="{% static 'config/' %}images/users/avatar-3.jpg" alt="" class="comment-avatar">
+                                            <div class="comment-body">
+                                                <div class="comment-text">
+                                                    <div class="comment-header">
+                                                        <a href="#" title="">نام یک کاربر</a><span>در 2 دقیقه پیش</span>
+                                                    </div>
+                                                  از احوالت بگو
+                                                </div>
+                                                <div class="comment-footer">
+                                                    <a href="#"><i class="fa fa-thumbs-o-up"></i></a>
+                                                    <a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+                                                    <a href="#">جواب دادن</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="comment">
+                                                <img src="{% static 'config/' %}images/users/avatar-4.jpg" alt="" class="comment-avatar">
+                                                <div class="comment-body">
+                                                    <div class="comment-text">
+                                                        <div class="comment-header">
+                                                            <a href="#" title="">نام یک کاربر</a><span>در 3 ساعت پیش</span>
+                                                        </div>
+                                                        کار بسیار عالی انجام دادی
+                                                    </div>
+                                                    <div class="comment-footer">
+                                                        <a href="#"><i class="fa fa-thumbs-o-up"></i></a>
+                                                        <a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+                                                        <a href="#">جواب دادن</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comment">
+                                        <img src="{% static 'config/' %}images/users/avatar-1.jpg" alt="" class="comment-avatar">
+                                        <div class="comment-body">
+                                            <div class="comment-text">
+                                                <div class="comment-header">
+                                                    <a href="#" title="">نام کاربر</a><span>در 4 ساعت پیش</span>
+                                                </div>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه
+                                            </div>
+                                            <div class="comment-footer">
+                                                <a href="#"><i class="fa fa-thumbs-o-up"></i></a>
+                                                <a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+                                                <a href="#">جواب دادن</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comment">
+                                        <img src="{% static 'config/' %}images/users/avatar-7.jpg" alt="" class="comment-avatar">
+                                        <div class="comment-body">
+                                            <div class="comment-text">
+                                                <div class="comment-header">
+                                                    <a href="#" title="">نام کاربر</a><span>در 10 ساعت پیش</span>
+                                                </div>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ !!
+                                            </div>
+                                            <div class="comment-footer">
+                                                <a href="#"><i class="fa fa-thumbs-o-up"></i></a>
+                                                <a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+                                                <a href="#">جواب دادن</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="m-t-30 text-center">
+                                        <a href="" class="btn btn-default waves-effect waves-light btn-sm">نمایش بیشتر ...</a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="card-box">
+                                    <div class="dropdown pull-right">
+                                        <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">متن اول</a></li>
+                                            <li><a href="#">متن دوم</a></li>
+                                            <li><a href="#">متن سوم</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">متن چهارم</a></li>
+                                        </ul>
+                                    </div>
+
+                        			<h4 class="header-title m-t-0 m-b-30">لیست پزشک ها</h4>
+
+                                    <ul class="list-group m-b-0 user-list">
+                                                                                    {% for dr in clinic.dr.all %}
+
+                                        <li class="list-group-item">
+                                            <a href="#" class="user-list-item">
+                                                <div class="avatar">
+                                                    <img src="{{ dr.image.url }}" alt="">
+                                                </div>
+                                                <div class="user-desc">
+                                                    <a href="{% url "doctor:detail" dr.id %}" class="name">{{ dr.name }} {{ dr.family }}</a>
+                                                    {% for exper in dr.expertise.all  %}
+                                                    <span class="desc">{{ exper }}</span>
+                                                        {% endfor %}
+                                                </div>
+                                            </a>
+                                        </li>
+                                            {% endfor %}
+                                    </ul>
+                                </div>
+
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+
+
+
+            </div>
+            <!-- End content-page -->
+                {% endblock %}
+
+{% block js %}
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="{% static 'config/js/jquery.min.js' %}"></script>
+        <script src="{% static 'config/js/bootstrap-rtl.min.js' %}"></script>
+        <script src="{% static 'config/js/detect.js' %}"></script>
+        <script src="{% static 'config/js/fastclick.js' %}"></script>
+        <script src="{% static 'config/js/jquery.slimscroll.js' %}"></script>
+        <script src="{% static 'config/js/jquery.blockUI.js' %}"></script>
+        <script src="{% static 'config/js/waves.js' %}"></script>
+        <script src="{% static 'config/js/jquery.nicescroll.js' %}"></script>
+        <script src="{% static 'config/js/jquery.scrollTo.min.js' %}"></script>
+
+        <!-- App js -->
+        <script src="{% static 'config/js/jquery.core.js' %}"></script>
+        <script src="{% static 'config/js/jquery.app.js' %}"></script>
+{% endblock %}
