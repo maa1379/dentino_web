@@ -31,7 +31,7 @@ class  DoctorDictCatUpdate(UpdateView):
 def DoctorDictCatDelete(request,id):
     dict_cat=get_object_or_404(DoctorDictionaryCategory,id=id)
     dict_cat.delete()
-    return redirect()
+    return redirect("partial:dr_cat_list")
 
 
 
