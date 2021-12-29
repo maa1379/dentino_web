@@ -3,9 +3,35 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView,View
 from config.mixins import SuperUserMixin
 
-from .forms import CompanyForm, PrescriptionForm, PriceForm,DoctorDictionaryForm
-from .models import Company, Complaint, Prescriptions, Price,DoctorDictionary
+from .forms import CompanyForm, PrescriptionForm, PriceForm,DoctorDictionaryForm,DoctorDictCatForm
+from .models import Company, Complaint, Prescriptions, Price,DoctorDictionary,DoctorDictionaryCategory
 
+
+
+class DoctorDictCategoryListView(ListView):
+    model = DoctorDictionaryCategory
+    template_name = "partial/dr_cat.html"
+
+
+class DoctorDictCatCrate(CreateView):
+    model = DoctorDictionaryCategory
+    form_class = DoctorDictCatForm
+    template_name = "partial/dr_cat_create.html"
+    success_url = reverse_lazy()
+
+class  DoctorDictCatUpdate(UpdateView):
+    model = DoctorDictionaryCategory
+    form_class = DoctorDictCatForm
+    template_name = "partial/dr_cat_update.html"
+    success_url = reverse_lazy()
+    slug_field = "id"
+    slug_url_kwarg = "id"
+
+
+def DoctorDictCatDelete(request,id):
+    dict_cat=get_object_or_404(DoctorDictionaryCategory,id=id)
+    dict_cat.delete()
+    return redirect()
 
 
 
