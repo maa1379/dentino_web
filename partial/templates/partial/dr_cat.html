@@ -36,7 +36,7 @@
                     {% for object in object_list %}
                         <div class="col-lg-3 col-md-6">
                             <div class="card-box">
-                                <h2 class="text-center">{{ object.title }}</h2>
+                                <h2 class="text-center">{{ object.name }}</h2>
                                     <a class="btn btn-warning" href="{% url "partial:dr_cat_update" object.id %}">ویرایش</a>
                                 <a class="btn btn-danger" href="{% url "partial:dr_cat_delete" object.id %}">حذف</a>
                             </div>
