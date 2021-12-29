@@ -36,6 +36,7 @@
                     {% for insurance in object_list %}
                         <div class="col-lg-3 col-md-6">
                             <div class="card-box">
+                                 <img src="{{ insurance.image.url }}"  width="100px" height="100px" class="text-center">
                                 <h2 class="text-center">{{ insurance.name }}</h2>
                                 <a class="btn btn-warning" href="{% url "doctor:insurance_update" insurance.id %}">ویرایش</a>
                                 <a class="btn btn-danger" href="{% url "doctor:insurance_delete" insurance.id %}">حذف</a>
