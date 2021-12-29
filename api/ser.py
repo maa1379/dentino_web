@@ -251,7 +251,8 @@ class ClinicSerializer(serializers.ModelSerializer):
                   'insurances',
                   'zone_name',
                   'companies',
-                  'insurances'
+                  'insurances',
+                  'id',
                   )
 
     def get_clinic_description(self, obj):
