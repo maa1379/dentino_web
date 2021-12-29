@@ -389,7 +389,7 @@ class DoctorListApiTest(generics.ListAPIView):
         insurance = request.POST.get("insurance")
         clinic = request.POST.get("clinic_type")
         region = request.POST.get("zone")
-        query_set = Doctor.objects.filter(expertise=expertise, clinic__location=region)
+        query_set = Doctor.objects.filter(expertise=expertise, clinic__location__name=region)
         if insurance and clinic:
             query_set = query_set.filter(insurance=insurance, clinic__type=clinic)
         if clinic and not insurance or None:
