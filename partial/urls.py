@@ -4,7 +4,7 @@ from .views import (  # InsuranceCreateVIew,; InsuranceDeleteView,; InsuranceLis
     ComanyDeleteView, CompanyCreateView, CompanyListView, CompanyUpdateView,
     ComplimentListVIew, PrescriptionCreate, PrescriptionDeleteVIew,
     PrescriptionDetailView, PrescriptionListView, PrescriptionUpdate,
-    PriceCreateVIew, PriceDeleteView, PriceListView, PriceUpdateView,DoctorDictionaryList,DoctorDictionaryCreate,DoctoDictonaryUpdate,DoctorDictionaryDelete)
+    PriceCreateVIew, PriceDeleteView, PriceListView, PriceUpdateView,DoctorDictionaryList,DoctorDictionaryCreate,DoctoDictonaryUpdate,DoctorDictionaryDelete,DoctorDictCategoryListView,DoctorDictCatCrate,DoctorDictCatUpdate,DoctorDictCatDelete)
 
 app_name = "partial"
 urlpatterns = (
@@ -56,4 +56,8 @@ urlpatterns = (
     path("price/create/", PriceCreateVIew.as_view(), name="price_create"),
     path("price/delete/<int:id>/", PriceDeleteView, name="price_delete"),
     path("compliment_list/", ComplimentListVIew.as_view(), name="compliment"),
+    path("dr_dict_cat_list/", DoctorDictCategoryListView.as_view(), name="dr_cat_list"),
+    path("dr_dict_cat_create/", DoctorDictCatCrate.as_view(), name="dr_cat_create"),
+    path("dr_dict_cat/update/<int:id>/", DoctorDictCatUpdate.as_view(), name="dr_cat_update"),
+    path("dr_dict_cat/delete/<int:id>/", DoctorDictCatDelete, name="dr_cat_delete"),
 )
