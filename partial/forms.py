@@ -1,7 +1,16 @@
 from django import forms
 
-from .models import Company, Prescriptions, Price,DoctorDictionary
+from .models import Company, Prescriptions, Price,DoctorDictionary,DoctorDictionaryCategory
 
+
+
+class DoctorDictCatForm(forms.ModelForm):
+    class Meta:
+        model=DoctorDictionaryCategory
+        fields=("name",)
+        labels={
+            "name":"عنوان دسته بندی"
+        }
 
 class DoctorDictionaryForm(forms.ModelForm):
     class Meta:
