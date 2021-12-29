@@ -17,13 +17,13 @@ class DoctorDictCatCrate(CreateView):
     model = DoctorDictionaryCategory
     form_class = DoctorDictCatForm
     template_name = "partial/dr_cat_create.html"
-    success_url = reverse_lazy()
+    success_url = reverse_lazy("partial:dr_cat_list")
 
 class  DoctorDictCatUpdate(UpdateView):
     model = DoctorDictionaryCategory
     form_class = DoctorDictCatForm
     template_name = "partial/dr_cat_update.html"
-    success_url = reverse_lazy()
+    success_url = reverse_lazy("partial:dr_cat_list")
     slug_field = "id"
     slug_url_kwarg = "id"
 
