@@ -13,7 +13,7 @@ from .views import (About_usApiView, AddToCart, CategoryListApiView,
                     ReserveCreateView, SliderApiView, TimeListApiView,
                     UpdateUserView, UserProfileApiView, UserReserveList,
                     Verify, VerifyUserRegister, my_django_view, DoctorDictionaryListApiView, DoctorDictionaryDetailView,
-                    ZoneListApiView,ProvinceList,CityListApiView,ZoneListApiView,ClinicDoctorListApiView,CatDicListApiView)
+                    ZoneListApiView,ProvinceList,CityListApiView,ZoneListApiView,ClinicDoctorListApiView,CatDicListApiView,ToBank)
 
 app_name = "api"
 
