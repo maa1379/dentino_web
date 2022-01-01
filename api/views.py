@@ -889,7 +889,9 @@ class ProductDetail(generics.ListAPIView):
 
 
 from rest_framework.permissions import AllowAny
-
+class paymentno(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "paymentno.html",{"re":settings.FRONT_END_URL})
 
 class AddToCart(generics.GenericAPIView):
     serializer_class = AddToCartSerializer
