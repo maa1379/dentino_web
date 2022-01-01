@@ -1045,7 +1045,7 @@ class Verify(GenericAPIView):
 
 class paymentok(GenericAPIView):
     def get(self, request):
-        return CoustomRedirect(settings.FRONT_END_URL+"?status=100")
+        return CoustomRedirect(settings.FRONT_END_URL)
     
 
 
