@@ -47,7 +47,12 @@ from .ser import (About_usSerializer, AddToCartSerializer,
 
 
 # from zeep import Client
+from django.http import HttpResponsePermanentRedirect
+from django.conf import settings
 
+class CoustomRedirect(HttpResponsePermanentRedirect):
+
+    allowed_schemes = [settings.APP_SCHEME,"http","https"]
 
 class ComplimentCreateView(GenericAPIView):
     queryset = Complaint.objects.all()
@@ -1025,11 +1030,17 @@ class Verify(GenericAPIView):
                 return HttpResponseRedirect(redirect_to="payment_ok")
             else:
                 order.delete()
-                # content = {'payment was disuccess'}
-                return HttpResponseRedirect(redirect_to="payment_no")
+                return CoustomRedirect(settings.FRONT_END_URL+"?status=100")
+            else:
+                order.delete()
+                return CoustomRedirect(settings.FRONT_END_URL+'?status=300')
         else:
-            # content = {'order canceld'}
-            return HttpResponseRedirect(redirect_to="payment_no")
+            return CoustomRedirect(settings.FRONT_END_URL+'?status=300')
+#                 # content = {'payment was disuccess'}
+#                 return HttpResponseRedirect(redirect_to="payment_no")
+#         else:
+#             # content = {'order canceld'}
+#             return HttpResponseRedirect(redirect_to="payment_no")
 
 
 class paymentok(View):
