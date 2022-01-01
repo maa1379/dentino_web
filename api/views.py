@@ -1,7 +1,7 @@
 from datetime import timedelta
 from decimal import Decimal
 from random import randint
-
+from django.views.generic import View
 from django.contrib.auth.models import User
 from django_filters import rest_framework as filters
 from kavenegar import *
