@@ -13,13 +13,14 @@ from .views import (About_usApiView, AddToCart, CategoryListApiView,
                     ReserveCreateView, SliderApiView, TimeListApiView,
                     UpdateUserView, UserProfileApiView, UserReserveList,
                     Verify, VerifyUserRegister, my_django_view, DoctorDictionaryListApiView, DoctorDictionaryDetailView,
-                    ZoneListApiView,ProvinceList,CityListApiView,ZoneListApiView,ClinicDoctorListApiView,CatDicListApiView,ToBank,paymentok)
+                    ZoneListApiView,ProvinceList,CityListApiView,ZoneListApiView,ClinicDoctorListApiView,CatDicListApiView,ToBank,paymentok,paymentno)
 
 app_name = "api"
 
 urlpatterns = [
     path("order_create/", OrderCreate.as_view(), name="order_create"),
     path("testing/", paymentok.as_view(), name="order_create"),
+    path("but/", paymentno.as_view(), name="order_create"),
     path("dict_category/", CatDicListApiView.as_view(), name="dict_category"),
     path("province_list/", ProvinceList.as_view(), name="province_list"),
     path("city_list/", CityListApiView.as_view(), name="city_list"),
