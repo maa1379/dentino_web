@@ -1027,7 +1027,7 @@ class Verify(GenericAPIView):
             if result.Status == 100:
                 order.paid = True
                 order.save()
-                return HttpResponseRedirect(redirect_to="payment_ok")
+                return CoustomRedirect(settings.FRONT_END_URL+"?status=100")
             else:
                 order.delete()
                 return CoustomRedirect(settings.FRONT_END_URL+"?status=100")
