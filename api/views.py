@@ -1038,10 +1038,9 @@ class Verify(GenericAPIView):
         else:
             return redirect("payment_no")
 
-class paymentok(GenericAPIView):
-    def get(self, request):
-        return CoustomRedirect(settings.FRONT_END_URL)
-    
+class paymentok(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "paymentok.html")
 
 
 class paymentno(View):
