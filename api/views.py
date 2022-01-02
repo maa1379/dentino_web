@@ -12,6 +12,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from zeep import Client
+from django.shortcuts import  redirect
+
 
 import api.ser
 import doctor.models
@@ -1029,21 +1031,12 @@ class Verify(GenericAPIView):
             if result.Status == 100:
                 order.paid = True
                 order.save()
-                return CoustomRedirect(settings.FRONT_END_URL+"?status=100")
+                return redirect("payment_ok")
             else:
                 order.delete()
-                return CoustomRedirect(settings.FRONT_END_URL+"?status=100")
-#             else:
-#                 order.delete()
-#                 return CoustomRedirect(settings.FRONT_END_URL+'?status=300')
+                return redirect("payment_no")
         else:
-            return CoustomRedirect(settings.FRONT_END_URL+'?status=300')
-#                 # content = {'payment was disuccess'}
-#                 return HttpResponseRedirect(redirect_to="payment_no")
-#         else:
-#             # content = {'order canceld'}
-#             return HttpResponseRedirect(redirect_to="payment_no")
-
+            return redirect("payment_no")
 
 class paymentok(GenericAPIView):
     def get(self, request):
