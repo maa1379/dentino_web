@@ -1062,7 +1062,7 @@ class OrderList(GenericAPIView):
     ]
     serializer_class = OrderListSerializer
 
-    def get_queryset(self, request):
+    def get(self, request):
         orders = Order.objects.filter(user=request.user)
         serializer = self.serializer_class(orders, many=True).data
         return SuccessResponse(serializer, status=status.HTTP_200_OK).send()
