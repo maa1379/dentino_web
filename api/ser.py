@@ -273,7 +273,7 @@ class ClinicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Clinic
-<<<<<<< HEAD
+
         fields = ('name',
                   'logo',
                   'address',
@@ -291,25 +291,25 @@ class ClinicSerializer(serializers.ModelSerializer):
                   'insurances',
                   'id',
                   )
-=======
-        fields = (
-            "name",
-            "logo",
-            "address",
-            "instagram",
-            "phone_number",
-            "clinic_description",
-            "image1",
-            "image2",
-            "image3",
-            "location",
-            "type",
-            "insurances",
-            "zone_name",
-            "companies",
-            "insurances",
-        )
->>>>>>> d5704e2 (template)
+
+        # fields = (
+        #     "name",
+        #     "logo",
+        #     "address",
+        #     "instagram",
+        #     "phone_number",
+        #     "clinic_description",
+        #     "image1",
+        #     "image2",
+        #     "image3",
+        #     "location",
+        #     "type",
+        #     "insurances",
+        #     "zone_name",
+        #     "companies",
+        #     "insurances",
+        # )
+
 
     def get_clinic_description(self, obj):
         return format_html(obj.description)

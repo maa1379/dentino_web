@@ -5,10 +5,10 @@ from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
 
 from config.mixins import SuperUserMixin
 
-<<<<<<< HEAD
+
 from .forms import CompanyForm, PrescriptionForm, PriceForm,DoctorDictionaryForm,DoctorDictCatForm
 from .models import Company, Complaint, Prescriptions, Price,DoctorDictionary,DoctorDictionaryCategory
-=======
+
 from .forms import (CompanyForm, DoctorDictCatForm, DoctorDictionaryForm,
                     PrescriptionForm, PriceForm)
 from .models import (Company, Complaint, DoctorDictionary,
@@ -34,7 +34,7 @@ class DoctorDictCatUpdate(UpdateView):
     success_url = reverse_lazy()
     slug_field = "id"
     slug_url_kwarg = "id"
->>>>>>> d5704e2 (template)
+
 
 
 def DoctorDictCatDelete(request, id):

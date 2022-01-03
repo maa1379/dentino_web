@@ -39,6 +39,8 @@ class ClinicCreateForm(forms.ModelForm):
             "phone_number",
             "image4",
             "image5",
+            "telegram",
+            "instagram",
         )
         labels = {
             "name": "عنوان",
@@ -54,11 +56,10 @@ class ClinicCreateForm(forms.ModelForm):
             "image4": "تصویر کلینیک",
             "image5": "تصویر کلینیک",
             "description": "درباه کلینیک",
+            "telegram": "تلگرام",
+            "whatsapp": "واتساپ",
         }
 
-        widgets = {
-            'location': forms.SelectMultiple()
-        }
 
 #
 # class ClinicFilter(django_filters.FilterSet):

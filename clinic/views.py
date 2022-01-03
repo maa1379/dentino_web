@@ -106,7 +106,40 @@ class ClinicCreateView(SuperUserMixin, CreateView, SuccessMessageMixin):
     success_url = reverse_lazy("clinic:Home")
     SuccessMessageMixin = "OK"
     template_name = "clinic/create.html"
-
+    
+    
+    def form_invalid(self, form):
+        print(form.is_valid)
+        print(form.errors)
+        print(self.request.POST)
+        # new_form=form.save(commit=False)
+        # new_form.verified=False
+        # new_form.contracted=False
+        # new_form.save()
+        print("*"*99)
+        return super(ClinicCreateView, self).form_invalid(form)
+    
+    def form_valid(self, form):
+        print(self.request.POST)
+        print(self.request.FILES)
+        new_form = form.save(commit=False)
+        new_form.verified = False
+        new_form.contracted = False
+        new_form.save()
+        return super(ClinicCreateView, self).form_valid(form)
+from django.shortcuts import render
+# def ClinicCreateView(request):
+#     if request.method=="POST":
+#         form=ClinicCreateForm(request.POST)
+#         if form.is_valid():
+#             cd=form.cleaned_data
+#             clinic=Clinic.objects.create(name=cd["name"],logo=cd["logo"],address=cd["address"],phone_number=cd["phone_number"],instagram=cd["instagram"],location=cd["location"],company=cd["company"],type=cd["type"],image1=cd["image1"],image2=cd["image2"],image3=cd["image3"],image4=cd["image4"],image5=cd["image5"],description=cd["description"],telegram=cd["telegram"])
+#             print(clinic)
+#             return redirect("clinic:Home")
+#     else:
+#         form=ClinicCreateForm()
+#
+#     return  render(request,"clinic/create.html",{"form":form})
 
 class ClinicUpdateVIew(SuperUserMixin, UpdateView, SuccessMessageMixin):
     model = Clinic

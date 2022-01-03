@@ -1,6 +1,6 @@
 from django.urls import path
 
-<<<<<<< HEAD
+
 from .views import (About_usApiView, AddToCart, CategoryListApiView,
                     ClearCartItem, ClinicDetailApi, ClinicListApiView,
                     CommonCourseApiView, CommonCourseDetailApi, CompanyList,
@@ -15,7 +15,7 @@ from .views import (About_usApiView, AddToCart, CategoryListApiView,
                     UpdateUserView, UserProfileApiView, UserReserveList,
                     Verify, VerifyUserRegister, my_django_view, DoctorDictionaryListApiView, DoctorDictionaryDetailView,
                     ZoneListApiView,ProvinceList,CityListApiView,ZoneListApiView,ClinicDoctorListApiView,CatDicListApiView,ToBank,paymentok,paymentno)
-=======
+
 from .views import (About_usApiView, AddToCart, CatDicListApiView,
                     CategoryListApiView, CityListApiView, ClearCartItem,
                     ClinicDetailApi, ClinicDoctorListApiView,
@@ -32,7 +32,7 @@ from .views import (About_usApiView, AddToCart, CatDicListApiView,
                     TimeListApiView, ToBank, UpdateUserView,
                     UserProfileApiView, UserReserveList, Verify,
                     VerifyUserRegister, ZoneListApiView, my_django_view)
->>>>>>> d5704e2 (template)
+
 
 app_name = "api"
 
@@ -47,10 +47,10 @@ urlpatterns = [
     path("clinic_doctor/", ClinicDoctorListApiView.as_view(), name="clinic_doctor"),
     # path("location/", ZoneListApiView.as_view(), name="location"),
     path("delete_cart/", DeleteCartItem.as_view(), name="DeleteCartItem"),
-<<<<<<< HEAD
+
     path("doctordictionarylist/", DoctorDictionaryListApiView.as_view(), name="doctordictionarylist"),
     path("doctordictionarydetail/", DoctorDictionaryDetailView.as_view(), name="doctordictionarydetail"),
-=======
+
     path(
         "doctordictionarylist/",
         DoctorDictionaryListApiView.as_view(),
@@ -61,7 +61,7 @@ urlpatterns = [
         DoctorDictionaryDetailView.as_view(),
         name="doctordictionarydetail",
     ),
->>>>>>> d5704e2 (template)
+
     path("bank/", ToBank.as_view(), name="bank"),
     path("verify/", Verify.as_view(), name="bank"),
     path("exertise/", ExpertiseListApiView.as_view(), name="Home"),

@@ -1,13 +1,13 @@
 from datetime import timedelta
 from decimal import Decimal
 from random import randint
-<<<<<<< HEAD
+
 from django.views.generic import View
-=======
+
 
 # from django.http import HttpRespone
 from django.conf import settings
->>>>>>> d5704e2 (template)
+
 from django.contrib.auth.models import User
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import redirect
@@ -449,13 +449,13 @@ class DoctorListApiTest(generics.ListAPIView):
         insurance = request.POST.get("insurance")
         clinic = request.POST.get("clinic_type")
         region = request.POST.get("zone")
-<<<<<<< HEAD
+
         query_set = Doctor.objects.filter(expertise=expertise, clinic__location__name=region)
-=======
+
         query_set = Doctor.objects.filter(
             expertise=expertise, clinic__location__name=region
         )
->>>>>>> d5704e2 (template)
+
         if insurance and clinic:
             query_set = query_set.filter(insurance=insurance, clinic__type=clinic)
         if clinic and not insurance or None:
@@ -1099,10 +1099,7 @@ class Verify(GenericAPIView):
                 return redirect("payment_no")
         else:
             return redirect("payment_no")
-<<<<<<< HEAD
-=======
 
->>>>>>> d5704e2 (template)
 
 class paymentok(View):
     def get(self, request, *args, **kwargs):

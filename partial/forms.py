@@ -1,11 +1,11 @@
 from django import forms
 
-<<<<<<< HEAD
+
 from .models import Company, Prescriptions, Price,DoctorDictionary,DoctorDictionaryCategory
-=======
+
 from .models import (Company, DoctorDictionary, DoctorDictionaryCategory,
                      Prescriptions, Price)
->>>>>>> d5704e2 (template)
+
 
 
 
