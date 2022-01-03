@@ -36,8 +36,13 @@
                             {% for expert in object_list %}
                             <div class="col-lg-3 col-md-6">
                         		<div class="card-box">
+<<<<<<< HEAD
 						<img class="text-center" width="100px" height="100px" src="{{expert.image.url}}">
                         			<h4 class="text-center">{{ expert }}</h2>
+=======
+                        			<h2 class="text-center">{{ expert }}</h2>
+                                    <img src="{{ insurance.logo.url }}"  width="100px" height="100px" class="text-center">
+>>>>>>> d5704e2 (template)
                                     <a class="btn btn-danger" href="{% url "doctor:expertise_delete" expert.id %}">حذف</a>
                                     <a class="btn btn-warning" href="{% url "doctor:expertise_update" expert.id %}">ویرایش</a>
                                     </div>

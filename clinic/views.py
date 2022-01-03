@@ -6,17 +6,70 @@ from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   View)
 
 from config.mixins import SuperUserMixin
-from doctor.models import Doctor
+from doctor.models import Discount, Doctor, Insurance
 from reservation.models import Reservation
-from .forms import ClinicCreateForm, ServiceCreateForm
+
+from .forms import ClinicCreateForm, DiscountForm, ServiceCreateForm
 from .models import Clinic, Service
-from doctor.models import Insurance
+
+
+class CreateDiscount(CreateView):
+    success_url = reverse_lazy("clinic:Home")
+    form_class = DiscountForm
+    model = Discount
+    template_name = "clinic/discount_create.html"
+
+    # def form_valid(self, form):
+    # new_discount = form.save(commit=False)
+    # clinic = Clinic.objects.filter(clinic__id=self.request.user.profile.clinic)
+    # new_discount.clinic = clinic
+    # new_discount.save()
+    # return super(CreateDiscount, self).form_valid(form)
+
+
+class UpdateDiscount(UpdateView):
+    success_url = reverse_lazy()
+    form_class = DiscountForm
+    model = Discount
+    template_name = "clinic/discount_update.html"
+    slug_field = "id"
+    slug_url_kwarg = "id"
+
+    def form_valid(self, form):
+        new_discount = form.save(commit=False)
+        clinic = Clinic.objects.filter(clinic__id=self.request.user.profile.clinic)
+        new_discount.clinic = clinic
+        new_discount.save()
+        return super(UpdateDiscount, self).form_valid(form)
+
+
+class DiscountListView(ListView):
+    model = Discount
+    template_name = "clinic/discount_list.html"
+
+
+def DiscountDelete(request, id):
+    discount = get_object_or_404(Discount, id=id)
+    discount.delete()
+    return redirect("clinic:Home")
+
 
 # from django_filters.views import FilterView
+class UnverifiedClinicListView(ListView):
+    queryset = Clinic.objects.filter(verified=False)
+    template_name = "clinic/unverified.html"
+
+
+class VerifyClinic(View):
+    def get(self, request, id):
+        clinic = get_object_or_404(Clinic, id=id)
+        clinic.verified = True
+        clinic.save()
+        return redirect("clinic:unverified")
 
 
 class ClinicListView(SuperUserMixin, ListView):
-    model = Clinic
+    queryset = Clinic.objects.filter(verified=True)
     template_name = "clinic/list.html"
     paginate_by = 12
 
@@ -36,7 +89,6 @@ class ClinicDetailView(SuperUserMixin, DetailView):
         context_data["reserve"] = Reservation.objects.filter(doctor__clinic=clinic)
         context_data["doctor_list"] = Doctor.objects.filter(clinic=clinic)
         context_data["insurance_list"] = Insurance.objects.filter(doctor__clinic=clinic)
-
         return context_data
 
 

@@ -38,17 +38,26 @@ class Price(models.Model):
 
 class Complaint(models.Model):
     text = models.TextField()
-    user = models.ForeignKey(user, on_delete=models.CASCADE, related_name="user_compliment")
+    user = models.ForeignKey(
+        user, on_delete=models.CASCADE, related_name="user_compliment"
+    )
     # doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="doctor_compliment")
-    # clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE,related_name="clinic_compliment")
+    # clinic = models.ForeignKey(on_delete=models.CASCADE,related_name="clinic_compliment")
 
 
 class DoctorDictionary(models.Model):
     word = models.CharField(max_length=255)
     meaning = models.TextField()
-    logo = models.ImageField(upload_to="doctor/images/dictonary/", null=True, blank=True)
-    category = models.ForeignKey("DoctorDictionaryCategory", on_delete=models.CASCADE, related_name="dict", blank=True,
-                                 null=True)
+    logo = models.ImageField(
+        upload_to="doctor/images/dictonary/", null=True, blank=True
+    )
+    category = models.ForeignKey(
+        "DoctorDictionaryCategory",
+        on_delete=models.CASCADE,
+        related_name="dict",
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.word
@@ -56,7 +65,9 @@ class DoctorDictionary(models.Model):
 
 class ImageOfDict(models.Model):
     image = models.ImageField(upload_to="images/")
-    dict = models.ForeignKey(DoctorDictionary, on_delete=models.CASCADE, related_name="dict")
+    dict = models.ForeignKey(
+        DoctorDictionary, on_delete=models.CASCADE, related_name="dict"
+    )
 
     def __str__(self):
         return f"{self.image} of {self.dict}"

@@ -1,6 +1,6 @@
 import datetime
 
-from django.core.validators import (RegexValidator)
+from django.core.validators import RegexValidator
 from django.db import models
 
 from clinic.models import Clinic
@@ -41,12 +41,18 @@ class Doctor(models.Model):
     medical_code = models.CharField(max_length=11)
     # service = models.ForeignKey(Service, on_delete=models.CASCADE)
     insurance = models.ManyToManyField(Insurance)
-    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE, related_name="doctor", null=True, blank=True)
+    clinic = models.ForeignKey(
+        Clinic, on_delete=models.CASCADE, related_name="doctor", null=True, blank=True
+    )
     expertise = models.ManyToManyField(Expertise, related_name="doctor")
     full_name = models.CharField(max_length=250, null=True, blank=True)
     bio = models.TextField(blank=True, null=True)
     age = models.PositiveIntegerField()
     star = models.PositiveIntegerField(blank=True, null=True)
+    parvaneh_tebabat = models.ImageField(
+        upload_to="images/doctor/", null=True, blank=True
+    )
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.family
@@ -87,9 +93,15 @@ class VisitTime(models.Model):
 
 
 class DoctorDate(models.Model):
-    name=models.CharField(max_length=20)
-    doctor=models.ForeignKey(Doctor,on_delete=models.CASCADE)
-    date=models.ForeignKey(VisitTime,on_delete=models.CASCADE)
+    name = models.CharField(max_length=20)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    date = models.ForeignKey(VisitTime, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
+
+class Discount(models.Model):
+    expertise = models.ForeignKey(Expertise, on_delete=models.CASCADE)
+    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)
+    percent = models.PositiveIntegerField()

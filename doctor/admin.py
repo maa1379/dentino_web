@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from doctor.models import VisitTime
 
-from .models import Doctor, Expertise, Insurance, VisitTime ,DoctorDate
+from .models import Doctor, DoctorDate, Expertise, Insurance, VisitTime
 
 admin.site.register(Doctor)
 

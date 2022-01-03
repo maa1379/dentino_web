@@ -1,14 +1,46 @@
+from django.utils.html import format_html
 from rest_framework import serializers
-from django.utils.html import mark_safe
+
 from account.models import Profile
 from clinic.models import Clinic
 from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
-from doctor.models import Doctor, Expertise, Insurance, VisitTime
-from location.models import Zone, Province, City
-from partial.models import Company, Complaint, Prescriptions, Price, DoctorDictionary ,DoctorDictionaryCategory
+from doctor.models import Discount, Doctor, Expertise, Insurance, VisitTime
+from location.models import City, Province, Zone
+from partial.models import (Company, Complaint, DoctorDictionary,
+                            DoctorDictionaryCategory, Prescriptions, Price)
 from shop.models import Category, Product
-from django.utils.html import format_html
+
+
+class DiscountListSerializer(serializers.ModelSerializer):
+    clinic_name = serializers.SerializerMethodField()
+    expertise_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Discount
+        fields = ("clinic_name", "percent", "expertise_name")
+
+    def get_clinic_name(self, obj):
+        return obj.clinic.name
+
+    def get_expertise_name(self, obj):
+        return obj.expertise.name
+
+
+class DiscountClinicSerializer(serializers.ModelSerializer):
+    clinic_name = serializers.SerializerMethodField()
+    expertise_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Discount
+        fields = ("clinic_name", "expertise_name")
+
+    def get_clinic_name(self, obj):
+        return obj.clinic.name
+
+    def get_expertise_name(self, obj):
+        return obj.expertise.name
+
 
 class ProvinceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -58,7 +90,7 @@ class DeleteCartItemSerializer(serializers.Serializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "name", "price", "image", "category")
+        fields = ("id", "name", "price", "image", "category", "sell")
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -79,10 +111,13 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "category",
             "id",
         )
+
+
 class DictCategorySer(serializers.ModelSerializer):
     class Meta:
-        model=DoctorDictionaryCategory
-        fields="__all__"
+        model = DoctorDictionaryCategory
+        fields = "__all__"
+
 
 class CategoryListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -234,9 +269,11 @@ class ClinicSerializer(serializers.ModelSerializer):
     zone_name = serializers.SerializerMethodField()
     insurances = serializers.SerializerMethodField()
     clinic_description = serializers.SerializerMethodField()
+    clinic_discount = serializers.SerializerMethodField()
 
     class Meta:
         model = Clinic
+<<<<<<< HEAD
         fields = ('name',
                   'logo',
                   'address',
@@ -254,6 +291,25 @@ class ClinicSerializer(serializers.ModelSerializer):
                   'insurances',
                   'id',
                   )
+=======
+        fields = (
+            "name",
+            "logo",
+            "address",
+            "instagram",
+            "phone_number",
+            "clinic_description",
+            "image1",
+            "image2",
+            "image3",
+            "location",
+            "type",
+            "insurances",
+            "zone_name",
+            "companies",
+            "insurances",
+        )
+>>>>>>> d5704e2 (template)
 
     def get_clinic_description(self, obj):
         return format_html(obj.description)
@@ -268,13 +324,19 @@ class ClinicSerializer(serializers.ModelSerializer):
     def get_zone_name(self, obj):
         return obj.location.name
 
+    def get_clinic_discount(self, obj):
+        discount = Discount.objects.filter(clinic=obj)
+        return DiscountClinicSerializer(discount, many=True).data
+
+
 class ClinicShortSeralizer(serializers.ModelSerializer):
     class Meta:
-        model=Clinic
-        fields=("id","name","type")
+        model = Clinic
+        fields = ("id", "name", "type")
+
 
 class TimelistSer(serializers.Serializer):
-    name=serializers.CharField(max_length=125)
+    name = serializers.CharField(max_length=125)
 
 
 class About_usSerializer(serializers.ModelSerializer):

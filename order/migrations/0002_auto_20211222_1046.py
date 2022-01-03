@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('order', '0001_initial'),
+        ("order", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='order',
-            name='code',
+            model_name="order",
+            name="code",
             field=models.CharField(blank=True, max_length=125, null=True),
         ),
         migrations.AddField(
-            model_name='order',
-            name='email',
+            model_name="order",
+            name="email",
             field=models.CharField(blank=True, max_length=1250, null=True),
         ),
         migrations.AddField(
-            model_name='order',
-            name='family',
+            model_name="order",
+            name="family",
             field=models.CharField(blank=True, max_length=1250, null=True),
         ),
         migrations.AddField(
-            model_name='order',
-            name='name',
+            model_name="order",
+            name="name",
             field=models.CharField(blank=True, max_length=1250, null=True),
         ),
     ]

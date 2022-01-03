@@ -4,11 +4,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View
-from doctor.models import Doctor
+
 from clinic.models import Clinic
+from doctor.models import Doctor
+from reservation.models import Reservation
+
 from .forms import PanelLoginForm, SliderForm
 from .models import About_Us, SiteConfig, Slider
-from reservation.models import Reservation
+
 user = get_user_model()
 
 
@@ -22,31 +25,29 @@ class HomeView(View):
         return render(
             request,
             "config/Home.html",
-            {
-
-            },
+            {},
         )
 
 
 class PanelView(LoginRequiredMixin, View):
     def get(self, request):
-        clinic=request.user.profile.clinic
+        clinic = request.user.profile.clinic
         clinic_number = Clinic.objects.count()
         doctor_number = Doctor.objects.count()
         user_number = user.objects.count()
-        reserve_number=Reservation.objects.count()
-        if request.user.profile.is_clinic:
-            clinic_number=Clinic.objects.filter(clinic=clinic).count()
-            doctor_number = Doctor.objects.filter(clinic=clinic).count()
-            reserve_number = Reservation.objects.filter(clinic=clinic).count()
+        reserve_number = Reservation.objects.count()
+        # if request.user.profile.is_clinic:
+        # clinic_number=Clinic.objects.filter(clinic=clinic).count()
+        # doctor_number = Doctor.objects.filter(clinic=clinic).count()
+        # reserve_number = Reservation.objects.filter(clinic=clinic).count()
 
-        context={
-            "clinic_number":clinic_number,
-            "doctor_number":doctor_number,
-            "user_number":user_number,
-            "reserve_number":reserve_number
+        context = {
+            "clinic_number": clinic_number,
+            "doctor_number": doctor_number,
+            "user_number": user_number,
+            "reserve_number": reserve_number,
         }
-        return render(request, "config/panel.html",context)
+        return render(request, "config/panel.html", context)
 
 
 class PanelLoginView(View):

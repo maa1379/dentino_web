@@ -6,16 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('partial', '0004_auto_20211215_0613'),
+        ("partial", "0004_auto_20211215_0613"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DoctorDictionary',
+            name="DoctorDictionary",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('word', models.CharField(max_length=255)),
-                ('meaning', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("word", models.CharField(max_length=255)),
+                ("meaning", models.TextField()),
             ],
         ),
     ]

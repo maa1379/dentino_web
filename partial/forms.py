@@ -1,6 +1,11 @@
 from django import forms
 
+<<<<<<< HEAD
 from .models import Company, Prescriptions, Price,DoctorDictionary,DoctorDictionaryCategory
+=======
+from .models import (Company, DoctorDictionary, DoctorDictionaryCategory,
+                     Prescriptions, Price)
+>>>>>>> d5704e2 (template)
 
 
 
@@ -14,11 +19,21 @@ class DoctorDictCatForm(forms.ModelForm):
 
 class DoctorDictionaryForm(forms.ModelForm):
     class Meta:
-        model=DoctorDictionary
-        fields=("word","meaning","logo","category")
-        labels = {"word": "لغت", "meaning": "معنی","logo":"لوگو","category":"دسته بندی"}
+        model = DoctorDictionary
+        fields = ("word", "meaning", "logo", "category")
+        labels = {
+            "word": "لغت",
+            "meaning": "معنی",
+            "logo": "لوگو",
+            "category": "دسته بندی",
+        }
 
 
+class DoctorDictCatForm(forms.ModelForm):
+    class Meta:
+        model = DoctorDictionaryCategory
+        fields = ("name",)
+        labels = {"name": "عنوان دسته بندی"}
 
 
 class CompanyForm(forms.ModelForm):

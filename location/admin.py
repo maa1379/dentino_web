@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Province,City,Zone
+from .models import City, Province, Zone
 
 # Register your models here.
 admin.site.register(Province)

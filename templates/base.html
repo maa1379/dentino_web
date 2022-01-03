@@ -70,6 +70,8 @@
                                 <ul class="list-unstyled">
                                     <li><a href="{% url 'clinic:Home' %}">لیست مراکز</a></li>
                                     <li><a href="{% url 'clinic:create' %}">افزودن مراکز</a></li>
+                                    <li><a href="{% url 'clinic:unverified' %}">مراکز تایید نشده</a></li>
+                                    <li><a href="{% url 'clinic:discount_list' %}">لیست تخفیفات</a></li>
                                     </ul>
                                           <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-list"></i>
@@ -88,6 +90,7 @@
                                 <ul class="list-unstyled">
                                     <li><a href="{% url "doctor:list" %}">لیست پزشکان</a></li>
                                     <li><a href="{% url "doctor:create" %}">افزودن پزشک</a></li>
+                                    <li><a href="{% url "doctor:unverified_doctor" %}">پزشکان تایید نشده</a></li>
                                 </ul>
                             </li>
                             {% if request.user.is_superuser %}
@@ -97,6 +100,7 @@
                                             class="menu-arrow"></span></a>
                                     <ul class="list-unstyled">
                                         <li><a href="{% url "account:user_list" %}">لیست کاربران</a></li>
+                                        <li><a href="{% url "account:signup" %}">افزودن کاربر</a></li>
                                     </ul>
                                 </li>
 

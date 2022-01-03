@@ -17,6 +17,7 @@ class ProductForm(forms.ModelForm):
             "phone_number",
             "address",
             "category",
+            "sell",
         )
         labels = {
             "name": "نام محصول",
@@ -27,7 +28,9 @@ class ProductForm(forms.ModelForm):
             "image4": "تصویر شماره چهار",
             "phone_number": "شماره تماس",
             "address": "آدرس",
+            "price": "قیمت",
             "category": "دسته بندی",
+            "sell": "قیمت ما",
         }
 
 

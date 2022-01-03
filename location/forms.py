@@ -1,6 +1,7 @@
 from django import forms
 
-from .models import Zone, City, Province
+from .models import City, Province, Zone
+
 
 class LocationForm(forms.ModelForm):
     class Meta:
@@ -15,7 +16,7 @@ class LocationForm(forms.ModelForm):
 class ZoneForm(forms.ModelForm):
     class Meta:
         model = Zone
-        fields = ("name","city")
+        fields = ("name", "city")
 
         labels = {
             "name": "منطقه",
@@ -36,8 +37,7 @@ class ProvinceForm(forms.ModelForm):
 class CityForm(forms.ModelForm):
     class Meta:
         model = City
-        fields = ("name",
-                  "province")
+        fields = ("name", "province")
 
         labels = {
             "name": "شهر",

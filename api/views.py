@@ -1,8 +1,16 @@
 from datetime import timedelta
 from decimal import Decimal
 from random import randint
+<<<<<<< HEAD
 from django.views.generic import View
+=======
+
+# from django.http import HttpRespone
+from django.conf import settings
+>>>>>>> d5704e2 (template)
 from django.contrib.auth.models import User
+from django.http import HttpResponsePermanentRedirect
+from django.shortcuts import redirect
 from django_filters import rest_framework as filters
 from kavenegar import *
 from rest_framework import generics, status
@@ -24,28 +32,36 @@ from clinic.models import Clinic
 from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
 from doctor.api.serailizers import DoctorSer, VisitTimeSerializer
-from doctor.models import Doctor, Expertise, Insurance, VisitTime
-from doctor.models import DoctorDate
-from location.models import Province, City, Zone
+from doctor.models import (Discount, Doctor, DoctorDate, Expertise, Insurance,
+                           VisitTime)
+from location.models import City, Province, Zone
 from order.models import Order, OrderItem
-from partial.models import Company, Complaint, Prescriptions, Price, DoctorDictionary,DoctorDictionaryCategory
+from partial.models import (Company, Complaint, DoctorDictionary,
+                            Prescriptions, Price)
 from reservation.models import Reservation
 from shop.models import Category, Product
 from utilities.respones import ErrorResponse, SuccessResponse
+
 from .filters import DoctorFilter
 from .ser import (About_usSerializer, AddToCartSerializer,
-                  CategoryListSerializer, ClinicSerializer,
-                  CommonDetailSerializer, CommonListSerializer,
-                  CompanySerializer, ComplimentSerializer, ContactUsSerializer,
-                  DeleteCartItemSerializer, DoctorProfileSerializer,
-                  DoctorSerializer, ExpertiseSerializer, InsuranceSerializer,
+                  CategoryListSerializer, CitySerializer, ClinicSerializer,
+                  ClinicShortSeralizer, CommonDetailSerializer,
+                  CommonListSerializer, CompanySerializer,
+                  ComplimentSerializer, ContactUsSerializer,
+                  DeleteCartItemSerializer, DictCategorySer,
+                  DiscountListSerializer, DoctorDictionarySerializer,
+                  DoctorProfileSerializer, DoctorSerializer,
+                  ExpertiseSerializer, InsuranceSerializer,
                   OrderDetailSerializer, OrderListSerializer, OrderSerializer,
                   PrescriptionsSerializer, ProductDetailSerializer,
-                  ProductListSerializer, RegisterSerializer, RseSerializer,
-                  SliderSerializer, TimeSer, UserProfile,
-                  UserReservationSerializer, UserUpdateSerializer,
-                  UserVerifySerializer, DoctorDictionarySerializer, ProvinceSerializer, CitySerializer,
-                  ClinicShortSeralizer, DictCategorySer)
+                  ProductListSerializer, ProvinceSerializer,
+                  RegisterSerializer, RseSerializer, SliderSerializer, TimeSer,
+                  UserProfile, UserReservationSerializer, UserUpdateSerializer,
+                  UserVerifySerializer)
+
+
+class CoustomRedirect(HttpResponsePermanentRedirect):
+    allowed_schemes = [settings.APP_SCHEME, "http", "https"]
 
 
 # from zeep import Client
@@ -55,6 +71,18 @@ from django.conf import settings
 class CoustomRedirect(HttpResponsePermanentRedirect):
 
     allowed_schemes = [settings.APP_SCHEME,"http","https"]
+
+class DiscountListApiView(GenericAPIView):
+    serializer_class = DiscountListSerializer
+
+    def get(self, request):
+        try:
+            instance = Discount.objects.all()
+            ser_data = self.serializer_class(instance, many=True).data
+            return SuccessResponse(data=ser_data, status=201)
+        except Exception as e:
+            return ErrorResponse(message=e, status=405)
+
 
 class ComplimentCreateView(GenericAPIView):
     queryset = Complaint.objects.all()
@@ -67,7 +95,9 @@ class ComplimentCreateView(GenericAPIView):
             user = self.request.user.id
             clinic = self.request.POST.get("clinic_id")
             doctor = self.request.POST.get("doctor_id")
-            Complaint.objects.create(text=text, user_id=user, clinic_id=clinic, doctor_id=doctor)
+            Complaint.objects.create(
+                text=text, user_id=user, clinic_id=clinic, doctor_id=doctor
+            )
             return SuccessResponse(data="success").send()
 
     # def perform_create(self, serializer):
@@ -137,7 +167,8 @@ class ZoneListApiView(generics.ListAPIView):
             return SuccessResponse(data=serialized_data, many=True).send()
         except Exception as e:
             return ErrorResponse(
-                message=f"{e}", status=status.HTTP_404_NOT_FOUND).send()
+                message=f"{e}", status=status.HTTP_404_NOT_FOUND
+            ).send()
 
 
 class ExpertiseListApiView(generics.ListAPIView):
@@ -232,10 +263,17 @@ class TimeListApiView(generics.ListAPIView):
                     # if elyas:
                     a = a + timedelta(minutes=30)
                     my_list.append(
-                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5]
+                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
+                        :5
+                        ]
                     )
-                    name = DoctorDate.objects.create(doctor=doctor, date=vistime, name=str(
-                        a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5])
+                    name = DoctorDate.objects.create(
+                        doctor=doctor,
+                        date=vistime,
+                        name=str(
+                            a.time().replace(hour=a.hour, minute=a.minute, second=00)
+                        )[:5],
+                    )
                     if a >= b:
                         break
 
@@ -244,10 +282,17 @@ class TimeListApiView(generics.ListAPIView):
                 while True:
                     a = a + timedelta(minutes=30)
                     my_list.append(
-                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5]
+                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
+                        :5
+                        ]
                     )
-                    DoctorDate.objects.create(doctor=doctor, date=vistime, name=str(
-                        a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5])
+                    DoctorDate.objects.create(
+                        doctor=doctor,
+                        date=vistime,
+                        name=str(
+                            a.time().replace(hour=a.hour, minute=a.minute, second=00)
+                        )[:5],
+                    )
                     if a >= b:
                         # my_list.append(pk)
                         # my_list.append(id)
@@ -272,7 +317,7 @@ class ReserveCreateView(generics.CreateAPIView):
     serializer_class = RseSerializer
 
     def perform_create(self, serializer):
-        doctor_id = self.request.POST.get("doctor_id"),
+        doctor_id = (self.request.POST.get("doctor_id"),)
         day = self.request.POST.get("day")
         DoctorDate.objects.get(doctor=doctor_id, day=day, name=day)
         DoctorDate.delete()
@@ -327,14 +372,22 @@ class VerifyUserRegister(GenericAPIView):
                 if user:
                     token = RefreshToken.for_user(user)
                     auth = True
-                    data = {"refresh": str(token), "access": str(token.access_token), "registerd": str(auth)}
+                    data = {
+                        "refresh": str(token),
+                        "access": str(token.access_token),
+                        "registerd": str(auth),
+                    }
                 else:
                     user = User.objects.create_user(
                         username=phone_number, password="1234"
                     )
                     token = RefreshToken.for_user(user)
                     auth = False
-                    data = {"refresh": str(token), "access": str(token.access_token), "registerd": str(auth)}
+                    data = {
+                        "refresh": str(token),
+                        "access": str(token.access_token),
+                        "registerd": str(auth),
+                    }
 
                     # return HttpResponseRedirect("api:get_pro")
                 return Response(status=201, data={"data": data})
@@ -396,7 +449,13 @@ class DoctorListApiTest(generics.ListAPIView):
         insurance = request.POST.get("insurance")
         clinic = request.POST.get("clinic_type")
         region = request.POST.get("zone")
+<<<<<<< HEAD
         query_set = Doctor.objects.filter(expertise=expertise, clinic__location__name=region)
+=======
+        query_set = Doctor.objects.filter(
+            expertise=expertise, clinic__location__name=region
+        )
+>>>>>>> d5704e2 (template)
         if insurance and clinic:
             query_set = query_set.filter(insurance=insurance, clinic__type=clinic)
         if clinic and not insurance or None:
@@ -566,11 +625,13 @@ class FilterListApiView(generics.ListAPIView):
             "clinic": clinic_ser,
         }
         return SuccessResponse(data=temp_data, status=201).send()
+
     # except:
     #     return ErrorResponse(message="failed").send()
 
 
 #
+
 
 class About_usApiView(generics.ListAPIView):
     serializer_class = About_usSerializer
@@ -663,7 +724,7 @@ class ClinicDoctorListApiView(generics.ListAPIView):
             serialize_data = self.get_serializer(instance, many=True).data
             return SuccessResponse(data=serialize_data, status=201).send()
         except Exception as e:
-            return ErrorResponse(f'{e}', status=410)
+            return ErrorResponse(f"{e}", status=410)
 
 
 class ClinicDetailApi(generics.ListAPIView):
@@ -985,6 +1046,7 @@ CallbackURL = (
     "https://dentino.app/api/verify/"  # Important: need to edit for realy server.
 )
 
+
 class ToBank(GenericAPIView):
     permission_classes = [
         IsAuthenticated,
@@ -1005,6 +1067,8 @@ class ToBank(GenericAPIView):
             authority = str(result.Authority)
             order.authority = authority
             order.save()
+            print(authority)
+            print(result)
             return SuccessResponse(
                 data="https://www.zarinpal.com/pg/StartPay/" + str(result.Authority)
             ).send()
@@ -1014,9 +1078,7 @@ class ToBank(GenericAPIView):
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
 
-from django.http import HttpResponseRedirect
 from django.views.generic import View
-
 
 # return HttpResponseRedirect(redirect_to=f'{star_pay_url}{authority}')
 
@@ -1037,6 +1099,10 @@ class Verify(GenericAPIView):
                 return redirect("payment_no")
         else:
             return redirect("payment_no")
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5704e2 (template)
 
 class paymentok(View):
     def get(self, request, *args, **kwargs):
@@ -1066,7 +1132,7 @@ class OrderDetail(GenericAPIView):
     ]
     serializer_class = OrderDetailSerializer
 
-    def get_queryset(self, request):
+    def get(self, request):
         try:
             pk = request.POST.get("pk")
             queryset = Order.objects.get(user=request.user, pk=pk)

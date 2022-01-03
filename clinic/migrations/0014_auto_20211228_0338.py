@@ -6,26 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('clinic', '0013_auto_20211228_0325'),
+        ("clinic", "0013_auto_20211228_0325"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='clinic',
-            name='lat',
+            model_name="clinic",
+            name="lat",
         ),
         migrations.RemoveField(
-            model_name='clinic',
-            name='long',
+            model_name="clinic",
+            name="long",
         ),
         migrations.AlterField(
-            model_name='clinic',
-            name='instagram',
+            model_name="clinic",
+            name="instagram",
             field=models.CharField(blank=True, max_length=125, null=True),
         ),
         migrations.AlterField(
-            model_name='clinic',
-            name='phone_number',
+            model_name="clinic",
+            name="phone_number",
             field=models.TextField(),
         ),
     ]

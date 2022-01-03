@@ -4,12 +4,19 @@ from .views import (DoctorCreateView, DoctorDeleteView, DoctorDetailView,
                     DoctorListView, DoctorUpdateView, ExpertiseCreateView,
                     ExpertiseDelete, ExpertiseListView, ExpertiseUpdateView,
                     InsuranceCreateVIew, InsuranceDeleteView,
-                    InsuranceListView, InsuranceUpdateView, VisitTimeView)
+                    InsuranceListView, InsuranceUpdateView,
+                    Unverified_Doctor_ListView, VisitTimeView, verify_doctor)
 
 app_name = "doctor"
 
 urlpatterns = [
     path("doctor_lsit/", DoctorListView, name="list"),
+    path("verify_doctor/<int:id>/", verify_doctor.as_view(), name="verify_doctor"),
+    path(
+        "unverified_doctor_list/",
+        Unverified_Doctor_ListView.as_view(),
+        name="unverified_doctor",
+    ),
     path("docotr/<int:pk>/", DoctorDetailView.as_view(), name="detail"),
     path("doctor/create/", DoctorCreateView.as_view(), name="create"),
     path("doctor/delete/<int:pk>/", DoctorDeleteView.as_view(), name="delete"),

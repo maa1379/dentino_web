@@ -22,7 +22,7 @@ class Order(models.Model):
     code = models.CharField(max_length=125, null=True, blank=True)
     name = models.CharField(max_length=1250, null=True, blank=True)
     family = models.CharField(max_length=1250, null=True, blank=True)
-    email = models.CharField(null=True, blank=True,max_length=1250)
+    email = models.CharField(null=True, blank=True, max_length=1250)
     authority = models.CharField(null=True, blank=True, max_length=100)
 
     def total_price(self):

@@ -51,6 +51,7 @@
                                 <h1 class="m-t-0 m-b-0 text-center">{{ clinic.name }}</h1>
                                 <a class="btn btn-danger" href="{% url "clinic:delete" clinic.id %}">حذف</a>
                                 <a class="btn btn-warning" href="{% url "clinic:update" clinic.id %}">ویرایش</a>
+                                <a class="btn btn-success" href="{% url "clinic:discount_create"  %}">افزودن تخفیف</a>
                                 <h3 class="text-muted m-b-20">آدرس:<i>{{ clinic.address }}</i></h3>
                                 <h3>درباره مرکز درمانی:{{ object.description | safe }}</h3>
                                 <h3></h3>
@@ -85,7 +86,7 @@
                                 </div>
                             </div>
                         <br>
-                          <h4 class="header-title m-t-0 m-b-30">لیست نوبت ها رزرو شده</h4>
+                          <h4 class="header-title m-t-0 m-b-30 text-center">لیست نوبت ها رزرو شده</h4>
 
                                     <div class="table-responsive">
                                         <table class="table">
@@ -96,7 +97,6 @@
                                                 <th>نام خانوادگی</th>
                                                 <th>شماره تلفن</th>
                                                 <th>دکتر</th>
-                                                <th>مرکز درمانی</th>
                                                 <th>تاریح ثبت</th>
                                             </tr>
                                             </thead>
@@ -108,10 +108,35 @@
                                                     <td>{{ clinic_reserve.family }}</td>
                                                     <td>{{ clinic_reserve.phone_number }}</td>
                                                     <td>{{ clinic_reserve.doctor }}</td>
-                                                    <td>{{ clinic_reserve.doctor.clinic }}</td>
                                                     <td>{{ clinic_reserve.created }}</td>
                                                 </tr>
                                             {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                          <h4 class="header-title m-t-0 m-b-30 text-center">لیست تخفیف های کلینیک</h4>
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>تخصص </th>
+                                                <th>درصد تخفیف</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+{#                                            {% for  discount in clinic %}#}
+{#                                                <tr>#}
+{#                                                    <td>{{ forloop.counter }}</td>#}
+{#                                                    <td>{{ clinic_reserve.name }}</td>#}
+{#                                                    <td>{{ clinic_reserve.family }}</td>#}
+{#                                                    <td>{{ clinic_reserve.phone_number }}</td>#}
+{#                                                    <td>{{ clinic_reserve.doctor }}</td>#}
+{#                                                    <td>{{ clinic_reserve.created }}</td>#}
+{#                                                </tr>#}
+{#                                            {% endfor %}#}
                                             </tbody>
                                         </table>
                                     </div>

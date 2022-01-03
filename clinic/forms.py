@@ -1,6 +1,14 @@
 from django import forms
 
+from doctor.models import Discount
 from .models import Clinic, Service
+
+
+class DiscountForm(forms.ModelForm):
+    class Meta:
+        model = Discount
+        fields = ("clinic", "percent", "expertise")
+        labels = {"clinic": "مرکز درمانی", "percent": "درصد تخفیف", "expertise": "تخصص"}
 
 
 class ServiceCreateForm(forms.ModelForm):
@@ -16,7 +24,22 @@ class ServiceCreateForm(forms.ModelForm):
 class ClinicCreateForm(forms.ModelForm):
     class Meta:
         model = Clinic
-        fields = ("name", "logo", "address", "instagram", "location", "company","type","image1","image2","image3","description","phone_number")
+        fields = (
+            "name",
+            "logo",
+            "address",
+            "instagram",
+            "location",
+            "company",
+            "type",
+            "image1",
+            "image2",
+            "image3",
+            "description",
+            "phone_number",
+            "image4",
+            "image5",
+        )
         labels = {
             "name": "عنوان",
             "logo": "لوگو",
@@ -26,13 +49,16 @@ class ClinicCreateForm(forms.ModelForm):
             "location": "منطقه",
             "company": "شرکت های طرف قراداد",
             "type": "نوع مرکز",
-            'image1':"تصویر کلینیک",
-            'image2':"تصویر کلینیک",
-            'image3':"تصویر کلینیک",
-            'description':"درباه کلینیک",
-            'phone_number':"شماره های تماس",
+            "image1": "تصویر کلینیک",
+            "image2": "تصویر کلینیک",
+            "image4": "تصویر کلینیک",
+            "image5": "تصویر کلینیک",
+            "description": "درباه کلینیک",
         }
 
+        widgets = {
+            'location': forms.SelectMultiple()
+        }
 
 #
 # class ClinicFilter(django_filters.FilterSet):

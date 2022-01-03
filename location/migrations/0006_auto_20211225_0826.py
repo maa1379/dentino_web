@@ -6,21 +6,21 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('location', '0005_auto_20211225_0823'),
+        ("location", "0005_auto_20211225_0823"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='city',
-            old_name='parent',
-            new_name='province',
+            model_name="city",
+            old_name="parent",
+            new_name="province",
         ),
         migrations.RemoveField(
-            model_name='city',
-            name='slug',
+            model_name="city",
+            name="slug",
         ),
         migrations.RemoveField(
-            model_name='zone',
-            name='slug',
+            model_name="zone",
+            name="slug",
         ),
     ]

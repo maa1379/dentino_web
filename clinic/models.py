@@ -1,4 +1,3 @@
-from ckeditor.fields import RichTextField
 from django.core.validators import RegexValidator
 from django.db import models
 
@@ -24,21 +23,38 @@ class Service(models.Model):
 
 
 class Clinic(models.Model):
-    TYPE = (("کلینیک", "کلینیک"), ("مطب", "مطب")
-            )
+    TYPE = (
+        ("کلینیک", "کلینیک"),
+        ("مطب", "مطب"),
+        ("لابراتوار", "لابراتوار"),
+        ("رادیوگرافی", "رادیوگرافی"),
+    )
     name = models.CharField(max_length=125)
-    logo = models.ImageField()
+    logo = models.ImageField(upload_to="image/clinic")
     address = models.CharField(max_length=450)
-    instagram = models.CharField(max_length=125,null=True,blank=True)
+    instagram = models.CharField(max_length=125, null=True, blank=True)
+    whats_up = models.URLField(max_length=125, null=True, blank=True)
+    telegram = models.URLField(max_length=125, null=True, blank=True)
     phone_number = models.TextField()
     description = models.TextField()
     image1 = models.ImageField(upload_to="image/clinic", blank=True)
     image2 = models.ImageField(upload_to="image/clinic", blank=True)
     image3 = models.ImageField(upload_to="image/clinic", blank=True)
+    image4 = models.ImageField(upload_to="image/clinic", blank=True)
+    image5 = models.ImageField(upload_to="image/clinic", blank=True)
     location = models.ForeignKey(Zone, on_delete=models.CASCADE)
     company = models.ManyToManyField(Company, related_name="clinic")
-    type = models.CharField(max_length=12, choices=TYPE,null=True,blank=True)
+    type = models.CharField(max_length=12, choices=TYPE, null=True, blank=True)
+    verified = models.BooleanField(default=False)
+    contracted = models.BooleanField(default=False)
+    parvaneh_clinic = models.ImageField(
+        upload_to="images/clinic/", null=True, blank=True
+    )
+    parvaneh_masole = models.ImageField(
+        upload_to="images/clinic/", null=True, blank=True
+    )
 
+    # parvaneh_masole=models.ImageField(upload_to="images/clinic/")
     # city=models.ForeignKey("Location",on_delete=models.CASCADE)
 
     # def save(self, *args, **kwargs):

@@ -23,12 +23,11 @@ class CommonCourseCreate(CreateView):
     form_class = CommenCourseForm
     template_name = "common_course/create.html"
     success_url = reverse_lazy("common_course:list")
-    
+
     def form_valid(self, form):
         print("hello")
         return super(CommonCourseCreate, self).form_valid(form)
-    
-    
+
     def form_invalid(self, form):
         print("ali")
         return super(CommonCourseCreate, self).form_invalid(form)

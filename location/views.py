@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, UpdateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .forms import ZoneForm, CityForm, ProvinceForm, LocationForm
-from .models import Zone, Province, City
+from .forms import CityForm, LocationForm, ProvinceForm, ZoneForm
+from .models import City, Province, Zone
 
 
 class ProvinceCreate(CreateView):
@@ -44,11 +44,8 @@ def ProvinceDelete(request, id):
     return redirect("Location:province")
 
 
-
-
-
 class CityCreateView(CreateView):
-    model=City
+    model = City
     form_class = CityForm
     success_url = reverse_lazy("Location:city_list")
     template_name = "location/city_create.html"
@@ -57,7 +54,6 @@ class CityCreateView(CreateView):
 class CityListView(ListView):
     model = City
     template_name = "location/city_lista.html"
-
 
 
 class CityUpdateView(UpdateView):
@@ -75,12 +71,9 @@ def CityDeleteView(request, id):
     return redirect("Location:city_list")
 
 
-
 class ZoneListView(ListView):
     model = Zone
     template_name = "location/zone_list.html"
-
-
 
 
 class ZoneCreate(CreateView):
@@ -90,16 +83,16 @@ class ZoneCreate(CreateView):
     success_url = reverse_lazy("location:zone_list")
 
 
-
 class ZoneUpdate(UpdateView):
-    model=Zone
+    model = Zone
     form_class = ZoneForm
     slug_field = "id"
     slug_url_kwarg = "id"
     success_url = reverse_lazy("location:zone_list")
     template_name = "location/zone_update.html"
 
-def ZoneDeleteView(request,id):
-    zone=get_object_or_404(Zone,id=id)
+
+def ZoneDeleteView(request, id):
+    zone = get_object_or_404(Zone, id=id)
     zone.delete()
     return redirect("location:zone_list")
