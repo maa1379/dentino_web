@@ -26,6 +26,8 @@ class Order(models.Model):
     authority = models.CharField(null=True, blank=True, max_length=100)
     is_send=models.BooleanField(default=False)
 
+
+
     def total_price(self):
         total = sum(item.get_cost() for item in self.items.all())
         return total
