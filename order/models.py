@@ -24,9 +24,7 @@ class Order(models.Model):
     family = models.CharField(max_length=1250, null=True, blank=True)
     email = models.CharField(null=True, blank=True, max_length=1250)
     authority = models.CharField(null=True, blank=True, max_length=100)
-    is_send=models.BooleanField(default=False)
-
-
+    is_send = models.BooleanField(default=False)
 
     def total_price(self):
         total = sum(item.get_cost() for item in self.items.all())
