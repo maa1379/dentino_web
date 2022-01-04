@@ -110,7 +110,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "address",
             "category",
             "id",
-            "is_send"
+
         )
 
 
