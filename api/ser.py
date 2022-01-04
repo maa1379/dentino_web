@@ -90,7 +90,7 @@ class DeleteCartItemSerializer(serializers.Serializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "name", "price", "image", "category", "sell")
+        fields = ("id", "name", "price", "image", "category", "sell","discount_percent")
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
