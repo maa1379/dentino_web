@@ -110,6 +110,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "address",
             "category",
             "id",
+            "discount_percent",
 
         )
 
@@ -477,6 +478,7 @@ class OrderListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = "__all__"
+
 
 
 class OrderDetailSerializer(serializers.ModelSerializer):
