@@ -70,7 +70,7 @@
                                             <tbody>
                                             {% for doctor in object_list %}
                                                 <tr>
-                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ forloop.counter | truncatechars:40 }}</td>
                                                     <td>{{ doctor.full_name }}</td>
                                                     <td><img src="{{ doctor.profile.url }}"></td>
                                                     <td>{{ doctor.medical_code }}</td>
