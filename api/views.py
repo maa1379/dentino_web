@@ -2,15 +2,12 @@ from datetime import timedelta
 from decimal import Decimal
 from random import randint
 
-from django.views.generic import View
-
-
 # from django.http import HttpRespone
 from django.conf import settings
-
 from django.contrib.auth.models import User
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import redirect
+from django.views.generic import View
 from django_filters import rest_framework as filters
 from kavenegar import *
 from rest_framework import generics, status
@@ -20,8 +17,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from zeep import Client
-from django.shortcuts import  redirect
-
 
 import api.ser
 import doctor.models
@@ -41,7 +36,6 @@ from partial.models import (Company, Complaint, DoctorDictionary,
 from reservation.models import Reservation
 from shop.models import Category, Product
 from utilities.respones import ErrorResponse, SuccessResponse
-
 from .filters import DoctorFilter
 from .ser import (About_usSerializer, AddToCartSerializer,
                   CategoryListSerializer, CitySerializer, ClinicSerializer,
@@ -68,20 +62,18 @@ class CoustomRedirect(HttpResponsePermanentRedirect):
 from django.http import HttpResponsePermanentRedirect
 from django.conf import settings
 
-class CoustomRedirect(HttpResponsePermanentRedirect):
 
-    allowed_schemes = [settings.APP_SCHEME,"http","https"]
+class CoustomRedirect(HttpResponsePermanentRedirect):
+    allowed_schemes = [settings.APP_SCHEME, "http", "https"]
+
 
 class DiscountListApiView(GenericAPIView):
     serializer_class = DiscountListSerializer
 
     def get(self, request):
-        try:
-            instance = Discount.objects.all()
-            ser_data = self.serializer_class(instance, many=True).data
-            return SuccessResponse(data=ser_data, status=201)
-        except Exception as e:
-            return ErrorResponse(message=e, status=405)
+        instance = Discount.objects.all()
+        ser_data = self.serializer_class(instance, many=True).data
+        return SuccessResponse(data=ser_data, status=201).send()
 
 
 class ComplimentCreateView(GenericAPIView):
@@ -952,9 +944,12 @@ class ProductDetail(generics.ListAPIView):
 
 
 from rest_framework.permissions import AllowAny
+
+
 class paymentno(View):
     def get(self, request, *args, **kwargs):
-        return render(request, "paymentno.html",{"re":settings.FRONT_END_URL})
+        return render(request, "paymentno.html", {"re": settings.FRONT_END_URL})
+
 
 class AddToCart(generics.GenericAPIView):
     serializer_class = AddToCartSerializer
@@ -1079,6 +1074,7 @@ class ToBank(GenericAPIView):
 
 
 from django.views.generic import View
+
 
 # return HttpResponseRedirect(redirect_to=f'{star_pay_url}{authority}')
 

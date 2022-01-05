@@ -24,7 +24,7 @@ class DiscountListSerializer(serializers.ModelSerializer):
         return obj.clinic.name
 
     def get_expertise_name(self, obj):
-        return obj.expertise.name
+        return obj.expertise.title
 
 
 class DiscountClinicSerializer(serializers.ModelSerializer):
