@@ -58,10 +58,10 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>نام کلینیک</th>
-                                                <th>آدرس</th>
-                                                <th>تصویر</th>
+                                                <th>لوگو</th>
                                                 <th>جزییات</th>
-                                                <th>تغییر وضعیت<th>
+                                                <th>تایید<th>
+                                                <th>تصیح<th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -69,13 +69,12 @@
                                                 <tr>
                                                     <td>{{ forloop.counter }}</td>
                                                     <td>{{ clinic.name }}</td>
-                                                    <td>{{ clinic.address }}</td>
-                                                    <td><img src="{{ clinic.logo.url }}"></td>
-                                                    <td><a class="btn btn-success" href="{% url "clinic:detail" clinic.id %}">مشاهده</a></td>
-                                                    <td><a href="{% url "clinic:verify" clinic.id %}" class="btn btn-danger">تایید</a></td>
-
+                                                    <td><img width="100px" height="100px"  src="{{ clinic.logo.url }}"></td>
+                                                    <td><a class="btn btn-warning" href="{% url "clinic:detail" clinic.id %}">مشاهده</a></td>
+                                                    <td><a href="{% url "clinic:verify" clinic.id %}" class="btn btn-success">تایید</a></td>
+                                                    <td><a href="{% url "clinic:verify" clinic.id %}" class="btn btn-danger">ارسال پیام</a></td>
                                                 </tr>
-                                                {% empty %}
+{#                                                {% empty %}#}
 {#                                                <h3>هیچ کلینکی برای تایید نیست</h3>#}
                                             {% endfor %}
                                             </tbody>

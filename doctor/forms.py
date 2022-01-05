@@ -1,6 +1,6 @@
 from django import forms
-from jalali_date.fields import JalaliDateField, SplitJalaliDateTimeField
-from jalali_date.widgets import AdminJalaliDateWidget, AdminSplitJalaliDateTime
+from jalali_date.fields import JalaliDateField
+from jalali_date.widgets import AdminJalaliDateWidget
 
 from .models import Doctor, Expertise, Insurance, VisitTime
 
@@ -80,6 +80,7 @@ class DoctorForm(forms.ModelForm):
             "age",
             "bio",
             "medical_code",
+            "parvaneh_tebabat"
         )
 
         labels = {
@@ -95,6 +96,7 @@ class DoctorForm(forms.ModelForm):
             "age": "سن",
             "bio": "بیو",
             "medical_code": "کد نظام پزشکی",
+            "parvaneh_tebabat": "پروانه طبابت",
         }
 
 

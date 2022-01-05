@@ -41,6 +41,8 @@ class ClinicCreateForm(forms.ModelForm):
             "image5",
             "telegram",
             "instagram",
+            'parvaneh_clinic',
+            'parvaneh_masole'
         )
         labels = {
             "name": "عنوان",
@@ -58,6 +60,8 @@ class ClinicCreateForm(forms.ModelForm):
             "description": "درباه کلینیک",
             "telegram": "تلگرام",
             "whatsapp": "واتساپ",
+            "parvaneh_masole":"پروانه مسول",
+            "parvaneh_clinic":"پروانه کلینیک",
         }
 
 

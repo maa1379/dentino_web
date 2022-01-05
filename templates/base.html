@@ -141,6 +141,15 @@
                             {% endif %}
 
                             {% if request.user.is_superuser %}
+                                  <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect "><i
+                                            class="zmdi zmdi-chart"></i><span> تامین کنندگان </span> <span
+                                            class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{% url "blog:list" %}">لیست تامین کنندگان</a></li>
+                                        <li><a href="{% url "blog:create" %}">تامین کنندگان تایید نشده</a></li>
+                                    </ul>
+                                </li>
                                 <li class="has_sub">
                                     <a href="javascript:void(0);" class="waves-effect "><i
                                             class="zmdi zmdi-chart"></i><span> وبلاگ </span> <span
