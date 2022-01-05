@@ -39,7 +39,7 @@ class DiscountClinicSerializer(serializers.ModelSerializer):
         return obj.clinic.name
 
     def get_expertise_name(self, obj):
-        return obj.expertise.name
+        return obj.expertise.title
 
 
 class ProvinceSerializer(serializers.ModelSerializer):
@@ -90,7 +90,7 @@ class DeleteCartItemSerializer(serializers.Serializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "name", "price", "image", "category", "sell","discount_percent")
+        fields = ("id", "name", "price", "image", "category", "sell", "discount_percent")
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -111,7 +111,6 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "category",
             "id",
             "discount_percent",
-
         )
 
 
@@ -292,6 +291,7 @@ class ClinicSerializer(serializers.ModelSerializer):
                   'companies',
                   'insurances',
                   'id',
+                  "clinic_discount",
                   )
 
         # fields = (
@@ -311,7 +311,6 @@ class ClinicSerializer(serializers.ModelSerializer):
         #     "companies",
         #     "insurances",
         # )
-
 
     def get_clinic_description(self, obj):
         return format_html(obj.description)
@@ -478,7 +477,6 @@ class OrderListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = "__all__"
-
 
 
 class OrderDetailSerializer(serializers.ModelSerializer):

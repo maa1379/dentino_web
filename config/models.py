@@ -1,4 +1,4 @@
-from ckeditor.fields import RichTextField
+
 from django.core.validators import RegexValidator
 from django.db import models
 
@@ -27,7 +27,7 @@ class SiteConfig(models.Model):
 
 
 class About_Us(models.Model):
-    content = RichTextField()
+    content = models.TextField()
 
 
 class Contact_Us(models.Model):
