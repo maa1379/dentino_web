@@ -830,11 +830,24 @@ class OrderCreate(GenericAPIView):
 
 class CategoryListApiView(generics.ListAPIView):
     serializer_class = CategoryListSerializer
-    model = Category
+    query_set = Category.objects.filter(parent__isnull=True)
 
     def get(self, request, *args, **kwargs):
         try:
             instance = self.model.objects.all()
+            serialize_data = self.get_serializer(instance, many=True).data
+            return SuccessResponse(data=serialize_data, status=201).send()
+        except:
+            return ErrorResponse(message="failed.", status=404).send()
+
+
+class SubCategoryListAPiView(GenericAPIView):
+    serializer_class = CategoryListSerializer
+
+    def post(self, request, *args, **kwargs):
+        try:
+            parent_id = request.POST.get("parent_id")
+            instance = Category.objects.filter(parent_id=parent_id)
             serialize_data = self.get_serializer(instance, many=True).data
             return SuccessResponse(data=serialize_data, status=201).send()
         except:

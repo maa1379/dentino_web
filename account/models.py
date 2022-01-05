@@ -2,7 +2,8 @@ from django.contrib.auth.models import AbstractBaseUser, User
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.signals import post_save
-
+import uuid
+import base64
 from clinic.models import Clinic
 
 # from .managers import MyUserManager
@@ -35,6 +36,20 @@ class Profile(models.Model):
     clinic = models.OneToOneField(
         Clinic, on_delete=models.CASCADE, blank=True, null=True
     )
+    referral_code = models.CharField(max_length=300, blank=True, null=True)
+    #
+    # def generate_verification_code(self):
+    #     return base64.urlsafe_b64encode(uuid.uuid1())[:7]
+
+
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.referral_code = self.generate_verification_code()
+        elif not self.verification_code:
+            self.referral_code = self.generate_verification_code()
+
+        return super(Profile, self).save(*args, **kwargs)
 
     # is_doctor = models.BooleanField(default=False,null=True)
     # is_active = models.BooleanField(default=True,null=True)
