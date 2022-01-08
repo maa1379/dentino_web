@@ -38,7 +38,7 @@ app_name = "api"
 
 urlpatterns = [
     path("order_create/", OrderCreate.as_view(), name="order_create"),
-    path("sub_create/", SubCategoryListAPiView.as_view(), name="sub_create"),
+    path("sub_category/", SubCategoryListAPiView.as_view(), name="sub_create"),
     path("discount/", DiscountListApiView.as_view(), name="all_discount"),
     path("testing/", paymentok.as_view(), name="order_create"),
     path("but/", paymentno.as_view(), name="order_create"),
