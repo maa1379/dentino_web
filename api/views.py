@@ -349,10 +349,6 @@ class RegisterWithPhoneNumber(APIView):
             return Response(data="send", status=201)
 
 
-
-
-
-
 class VerifyUserRegister(GenericAPIView):
     serializer_class = UserVerifySerializer
 
@@ -839,7 +835,6 @@ class CategoryListApiView(GenericAPIView):
         instance = Category.objects.filter(parent__isnull=True)
         serialize_data = self.get_serializer(instance, many=True).data
         return SuccessResponse(data=serialize_data, status=201).send()
-
 
 
 class SubCategoryListAPiView(GenericAPIView):
