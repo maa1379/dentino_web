@@ -7,8 +7,8 @@ from .models import Clinic, Service
 class DiscountForm(forms.ModelForm):
     class Meta:
         model = Discount
-        fields = ("clinic", "percent", "expertise")
-        labels = {"clinic": "مرکز درمانی", "percent": "درصد تخفیف", "expertise": "تخصص"}
+        fields = ("percent", "expertise")
+        labels = {"percent": "درصد تخفیف", "expertise": "تخصص"}
 
 
 class ServiceCreateForm(forms.ModelForm):
@@ -37,8 +37,6 @@ class ClinicCreateForm(forms.ModelForm):
             "image3",
             "description",
             "phone_number",
-            "image4",
-            "image5",
             "telegram",
             "instagram",
             'parvaneh_clinic',
@@ -55,8 +53,7 @@ class ClinicCreateForm(forms.ModelForm):
             "type": "نوع مرکز",
             "image1": "تصویر کلینیک",
             "image2": "تصویر کلینیک",
-            "image4": "تصویر کلینیک",
-            "image5": "تصویر کلینیک",
+            "image3":"تصویر کلینیک",
             "description": "درباه کلینیک",
             "telegram": "تلگرام",
             "whatsapp": "واتساپ",

@@ -228,8 +228,8 @@
 #     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
 #     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 # }
-
-
+#
+#
 
 
 import os
@@ -489,4 +489,4 @@ MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 
 FRONT_END_URL = "dentino.app/app/"
 APP_SCHEME = "dentino"
-
+#

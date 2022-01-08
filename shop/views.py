@@ -1,9 +1,10 @@
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, View
 
 from .forms import CategoryForm, ProductForm
 from .models import Category, Product
+
 
 # Create your views here.
 
@@ -43,8 +44,15 @@ def ProductDeleteView(request, id):
 
 
 class CategoryListView(ListView):
-    model = Category
+    queryset = Category.objects.filter(parent__isnull=True)
     template_name = "shop/category_list.html"
+
+
+class SubCategoryListView(View):
+
+    def get(self, request, id, *args, **kwargs):
+        category = Category.objects.filter(id=id)
+        return render(request, "shop/subcategory_list.html", {"category": category})
 
 
 class CategoryDetail(DetailView):

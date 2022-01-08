@@ -1,6 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 from location.models import Zone
 from partial.models import Company
 
@@ -40,8 +40,6 @@ class Clinic(models.Model):
     image1 = models.ImageField(upload_to="image/clinic", blank=True)
     image2 = models.ImageField(upload_to="image/clinic", blank=True)
     image3 = models.ImageField(upload_to="image/clinic", blank=True)
-    image4 = models.ImageField(upload_to="image/clinic", blank=True)
-    image5 = models.ImageField(upload_to="image/clinic", blank=True)
     location = models.ForeignKey(Zone, on_delete=models.CASCADE)
     company = models.ManyToManyField(Company, related_name="clinic")
     type = models.CharField(max_length=12, choices=TYPE, null=True, blank=True)

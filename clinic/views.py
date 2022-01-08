@@ -19,13 +19,17 @@ class CreateDiscount(CreateView):
     model = Discount
     template_name = "clinic/discount_create.html"
 
-    # def form_valid(self, form):
-    # new_discount = form.save(commit=False)
-    # clinic = Clinic.objects.filter(clinic__id=self.request.user.profile.clinic)
-    # new_discount.clinic = clinic
-    # new_discount.save()
-    # return super(CreateDiscount, self).form_valid(form)
+    def form_valid(self, form):
+        new_discount = form.save(commit=False)
+        user_clinic=self.request.user.profile.clinic
+        new_discount.clinic = user_clinic
+        new_discount.save()
+        return super(CreateDiscount, self).form_valid(form)
+    
 
+    def form_invalid(self, form):
+        print(form.errors)
+        return super(CreateDiscount, self).form_invalid(form)
 
 class UpdateDiscount(UpdateView):
     success_url = reverse_lazy()

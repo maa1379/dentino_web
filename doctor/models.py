@@ -1,7 +1,6 @@
 import datetime
 
 from django.core.validators import RegexValidator
-from django.db import models
 
 from clinic.models import Clinic
 
@@ -12,6 +11,19 @@ regex = RegexValidator(
         " '9137866088'. 10 digits allowed."
     ),
 )
+
+from django.db import models
+
+
+class IntegerRangeField(models.IntegerField):
+    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+        self.min_value, self.max_value = min_value, max_value
+        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+
+    def formfield(self, **kwargs):
+        defaults = {'min_value': self.min_value, 'max_value': self.max_value}
+        defaults.update(kwargs)
+        return super(IntegerRangeField, self).formfield(**defaults)
 
 
 class Insurance(models.Model):
@@ -47,7 +59,7 @@ class Doctor(models.Model):
     expertise = models.ManyToManyField(Expertise, related_name="doctor")
     full_name = models.CharField(max_length=250, null=True, blank=True)
     bio = models.TextField(blank=True, null=True)
-    age = models.PositiveIntegerField()
+    age = IntegerRangeField(min_value=20, max_value=100)
     star = models.PositiveIntegerField(blank=True, null=True)
     parvaneh_tebabat = models.ImageField(
         upload_to="images/doctor/", null=True, blank=True
@@ -103,5 +115,5 @@ class DoctorDate(models.Model):
 
 class Discount(models.Model):
     expertise = models.ForeignKey(Expertise, on_delete=models.CASCADE)
-    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)
-    percent = models.PositiveIntegerField()
+    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE, related_name="discount")
+    percent = IntegerRangeField(min_value=1, max_value=100)

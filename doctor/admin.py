@@ -2,13 +2,14 @@ from django.contrib import admin
 
 from doctor.models import VisitTime
 
-from .models import Doctor, DoctorDate, Expertise, Insurance, VisitTime
+from .models import Doctor, DoctorDate, Expertise, Insurance, VisitTime,Discount
 
 admin.site.register(Doctor)
 
 admin.site.register(Expertise)
 admin.site.register(Insurance)
 admin.site.register(DoctorDate)
+admin.site.register(Discount)
 
 # you need import this for adding jalali calander widget
 import django_jalali.admin as jadmin

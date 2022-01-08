@@ -67,7 +67,7 @@
                                 {% endfor %}
                                 <div>
                                     <h3>تصاویر کلینیک</h3>
-                                    <a><img src="{{ object.image1.url }}"></a>
+{#                                    <a><img src="{{ object.image1.url }}"></a>#}
                                     <a><img src="{{ object.image2.url }}"></a>
                                     <a><img src="{{ object.image3.url }}"></a>
                                 </div>
@@ -115,6 +115,7 @@
                                         </table>
                                     </div>
                                 </div>
+                        <br>
                           <h4 class="header-title m-t-0 m-b-30 text-center">لیست تخفیف های کلینیک</h4>
 
                                     <div class="table-responsive">
@@ -127,16 +128,13 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-{#                                            {% for  discount in clinic %}#}
-{#                                                <tr>#}
-{#                                                    <td>{{ forloop.counter }}</td>#}
-{#                                                    <td>{{ clinic_reserve.name }}</td>#}
-{#                                                    <td>{{ clinic_reserve.family }}</td>#}
-{#                                                    <td>{{ clinic_reserve.phone_number }}</td>#}
-{#                                                    <td>{{ clinic_reserve.doctor }}</td>#}
-{#                                                    <td>{{ clinic_reserve.created }}</td>#}
-{#                                                </tr>#}
-{#                                            {% endfor %}#}
+                                            {% for  discount in clinic.discount.all %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ discount.percent }} درصد</td>
+                                                    <td>{{ discount.clinic }}</td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -151,7 +149,7 @@
 
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <div class="card-box">
                         <div class="dropdown pull-right">
                             <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">

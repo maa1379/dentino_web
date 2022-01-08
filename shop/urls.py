@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (CategoryCreateView, CategoryDeleteView, CategoryDetail,
                     CategoryListView, CategoryUpdateView, ProductCreateView,
                     ProductDeleteView, ProductDetail, ProductListView,
-                    ProductUpdateView)
+                    ProductUpdateView,SubCategoryListView)
 
 app_name = "shop"
 
@@ -28,4 +28,5 @@ urlpatterns = [
         name="category_delete",
     ),
     path("category/detail/<int:id>/", CategoryDetail.as_view(), name="category_detail"),
+    path("category/sub/<int:id>/", SubCategoryListView.as_view(), name="category_sub"),
 ]

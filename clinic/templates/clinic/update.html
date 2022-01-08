@@ -57,7 +57,7 @@
 
                         			<h4 class="header-title m-t-0 m-b-30">ویرایش کلینیک</h4>
 
-                        			<div class="row">
+                      <div class="row">
                         				<div class="col-lg-12">
                         					<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                                                 {% csrf_token %}
@@ -138,6 +138,18 @@
 	                                                    {% render_field form.instagram class="form-control" %}
 	                                                </div>
 	                                            </div>
+                                                               <div class="form-group">
+	                                                <label class="col-md-2 control-label">{{ form.telegram.label }}</label>
+	                                                <div class="col-md-10">
+	                                                    {% render_field form.telegram class="form-control" %}
+	                                                </div>
+	                                            </div>
+                                                               <div class="form-group">
+	                                                <label class="col-md-2 control-label">{{ form.whatsapp.label }}</label>
+	                                                <div class="col-md-10">
+	                                                    {% render_field form.whatsapp class="form-control" %}
+	                                                </div>
+	                                            </div>
 
                                                                                            <div class="form-group">
 	                                                <label class="col-md-2 control-label">{{ form.image1.label }}</label>
@@ -157,18 +169,26 @@
 	                                                    {% render_field form.image3 class="form-control" %}
 	                                                </div>
 	                                            </div>
-                                                                                                       <div class="form-group">
-	                                                <label class="col-md-2 control-label">{{ form.image4.label }}</label>
+                                                                                               <div class="form-group">
+	                                                <label class="col-md-2 control-label">{{ form.image3.label }}</label>
 	                                                <div class="col-md-10">
-	                                                    {% render_field form.image4 class="form-control" %}
+	                                                    {% render_field form.image3 class="form-control" %}
 	                                                </div>
 	                                            </div>
-                                                                                                       <div class="form-group">
-	                                                <label class="col-md-2 control-label">{{ form.image5.label }}</label>
+                                                                                               <div class="form-group">
+	                                                <label class="col-md-2 control-label">{{ form.parvaneh_clinic.label }}</label>
 	                                                <div class="col-md-10">
-	                                                    {% render_field form.image5 class="form-control" %}
+	                                                    {% render_field form.parvaneh_clinic class="form-control" %}
 	                                                </div>
 	                                            </div>
+                                                                                               <div class="form-group">
+	                                                <label class="col-md-2 control-label">{{ form.parvaneh_masole.label }}</label>
+	                                                <div class="col-md-10">
+	                                                    {% render_field form.parvaneh_masole class="form-control" %}
+	                                                </div>
+	                                            </div>
+
+
 
 {#                                                                                  <div class="form-group">#}
 {#	                                                <label class="col-md-2 control-label">نقشه</label>#}
@@ -188,7 +208,7 @@
 	                                                </div>
 	                                            </div>
 
-                                                <input type="submit" value="ویرایش" class="form-control btn-success">
+                                                <input type="submit" value="اعمال تغییرات" class="form-control btn-success">
 	                                        </form>
                         				</div><!-- end col -->
                         <!-- end row -->
