@@ -3,13 +3,28 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
                                   View)
+from kavenegar import KavenegarAPI
 
 from clinic.models import Clinic
-
 from .forms import DoctorForm, ExpertiseForm, InsuranceForm, TestForm
 from .models import Doctor, Expertise, Insurance, VisitTime
 
+
 # Expertise Views .
+def ClinicVerifyOk(request, clinic_id):
+    clinic = get_object_or_404(Clinic,clinic_id=clinic_id)
+    api = KavenegarAPI(
+        "38502F546846716559723175674E49324A674B2B62654B58724D61314B474777"
+    )
+    params = {
+        "receptor": clinic.phone_number,
+        "template": "dentinoClinicVerify",
+        "token": str(clinic.name),
+        "token2": "",
+        "token3": "",
+        "type": "sms",
+    }
+    api.verify_lookup(params)
 
 
 class VisitTimeCreate(CreateView):

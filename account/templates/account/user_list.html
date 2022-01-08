@@ -61,6 +61,8 @@
                                                 <th>نام خانوادگی</th>
                                                 <th>شماره تلفن</th>
                                                 <th>کد ملی</th>
+                                                <th>ویرایش</th>
+                                                <th>حذف</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -71,7 +73,8 @@
                                                     <td>{{ user.profile.family }}</td>
                                                     <td>{{ user.username }}</td>
                                                     <td>{{ user.profile.national_code }}</td>
-                                                    <td></td>
+                                                    <td><a href="{% url "account:user_update" user.id %}" class="btn btn-warning">ویرایش</a></td>
+                                                    <td><a href="{% url "account:user_delete" user.id %}" class="btn btn-danger">حذف</a></td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>

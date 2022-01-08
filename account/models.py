@@ -43,13 +43,13 @@ class Profile(models.Model):
 
 
 
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.referral_code = self.generate_verification_code()
-        elif not self.verification_code:
-            self.referral_code = self.generate_verification_code()
-
-        return super(Profile, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if not self.pk:
+    #         self.referral_code = self.generate_verification_code()
+    #     elif not self.verification_code:
+    #         self.referral_code = self.generate_verification_code()
+    #
+    #     return super(Profile, self).save(*args, **kwargs)
 
     # is_doctor = models.BooleanField(default=False,null=True)
     # is_active = models.BooleanField(default=True,null=True)

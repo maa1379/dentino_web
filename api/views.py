@@ -349,6 +349,10 @@ class RegisterWithPhoneNumber(APIView):
             return Response(data="send", status=201)
 
 
+
+
+
+
 class VerifyUserRegister(GenericAPIView):
     serializer_class = UserVerifySerializer
 
@@ -828,17 +832,14 @@ class OrderCreate(GenericAPIView):
         ).send()
 
 
-class CategoryListApiView(generics.ListAPIView):
+class CategoryListApiView(GenericAPIView):
     serializer_class = CategoryListSerializer
-    query_set = Category.objects.filter(parent__isnull=True)
 
     def get(self, request, *args, **kwargs):
-        try:
-            instance = self.model.objects.all()
-            serialize_data = self.get_serializer(instance, many=True).data
-            return SuccessResponse(data=serialize_data, status=201).send()
-        except:
-            return ErrorResponse(message="failed.", status=404).send()
+        instance = Category.objects.filter(parent__isnull=True)
+        serialize_data = self.get_serializer(instance, many=True).data
+        return SuccessResponse(data=serialize_data, status=201).send()
+
 
 
 class SubCategoryListAPiView(GenericAPIView):
