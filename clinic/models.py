@@ -13,8 +13,8 @@ phone_regex = RegexValidator(
 )
 # from doctor.models import Expertise
 from django.contrib.auth import get_user_model
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 user = get_user_model()
 
@@ -83,12 +83,12 @@ class Winner(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
     clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)
     expertise = models.CharField(max_length=150)
+    discount=models.IntegerField()
     created = models.DateField(auto_now_add=True)
     used = models.BooleanField(default=False)
 
 
-# @receiver(post_save, sender=Winner)
-# def delete_winner(sender, instance, **kwargs):
-#     if instance.used == True:
-#         instance.delete()
-#     instance.save()
+@receiver(post_save, sender=Winner)
+def delete_winner(sender, instance, **kwargs):
+    if instance.used == True:
+        instance.delete()

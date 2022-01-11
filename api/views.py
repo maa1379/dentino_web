@@ -856,9 +856,11 @@ class WinnerApiView(GenericAPIView):
         try:
             clinic= get_object_or_404(Clinic, name=request.POST.get("clinic"))
             expertise = request.POST.get("expertise")
+            discount=request.POST.get("discount")
             Winner.objects.create(
                 user=request.user,
                 clinic=clinic,
+                discount=discount,
                 expertise=expertise
             )
             user_profile = get_object_or_404(Profile, user=request.user)
