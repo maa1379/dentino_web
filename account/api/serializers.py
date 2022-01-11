@@ -17,7 +17,6 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            "birthday",
             "name",
             "family",
             "profile_image",

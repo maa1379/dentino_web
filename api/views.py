@@ -1,11 +1,12 @@
+import random
 from datetime import timedelta
 from decimal import Decimal
-from random import randint
 
 # from django.http import HttpRespone
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import HttpResponsePermanentRedirect
+from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.views.generic import View
 from django_filters import rest_framework as filters
@@ -23,7 +24,7 @@ import doctor.models
 import partial.models
 from account.models import Code, Profile
 from cart.cart import Cart
-from clinic.models import Clinic
+from clinic.models import Clinic, Winner
 from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
 from doctor.api.serailizers import DoctorSer, VisitTimeSerializer
@@ -52,6 +53,14 @@ from .ser import (About_usSerializer, AddToCartSerializer,
                   RegisterSerializer, RseSerializer, SliderSerializer, TimeSer,
                   UserProfile, UserReservationSerializer, UserUpdateSerializer,
                   UserVerifySerializer)
+
+
+def UniqueGenerator(length=8):
+    source = "0123456789"
+    result = ""
+    for _ in range(length):
+        result += source[random.randint(0, length)]
+    return result
 
 
 class CoustomRedirect(HttpResponsePermanentRedirect):
@@ -321,7 +330,7 @@ class ReserveCreateView(generics.CreateAPIView):
         )
 
 
-sms = randint(1000, 9999) // 4
+sms = random.randint(1000, 9999) // 4
 
 
 class RegisterWithPhoneNumber(APIView):
@@ -331,7 +340,7 @@ class RegisterWithPhoneNumber(APIView):
         serialized_data = self.serializer_class(data=request.data)
         if serialized_data.is_valid(raise_exception=True):
             phone_number = serialized_data.data["phone_number"]
-            rand_num = randint(1000, 9999)
+            rand_num = random.randint(1000, 9999)
             api = KavenegarAPI(
                 "38502F546846716559723175674E49324A674B2B62654B58724D61314B474777"
             )
@@ -840,6 +849,24 @@ class CategoryListApiView(GenericAPIView):
         instance = Category.objects.filter(parent__isnull=True)
         serialize_data = self.get_serializer(instance, many=True).data
         return SuccessResponse(data=serialize_data, status=201).send()
+
+
+class WinnerApiView(GenericAPIView):
+    def post(self, request):
+        try:
+            clinic= get_object_or_404(Clinic, name=request.POST.get("clinic"))
+            expertise = request.POST.get("expertise")
+            Winner.objects.create(
+                user=request.user,
+                clinic=clinic,
+                expertise=expertise
+            )
+            user_profile = get_object_or_404(Profile, user=request.user)
+            user_profile.referral_code = UniqueGenerator()
+            user_profile.save()
+            return SuccessResponse(data="created", status=201).send()
+        except Exception as e:
+            return ErrorResponse(message=e, status=420).send()
 
 
 class SubCategoryListAPiView(GenericAPIView):

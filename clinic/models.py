@@ -11,6 +11,12 @@ phone_regex = RegexValidator(
         " '9137866088'. 10 digits allowed."
     ),
 )
+# from doctor.models import Expertise
+from django.contrib.auth import get_user_model
+# from django.db.models.signals import post_save
+# from django.dispatch import receiver
+
+user = get_user_model()
 
 
 # Create your models here.
@@ -71,3 +77,18 @@ class Test(models.Model):
     message = models.CharField(max_length=125, blank=True, null=True)
     From = models.CharField(max_length=125, blank=True, null=True)
     To = models.CharField(max_length=125, blank=True, null=True)
+
+
+class Winner(models.Model):
+    user = models.ForeignKey(user, on_delete=models.CASCADE)
+    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)
+    expertise = models.CharField(max_length=150)
+    created = models.DateField(auto_now_add=True)
+    used = models.BooleanField(default=False)
+
+
+# @receiver(post_save, sender=Winner)
+# def delete_winner(sender, instance, **kwargs):
+#     if instance.used == True:
+#         instance.delete()
+#     instance.save()

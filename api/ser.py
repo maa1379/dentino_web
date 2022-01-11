@@ -244,8 +244,7 @@ class UserProfile(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = (
-            "birthday", "name", "family", "national_code", "is_done", "invite_code", "referral_code",
+        fields = ("name", "family", "national_code", "is_done", "invite_code", "referral_code",
             "invited_user_count",
             "user_score")
 

@@ -40,8 +40,8 @@ class Complaint(models.Model):
     user = models.ForeignKey(
         user, on_delete=models.CASCADE, related_name="user_compliment"
     )
-    # doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="doctor_compliment")
-    # clinic = models.ForeignKey(Clinic,on_delete=models.CASCADE,related_name="clinic_compliment")
+    doctor = models.CharField(max_length=125)
+    clinic = models.CharField(max_length=125)
 
 
 class DoctorDictionary(models.Model):

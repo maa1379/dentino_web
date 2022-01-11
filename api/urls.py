@@ -17,12 +17,14 @@ from .views import (About_usApiView, AddToCart, CatDicListApiView,
                     TimeListApiView, ToBank, UpdateUserView,
                     UserProfileApiView, UserReserveList, Verify,
                     VerifyUserRegister, ZoneListApiView, my_django_view,
-                    paymentno, paymentok, UserReferralCodeApiView)
+                    paymentno, paymentok, UserReferralCodeApiView,WinnerApiView)
 
 app_name = "api"
 
 urlpatterns = [
     path("order_create/", OrderCreate.as_view(), name="order_create"),
+    path("order_create/", OrderCreate.as_view(), name="order_create"),
+    path("prize/", WinnerApiView.as_view(), name="winner_api"),
     path("referral_code/", UserReferralCodeApiView.as_view(), name="UserReferralCodeApiView"),
     path("sub_category/", SubCategoryListAPiView.as_view(), name="sub_create"),
     path("discount/", DiscountListApiView.as_view(), name="all_discount"),

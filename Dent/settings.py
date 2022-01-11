@@ -229,9 +229,6 @@
 #     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 # }
 
-
-
-
 import os
 from pathlib import Path
 
@@ -483,9 +480,6 @@ MINIO_STORAGE_MEDIA_BUCKET_NAME = "media"
 MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
 MINIO_STORAGE_STATIC_BUCKET_NAME = "static"
 MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
-
-
-
 
 FRONT_END_URL = "dentino.app/app/"
 APP_SCHEME = "dentino"
