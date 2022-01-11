@@ -67,7 +67,7 @@ class Migration(migrations.Migration):
                 ('discount', models.IntegerField()),
                 ('created', models.DateField(auto_now_add=True)),
                 ('used', models.BooleanField(default=False)),
-                ('clinic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='clinic.clinic')),
+                ('clinic', models.CharField(max_length=125)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
