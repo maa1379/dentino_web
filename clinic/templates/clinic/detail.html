@@ -139,6 +139,31 @@
                                         </table>
                                     </div>
                                 </div>
+                     <h4 class="header-title m-t-0 m-b-30 text-center">باشگاه مشتریان</h4>
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>تخصص </th>
+                                                <th>درصد تخفیف</th>
+                                                <th>نام مشتری</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for  winner in clinic_winner %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ winner.expertise }}</td>
+                                                    <td>{{ winner.discount }} درصد</td>
+                                                    <td>{{ winner.user }} </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
 
                             <div class="clearfix"></div>
                         </div>

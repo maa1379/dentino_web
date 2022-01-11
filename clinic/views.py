@@ -8,9 +8,8 @@ from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
 from config.mixins import SuperUserMixin
 from doctor.models import Discount, Doctor, Insurance
 from reservation.models import Reservation
-
 from .forms import ClinicCreateForm, DiscountForm, ServiceCreateForm
-from .models import Clinic, Service
+from .models import Clinic, Service, Winner
 
 
 class CreateDiscount(CreateView):
@@ -21,15 +20,15 @@ class CreateDiscount(CreateView):
 
     def form_valid(self, form):
         new_discount = form.save(commit=False)
-        user_clinic=self.request.user.profile.clinic
+        user_clinic = self.request.user.profile.clinic
         new_discount.clinic = user_clinic
         new_discount.save()
         return super(CreateDiscount, self).form_valid(form)
-    
 
     def form_invalid(self, form):
         print(form.errors)
         return super(CreateDiscount, self).form_invalid(form)
+
 
 class UpdateDiscount(UpdateView):
     success_url = reverse_lazy()
@@ -93,6 +92,7 @@ class ClinicDetailView(SuperUserMixin, DetailView):
         context_data["reserve"] = Reservation.objects.filter(doctor__clinic=clinic)
         context_data["doctor_list"] = Doctor.objects.filter(clinic=clinic)
         context_data["insurance_list"] = Insurance.objects.filter(doctor__clinic=clinic)
+        context_data["clinic_winner"] = Winner.objects.filter(clinic=clinic.name)
         return context_data
 
 
@@ -110,8 +110,7 @@ class ClinicCreateView(SuperUserMixin, CreateView, SuccessMessageMixin):
     success_url = reverse_lazy("clinic:Home")
     SuccessMessageMixin = "OK"
     template_name = "clinic/create.html"
-    
-    
+
     def form_invalid(self, form):
         print(form.is_valid)
         print(form.errors)
@@ -120,9 +119,9 @@ class ClinicCreateView(SuperUserMixin, CreateView, SuccessMessageMixin):
         # new_form.verified=False
         # new_form.contracted=False
         # new_form.save()
-        print("*"*99)
+        print("*" * 99)
         return super(ClinicCreateView, self).form_invalid(form)
-    
+
     def form_valid(self, form):
         print(self.request.POST)
         print(self.request.FILES)
@@ -131,7 +130,7 @@ class ClinicCreateView(SuperUserMixin, CreateView, SuccessMessageMixin):
         new_form.contracted = False
         new_form.save()
         return super(ClinicCreateView, self).form_valid(form)
-from django.shortcuts import render
+
 
 # def ClinicCreateView(request):
 #     if request.method=="POST":

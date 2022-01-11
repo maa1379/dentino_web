@@ -35,8 +35,8 @@ def UniqueGenerator(length=8):
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    national_code = models.CharField(max_length=10,null=True,blank=True)
-    name = models.CharField(max_length=125,default="")
+    national_code = models.CharField(max_length=10, null=True, blank=True)
+    name = models.CharField(max_length=125, default="")
     family = models.CharField(max_length=125, default="")
     is_done = models.BooleanField(default=False)
     is_clinic = models.BooleanField(default=False)
@@ -44,7 +44,8 @@ class Profile(models.Model):
         Clinic, on_delete=models.CASCADE, blank=True, null=True
     )
     referral_code = models.CharField(max_length=8, default=UniqueGenerator)
-    invite_code = models.CharField(max_length=8,default="")
+    invite_code = models.CharField(max_length=8, default="")
+    rate = models.IntegerField()
 
     @property
     def invited_user_count(self):
@@ -54,18 +55,21 @@ class Profile(models.Model):
 
     @property
     def user_score(self):
-        score = self.invited_user_count*10
+        score = self.invited_user_count * 10
         return score
-    #
+
+    def save(self, *args, **kwargs):
+        self.rate = self.user_score
+        return super(Profile, self).save(*args, **kwargs)
+
     #
     # def generate_verification_code(self):
     #     return base64.urlsafe_b64encode(uuid.uuid1())[:7]
 
-    # def save(self, *args, **kwargs):
-    #     if not self.pk:
-    #         self.referral_code = self.generate_verification_code()
-    #     elif not self.verification_code:
-    #         self.referral_code = self.generate_verification_code()
+    # if not self.pk:
+    # self.referral_code = self.generate_verification_code()
+    # elif not self.verification_code:
+    # self.referral_code = self.generate_verification_code()
     #
     #     return super(Profile, self).save(*args, **kwargs)
 
