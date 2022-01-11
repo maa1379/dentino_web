@@ -853,15 +853,19 @@ class CategoryListApiView(GenericAPIView):
 
 class WinnerApiView(GenericAPIView):
     def post(self, request):
+        clinic_id=request.POST.get("clinic")
         try:
-            clinic= get_object_or_404(Clinic, name=request.POST.get("clinic"))
+            # clinic= get_object_or_404(Clinic, name=request.POST.get("clinic"))
+            # clinic=Clinic.objects.filter(id=clinic_id)
+            # print(clinic)
+            clinic=request.POST.get("clinic")
             expertise = request.POST.get("expertise")
             discount=request.POST.get("discount")
             Winner.objects.create(
                 user=request.user,
                 clinic=clinic,
                 discount=discount,
-                expertise=expertise
+                expertise=expertise,
             )
             user_profile = get_object_or_404(Profile, user=request.user)
             user_profile.referral_code = UniqueGenerator()

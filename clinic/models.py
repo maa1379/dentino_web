@@ -81,7 +81,7 @@ class Test(models.Model):
 
 class Winner(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
-    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)
+    clinic = models.CharField(max_length=125)
     expertise = models.CharField(max_length=150)
     discount=models.IntegerField()
     created = models.DateField(auto_now_add=True)
