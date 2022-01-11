@@ -6,6 +6,7 @@ from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
 from kavenegar import KavenegarAPI
 
 from clinic.models import Clinic
+
 from .forms import DoctorForm, ExpertiseForm, InsuranceForm, TestForm
 from .models import Doctor, Expertise, Insurance, VisitTime
 

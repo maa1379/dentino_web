@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import UserSignupForm, EditProfileForm
+from .forms import EditProfileForm, UserSignupForm
 
 # Create your views here.
 User = get_user_model()

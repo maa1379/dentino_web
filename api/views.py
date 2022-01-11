@@ -58,9 +58,9 @@ class CoustomRedirect(HttpResponsePermanentRedirect):
     allowed_schemes = [settings.APP_SCHEME, "http", "https"]
 
 
+from django.conf import settings
 # from zeep import Client
 from django.http import HttpResponsePermanentRedirect
-from django.conf import settings
 
 
 class CoustomRedirect(HttpResponsePermanentRedirect):
@@ -460,6 +460,11 @@ class DoctorListApiTest(generics.ListAPIView):
             query_set = query_set.filter(insurance=insurance)
         ser_data = DoctorSer(query_set, many=True).data
         return SuccessResponse(data=ser_data, status=201).send()
+
+
+class UserReferralCodeApiView(GenericAPIView):
+    def get(self, request):
+        return SuccessResponse(data=request.user.profile.referral_code).send()
 
 
 #

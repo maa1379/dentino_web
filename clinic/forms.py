@@ -40,7 +40,8 @@ class ClinicCreateForm(forms.ModelForm):
             "telegram",
             "instagram",
             'parvaneh_clinic',
-            'parvaneh_masole'
+            'parvaneh_masole',
+            "notification",
         )
         labels = {
             "name": "عنوان",
@@ -53,14 +54,14 @@ class ClinicCreateForm(forms.ModelForm):
             "type": "نوع مرکز",
             "image1": "تصویر کلینیک",
             "image2": "تصویر کلینیک",
-            "image3":"تصویر کلینیک",
+            "image3": "تصویر کلینیک",
             "description": "درباه کلینیک",
             "telegram": "تلگرام",
             "whatsapp": "واتساپ",
-            "parvaneh_masole":"پروانه مسول",
-            "parvaneh_clinic":"پروانه کلینیک",
+            "parvaneh_masole": "پروانه مسول",
+            "parvaneh_clinic": "پروانه کلینیک",
+            "notification": "شماره اطلاع رسانی"
         }
-
 
 #
 # class ClinicFilter(django_filters.FilterSet):

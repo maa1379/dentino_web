@@ -132,6 +132,7 @@ class ClinicCreateView(SuperUserMixin, CreateView, SuccessMessageMixin):
         new_form.save()
         return super(ClinicCreateView, self).form_valid(form)
 from django.shortcuts import render
+
 # def ClinicCreateView(request):
 #     if request.method=="POST":
 #         form=ClinicCreateForm(request.POST)

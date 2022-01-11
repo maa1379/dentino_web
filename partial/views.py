@@ -5,10 +5,6 @@ from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
 
 from config.mixins import SuperUserMixin
 
-
-from .forms import CompanyForm, PrescriptionForm, PriceForm,DoctorDictionaryForm,DoctorDictCatForm
-from .models import Company, Complaint, Prescriptions, Price,DoctorDictionary,DoctorDictionaryCategory
-
 from .forms import (CompanyForm, DoctorDictCatForm, DoctorDictionaryForm,
                     PrescriptionForm, PriceForm)
 from .models import (Company, Complaint, DoctorDictionary,

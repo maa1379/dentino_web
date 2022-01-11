@@ -2,8 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 #
-# from doctor.models import Doctor
-# from clinic.models import Clinic
+
 user = get_user_model()
 
 
@@ -42,7 +41,7 @@ class Complaint(models.Model):
         user, on_delete=models.CASCADE, related_name="user_compliment"
     )
     # doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="doctor_compliment")
-    # clinic = models.ForeignKey(on_delete=models.CASCADE,related_name="clinic_compliment")
+    # clinic = models.ForeignKey(Clinic,on_delete=models.CASCADE,related_name="clinic_compliment")
 
 
 class DoctorDictionary(models.Model):

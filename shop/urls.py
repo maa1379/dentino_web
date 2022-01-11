@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (CategoryCreateView, CategoryDeleteView, CategoryDetail,
                     CategoryListView, CategoryUpdateView, ProductCreateView,
                     ProductDeleteView, ProductDetail, ProductListView,
-                    ProductUpdateView,SubCategoryListView)
+                    ProductUpdateView, SubCategoryListView)
 
 app_name = "shop"
 

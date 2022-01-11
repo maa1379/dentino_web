@@ -117,19 +117,19 @@
 	                                            <div class="form-group">
 	                                                <label class="col-md-2 control-label">{{ form.phone_number.label }}</label>
 	                                                <div class="col-md-10">
-	                                                    {% render_field form.phone_number classs="form-control" %}
+	                                                    {% render_field form.phone_number class="form-control" %}
 	                                                </div>
 	                                            </div>
                                                        <div class="form-group">
 	                                                <label class="col-md-2 control-label">{{ form.type.label }}</label>
 	                                                <div class="col-md-10">
-	                                                    {% render_field form.type classs="form-control" %}
+	                                                    {% render_field form.type class="form-control" %}
 	                                                </div>
 	                                            </div>
                                                               <div class="form-group">
 	                                                <label class="col-md-2 control-label">{{ form.description.label }}</label>
 	                                                <div class="col-md-10">
-	                                                    {% render_field form.description classs="form-control" %}
+	                                                    {% render_field form.description class="form-control"  %}
 	                                                </div>
 	                                            </div>
                                                            <div class="form-group">
@@ -181,6 +181,12 @@
 	                                                    {% render_field form.parvaneh_clinic class="form-control" %}
 	                                                </div>
 	                                            </div>
+                                                                                                     <div class="form-group">
+	                                                <label class="col-md-2 control-label">{{ form.notification.label }}</label>
+	                                                <div class="col-md-10">
+	                                                    {% render_field form.notification class="form-control" %}
+	                                                </div>
+	                                            </div>
                                                                                                <div class="form-group">
 	                                                <label class="col-md-2 control-label">{{ form.parvaneh_masole.label }}</label>
 	                                                <div class="col-md-10">
@@ -201,7 +207,7 @@
 {#    style: 'mapbox://styles/mapbox/streets-v11', // style URL#}
 {#    center: [-74.5, 40], // starting position [lng, lat]#}
 {#    zoom: 9 // starting zoom#}
-{#});#}
+});
 {#</script>#}
 	                                                <div class="col-md-10">
 
@@ -220,6 +226,8 @@
 
 
 {% block js %}
+
+
 
 
     <script>
@@ -262,5 +270,7 @@ $(document).ready(function(){
 
         <script src="{% static "config/js/jquery.core.js" %}"></script>
         <script src="{% static 'config/js/jquery.app.js' %}"></script>
+
+
 
 {% endblock %}

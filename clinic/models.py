@@ -1,6 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
+
 from location.models import Zone
 from partial.models import Company
 
@@ -51,6 +51,7 @@ class Clinic(models.Model):
     parvaneh_masole = models.ImageField(
         upload_to="images/clinic/", null=True, blank=True
     )
+    notification = models.CharField(validators=[phone_regex, ], null=True, blank=True, max_length=11)
 
     # parvaneh_masole=models.ImageField(upload_to="images/clinic/")
     # city=models.ForeignKey("Location",on_delete=models.CASCADE)

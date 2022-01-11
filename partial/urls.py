@@ -2,19 +2,12 @@ from django.urls import path
 
 from .views import (  # InsuranceCreateVIew,; InsuranceDeleteView,; InsuranceListView,; InsuranceUpdateView,
     ComanyDeleteView, CompanyCreateView, CompanyListView, CompanyUpdateView,
-
-    ComplimentListVIew, PrescriptionCreate, PrescriptionDeleteVIew,
-    PrescriptionDetailView, PrescriptionListView, PrescriptionUpdate,
-    PriceCreateVIew, PriceDeleteView, PriceListView, PriceUpdateView,DoctorDictionaryList,DoctorDictionaryCreate,DoctoDictonaryUpdate,DoctorDictionaryDelete
-,DoctorDictCategoryListView,DoctorDictCatCrate,DoctorDictCatUpdate,DoctorDictCatDelete,
-
     ComplimentListVIew, DoctoDictonaryUpdate, DoctorDictCatCrate,
     DoctorDictCatDelete, DoctorDictCategoryListView, DoctorDictCatUpdate,
     DoctorDictionaryCreate, DoctorDictionaryDelete, DoctorDictionaryList,
     PrescriptionCreate, PrescriptionDeleteVIew, PrescriptionDetailView,
     PrescriptionListView, PrescriptionUpdate, PriceCreateVIew, PriceDeleteView,
     PriceListView, PriceUpdateView)
-
 
 app_name = "partial"
 urlpatterns = (

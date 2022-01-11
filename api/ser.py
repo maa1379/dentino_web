@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.utils.html import format_html
 from rest_framework import serializers
 
@@ -10,6 +11,8 @@ from location.models import City, Province, Zone
 from partial.models import (Company, Complaint, DoctorDictionary,
                             DoctorDictionaryCategory, Prescriptions, Price)
 from shop.models import Category, Product
+
+user = get_user_model()
 
 
 class DiscountListSerializer(serializers.ModelSerializer):
@@ -236,9 +239,15 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
 
 class UserProfile(serializers.ModelSerializer):
+    invited_user_count = serializers.ReadOnlyField()
+    user_score = serializers.ReadOnlyField()
+
     class Meta:
         model = Profile
-        fields = ("birthday", "name", "family", "national_code", "is_done")
+        fields = (
+            "birthday", "name", "family", "national_code", "is_done", "invite_code", "referral_code",
+            "invited_user_count",
+            "user_score")
 
 
 class PrescriptionsSerializer(serializers.ModelSerializer):

@@ -1,21 +1,5 @@
 from django.urls import path
 
-
-from .views import (About_usApiView, AddToCart, CategoryListApiView,
-                    ClearCartItem, ClinicDetailApi, ClinicListApiView,
-                    CommonCourseApiView, CommonCourseDetailApi, CompanyList,
-                    ComplimentCreateView, ComplimentDetail,
-                    ComplimentListApiView, ContactUSApiView, DateListApiView,
-                    DeleteReserve, DoctorListApiTest, DoctorProfileApi,
-                    DoctorRetrieveView, ExpertiseListApiView, DeleteCartItem,
-                    FilterListApiView, InsuranceLIST, ListCart, OrderCreate,
-                    OrderList, PrescriptionsLIST, PriceList, ProductDetail,
-                    ProductListApiView, RegisterWithPhoneNumber,
-                    ReserveCreateView, SliderApiView, TimeListApiView,
-                    UpdateUserView, UserProfileApiView, UserReserveList,
-                    Verify, VerifyUserRegister, my_django_view, DoctorDictionaryListApiView, DoctorDictionaryDetailView,
-                    ZoneListApiView,ProvinceList,CityListApiView,ZoneListApiView,ClinicDoctorListApiView,CatDicListApiView,ToBank,paymentok,paymentno)
-
 from .views import (About_usApiView, AddToCart, CatDicListApiView,
                     CategoryListApiView, CityListApiView, ClearCartItem,
                     ClinicDetailApi, ClinicDoctorListApiView,
@@ -23,21 +7,23 @@ from .views import (About_usApiView, AddToCart, CatDicListApiView,
                     CommonCourseDetailApi, CompanyList, ComplimentCreateView,
                     ComplimentDetail, ComplimentListApiView, ContactUSApiView,
                     DateListApiView, DeleteCartItem, DeleteReserve,
-                    DoctorDictionaryDetailView, DoctorDictionaryListApiView,
-                    DoctorListApiTest, DoctorProfileApi, DoctorRetrieveView,
-                    ExpertiseListApiView, FilterListApiView, InsuranceLIST,
-                    ListCart, OrderCreate, OrderList, PrescriptionsLIST,
-                    PriceList, ProductDetail, ProductListApiView, ProvinceList,
-                    RegisterWithPhoneNumber, ReserveCreateView, SliderApiView,
+                    DiscountListApiView, DoctorDictionaryDetailView,
+                    DoctorDictionaryListApiView, DoctorListApiTest,
+                    DoctorProfileApi, DoctorRetrieveView, ExpertiseListApiView,
+                    FilterListApiView, InsuranceLIST, ListCart, OrderCreate,
+                    OrderList, PrescriptionsLIST, PriceList, ProductDetail,
+                    ProductListApiView, ProvinceList, RegisterWithPhoneNumber,
+                    ReserveCreateView, SliderApiView, SubCategoryListAPiView,
                     TimeListApiView, ToBank, UpdateUserView,
                     UserProfileApiView, UserReserveList, Verify,
-                    VerifyUserRegister, ZoneListApiView, my_django_view,DiscountListApiView,SubCategoryListAPiView)
-
+                    VerifyUserRegister, ZoneListApiView, my_django_view,
+                    paymentno, paymentok, UserReferralCodeApiView)
 
 app_name = "api"
 
 urlpatterns = [
     path("order_create/", OrderCreate.as_view(), name="order_create"),
+    path("referral_code/", UserReferralCodeApiView.as_view(), name="UserReferralCodeApiView"),
     path("sub_category/", SubCategoryListAPiView.as_view(), name="sub_create"),
     path("discount/", DiscountListApiView.as_view(), name="all_discount"),
     path("testing/", paymentok.as_view(), name="order_create"),
@@ -47,7 +33,6 @@ urlpatterns = [
     path("city_list/", CityListApiView.as_view(), name="city_list"),
     path("zone_list/", ZoneListApiView.as_view(), name="zone_list"),
     path("clinic_doctor/", ClinicDoctorListApiView.as_view(), name="clinic_doctor"),
-    # path("location/", ZoneListApiView.as_view(), name="location"),
     path("delete_cart/", DeleteCartItem.as_view(), name="DeleteCartItem"),
 
     path("doctordictionarylist/", DoctorDictionaryListApiView.as_view(), name="doctordictionarylist"),
@@ -111,4 +96,5 @@ urlpatterns = [
     path("compliment_list/", ComplimentListApiView.as_view(), name="Compliment_list"),
     path("reserve_delete/", DeleteReserve.as_view(), name="DeleteReserve"),
     path("order_list/", OrderList.as_view(), name="order_list"),
+    # path("location/", ZoneListApiView.as_view(), name="location"),
 ]

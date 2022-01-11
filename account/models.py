@@ -1,9 +1,10 @@
+import random
+
 from django.contrib.auth.models import AbstractBaseUser, User
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.signals import post_save
-import uuid
-import base64
+
 from clinic.models import Clinic
 
 # from .managers import MyUserManager
@@ -23,6 +24,14 @@ insurance_regex = RegexValidator(
 )
 
 
+def UniqueGenerator(length=8):
+    source = "0123456789"
+    result = ""
+    for _ in range(length):
+        result += source[random.randint(0, length)]
+    return result
+
+
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
@@ -30,18 +39,28 @@ class Profile(models.Model):
     birthday = models.DateField(blank=True, null=True)
     name = models.CharField(max_length=125, blank=True, null=True)
     family = models.CharField(max_length=125, blank=True, null=True)
-    invite_code = models.CharField(max_length=10, blank=True, null=True)
     is_done = models.BooleanField(default=False)
     is_clinic = models.BooleanField(default=False)
     clinic = models.OneToOneField(
         Clinic, on_delete=models.CASCADE, blank=True, null=True
     )
-    referral_code = models.CharField(max_length=300, blank=True, null=True)
+    referral_code = models.CharField(max_length=8, default=UniqueGenerator)
+    invite_code = models.CharField(max_length=8, null=True, blank=True)
+
+    @property
+    def invited_user_count(self):
+        user_referral_code = self.referral_code
+        all_user = Profile.objects.filter(invite_code=user_referral_code).count()
+        return all_user
+
+    @property
+    def user_score(self):
+        score = self.invited_user_count*10
+        return score
+    #
     #
     # def generate_verification_code(self):
     #     return base64.urlsafe_b64encode(uuid.uuid1())[:7]
-
-
 
     # def save(self, *args, **kwargs):
     #     if not self.pk:

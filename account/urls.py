@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import SignUpUserView, UserListView, delete_user, UserUpdateView
+from .views import SignUpUserView, UserListView, UserUpdateView, delete_user
 
 app_name = "account"
 urlpatterns = [
