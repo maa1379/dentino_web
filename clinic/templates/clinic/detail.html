@@ -48,7 +48,7 @@
                                  class="img-thumbnail" alt="profile-image">
 
                             <div class="profile-info-detail">
-                                <h1 class="m-t-0 m-b-0 text-center">{{ clinic.name }}</h1>
+                                <h1 class="m-t-0 m-b-0 text-center">{{ clinic.type }} {{ clinic.name }}</h1>
                                 <a class="btn btn-danger" href="{% url "clinic:delete" clinic.id %}">حذف</a>
                                 <a class="btn btn-warning" href="{% url "clinic:update" clinic.id %}">ویرایش</a>
                                 <a class="btn btn-success" href="{% url "clinic:discount_create"  %}">افزودن تخفیف</a>
@@ -66,7 +66,7 @@
                                 <p>{{ insurance.name }}</p>
                                 {% endfor %}
                                 <div>
-                                    <h3>تصاویر کلینیک</h3>
+                                    <h3>تصاویر مرکز درمانی</h3>
 {#                                    <a><img src="{{ object.image1.url }}"></a>#}
                                     <a><img src="{{ object.image2.url }}"></a>
                                     <a><img src="{{ object.image3.url }}"></a>

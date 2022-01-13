@@ -35,8 +35,8 @@ class VisitTimeCreate(CreateView):
 
 
 def VisitTimeView(request):
-    print(request.META.get("HTTP_REFERER"))
-    perviouse_url = request.META.get("HTTP_REFERER")
+    # print(request.META.get("HTTP_REFERER"))
+    # perviouse_url = request.META.get("HTTP_REFERER")
     # doctor=perviouse_url[-2]
     # print(doctor)
     # doctor=get_object_or_404(Doctor,id=doctor.id)
@@ -45,14 +45,16 @@ def VisitTimeView(request):
     # print(request.POST.get("date"))
     date = request.POST.get("date")
     day = request.POST.get("day")
-    # print(request.POST.get("start_time1"))
     start_time1 = request.POST.get("start_time1")
     start_time2 = request.POST.get("start_time2")
     finish_time1 = request.POST.get("finish_time1")
     finish_time2 = request.POST.get("finish_time2")
-    # hour_1=str(start_time1[0:2])
+    # VisitTime.objects.create(doctor=1,date=date,day=day,start_time1=start_time1,
+    #                          start_time2=start_time2,finish_time1=finish_time1,finish_time2=finish_time2)
+
+    hour_1=str(start_time1[0:2])
     # print(hour_1)
-    # minutes_1=int(start_time1[3:5])
+    minutes_1=int(start_time1[3:5])
     # hour_2= int(start_time2[0:2])
     # minutes_2 = int(start_time2[3:5])
     # hour_3 = int(finish_time1[0:2])
@@ -73,17 +75,6 @@ def VisitTimeView(request):
     # finish_time2_value=datetime.datetime(2021,5,12,hour_2,minutes_2)
     # _time2_value=datetime.datetime(2021,5,12,hour_2,minutes_2)
     # datetime = datetime.strptime(date_string, '%Y-%m-%d')
-    # print(request.POST.get("finish_time1"))
-    # print(request.POST.get("start_time2"))
-    # print(request.POST.get("finish_time2"))
-    # print(request.POST.get("finish_time1"))
-    # print(request.POST.get("time1"))
-    # print(request.POST.get("doctor"))
-    # print(request.POST.get("date"))
-    # print(request.POST.get("start_time"))
-    # print(request.POST.get("finish_time"))
-    # print(request.POST.get("start_time2"))
-    # print(request.POST.get("finish_time2"))
     # if request.method=="POST":
     #     if form.is_valid():
     #         day=form.cleaned_data["day"]
