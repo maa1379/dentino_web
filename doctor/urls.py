@@ -5,12 +5,13 @@ from .views import (DoctorCreateView, DoctorDeleteView, DoctorDetailView,
                     ExpertiseDelete, ExpertiseListView, ExpertiseUpdateView,
                     InsuranceCreateVIew, InsuranceDeleteView,
                     InsuranceListView, InsuranceUpdateView,
-                    Unverified_Doctor_ListView, VisitTimeView, verify_doctor)
+                    Unverified_Doctor_ListView, VisitTimeView, verify_doctor,DeleteDiscount)
 
 app_name = "doctor"
 
 urlpatterns = [
     path("doctor_lsit/", DoctorListView, name="list"),
+    path("delete/discount/<int:discount_id>/", DeleteDiscount, name="discount_delete"),
     path("verify_doctor/<int:id>/", verify_doctor.as_view(), name="verify_doctor"),
     path(
         "unverified_doctor_list/",

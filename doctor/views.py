@@ -6,14 +6,13 @@ from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
 from kavenegar import KavenegarAPI
 
 from clinic.models import Clinic
-
 from .forms import DoctorForm, ExpertiseForm, InsuranceForm, TestForm
-from .models import Doctor, Expertise, Insurance, VisitTime
+from .models import Doctor, Expertise, Insurance, VisitTime,Discount
 
 
 # Expertise Views .
 def ClinicVerifyOk(request, clinic_id):
-    clinic = get_object_or_404(Clinic,clinic_id=clinic_id)
+    clinic = get_object_or_404(Clinic, clinic_id=clinic_id)
     api = KavenegarAPI(
         "38502F546846716559723175674E49324A674B2B62654B58724D61314B474777"
     )
@@ -52,9 +51,9 @@ def VisitTimeView(request):
     # VisitTime.objects.create(doctor=1,date=date,day=day,start_time1=start_time1,
     #                          start_time2=start_time2,finish_time1=finish_time1,finish_time2=finish_time2)
 
-    hour_1=str(start_time1[0:2])
+    hour_1 = str(start_time1[0:2])
     # print(hour_1)
-    minutes_1=int(start_time1[3:5])
+    minutes_1 = int(start_time1[3:5])
     # hour_2= int(start_time2[0:2])
     # minutes_2 = int(start_time2[3:5])
     # hour_3 = int(finish_time1[0:2])
@@ -228,3 +227,9 @@ def InsuranceDeleteView(request, id):
     insurance = get_object_or_404(Insurance, id=id)
     insurance.delete()
     return redirect("doctor:insurance_list")
+
+
+def DeleteDiscount(request,discount_id):
+    discount=get_object_or_404(Discount,id=discount_id)
+    discount.delete()
+    return redirect("clinic:Home")

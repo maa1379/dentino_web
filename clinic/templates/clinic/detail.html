@@ -125,6 +125,7 @@
                                                 <th>#</th>
                                                 <th>تخصص </th>
                                                 <th>درصد تخفیف</th>
+                                                <th>منقضی کردن تخفیف</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -133,6 +134,7 @@
                                                     <td>{{ forloop.counter }}</td>
                                                     <td>{{ discount.percent }} درصد</td>
                                                     <td>{{ discount.clinic }}</td>
+                                                    <td><a class="btn btn-danger"  href="{% url "clinic:discount_delete" discount.id %}">اعمال</a></td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
