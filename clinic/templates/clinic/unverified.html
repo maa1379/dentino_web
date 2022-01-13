@@ -61,7 +61,7 @@
                                                 <th>لوگو</th>
                                                 <th>جزییات</th>
                                                 <th>تایید<th>
-                                                <th>تصیح<th>
+{#                                                <th>تصیح<th>#}
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -72,7 +72,7 @@
                                                     <td><img width="100px" height="100px"  src="{{ clinic.logo.url }}"></td>
                                                     <td><a class="btn btn-warning" href="{% url "clinic:detail" clinic.id %}">مشاهده</a></td>
                                                     <td><a href="{% url "clinic:verify" clinic.id %}" class="btn btn-success">تایید</a></td>
-                                                    <td><a href="{% url "clinic:verify" clinic.id %}" class="btn btn-danger">ارسال پیام</a></td>
+{#                                                    <td><a href="{% url "clinic:verify" clinic.id %}" class="btn btn-danger">ارسال پیام</a></td>#}
                                                 </tr>
 {#                                                {% empty %}#}
 {#                                                <h3>هیچ کلینکی برای تایید نیست</h3>#}

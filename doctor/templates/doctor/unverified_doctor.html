@@ -34,7 +34,6 @@
                 <div class="content">
                     <div class="container">
 <h1 class="text-center">لیست پزشک های تایید نشده</h1>
-<h1 class="text-center">ویرایش ایه {{ object }}</h1>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card-box">
@@ -64,7 +63,7 @@
                                                 <th>کلینیک</th>
                                                 <th>مشاهده</th>
                                                 <th>تغییر وضعیت</th>
-                                                <th>اصلاح<th>
+{#                                                <th>اصلاح<th>#}
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -77,7 +76,7 @@
                                                     <td>{{ doctor.clinic }}</td>
                                                     <td><a class="btn btn-warning" href="{% url "doctor:detail" doctor.id %}">مشاهده</a></td>
                                                     <td><a href="{% url "doctor:verify_doctor" doctor.id %}" class="btn btn-success">تایید</a></td>
-                                                    <td><a href="{% url "doctor:verify_doctor" doctor.id %}" class="btn btn-danger">ارسال پیام</a></td>
+{#                                                    <td><a href="{% url "doctor:verify_doctor" doctor.id %}" class="btn btn-danger">ارسال پیام</a></td>#}
                                                 </tr>
 {#                                                {% empty %}#}
 {#                                                <h3>هیچ کلینکی برای تایید نیست</h3>#}
