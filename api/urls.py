@@ -102,3 +102,7 @@ urlpatterns = [
     path("order_list/", OrderList.as_view(), name="order_list"),
     # path("location/", ZoneListApiView.as_view(), name="location"),
 ]
+
+
+
+
