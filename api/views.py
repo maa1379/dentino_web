@@ -4,6 +4,7 @@ from decimal import Decimal
 
 # from django.http import HttpRespone
 from django.conf import settings
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404
@@ -52,7 +53,7 @@ from .ser import (About_usSerializer, AddToCartSerializer,
                   ProductListSerializer, ProvinceSerializer,
                   RegisterSerializer, RseSerializer, SliderSerializer, TimeSer,
                   UserProfile, UserReservationSerializer, UserUpdateSerializer,
-                  UserVerifySerializer)
+                  UserVerifySerializer, ClinicDetailSerializer, clinicLoginSerializer)
 
 
 def UniqueGenerator(length=8):
@@ -74,6 +75,29 @@ from django.http import HttpResponsePermanentRedirect
 
 class CoustomRedirect(HttpResponsePermanentRedirect):
     allowed_schemes = [settings.APP_SCHEME, "http", "https"]
+
+from rest_framework.permissions import AllowAny
+class ClinicLoginApiView(GenericAPIView):
+    serializer_class = clinicLoginSerializer
+    permission_classes = [AllowAny,]
+    def post(self, request):
+        try:
+            ser_data = self.serializer_class(request.data)
+            if ser_data.is_valid(raise_exception=True):
+                cd = ser_data.validated_data
+                user = authenticate(username=cd["username"], password=cd["password"])
+                if user.profile.is_clinic:
+                    token = RefreshToken.for_user(user)
+                    data = {
+                        "refresh": str(token),
+                        "access": str(token.access_token),
+                        "clinic_name": user.profile.clinic.name,
+                    }
+                    return SuccessResponse(data=data, status=status.HTTP_200_OK)
+                else:
+                    return ErrorResponse(message="this user is not clinic ", status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST)
 
 
 class DiscountListApiView(GenericAPIView):
@@ -154,6 +178,19 @@ class CityListApiView(GenericAPIView):
             return ErrorResponse(
                 message=f"{e}", status=status.HTTP_404_NOT_FOUND
             ).send()
+
+
+class ClinicDetailApiView(GenericAPIView):
+    serializer_class = ClinicDetailSerializer
+
+    def get(self, request):
+        try:
+            user_clinic = request.user.profile.clinic
+            clinic = get_object_or_404(Clinic, name=user_clinic)
+            ser_data = self.serializer_class(clinic).data
+            return SuccessResponse(data=ser_data, status=status.HTTP_200_OK).send()
+        except Exception as e:
+            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST).send()
 
 
 class ZoneListApiView(generics.ListAPIView):
@@ -853,14 +890,14 @@ class CategoryListApiView(GenericAPIView):
 
 class WinnerApiView(GenericAPIView):
     def post(self, request):
-        clinic_id=request.POST.get("clinic")
+        clinic_id = request.POST.get("clinic")
         try:
             # clinic= get_object_or_404(Clinic, name=request.POST.get("clinic"))
             # clinic=Clinic.objects.filter(id=clinic_id)
             # print(clinic)
-            clinic=request.POST.get("clinic")
+            clinic = request.POST.get("clinic")
             expertise = request.POST.get("expertise")
-            discount=request.POST.get("discount")
+            discount = request.POST.get("discount")
             Winner.objects.create(
                 user=request.user,
                 clinic=clinic,

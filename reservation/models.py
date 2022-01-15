@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from clinic.models import Clinic
-from doctor.models import Doctor
+# from clinic.models import Clinic
+import doctor.models
 
 user = get_user_model()
 
@@ -26,7 +26,7 @@ class Reservation(models.Model):
         user, on_delete=models.CASCADE, related_name="reserve", blank=True, null=True
     )
     # patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="ali")
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="reserve")
+    doctor = models.ForeignKey(doctor.models.Doctor, on_delete=models.CASCADE, related_name="reserve")
     # clinic=models.ForeignKey()
     day = models.CharField(max_length=125, null=True)
     time = models.CharField(max_length=125, null=True)

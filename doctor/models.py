@@ -2,8 +2,8 @@ import datetime
 
 from django.core.validators import RegexValidator
 
-from clinic.models import Clinic
-
+# import reservation.models
+import  clinic.models
 regex = RegexValidator(
     regex=r"^\d{10}$",
     message=(
@@ -54,7 +54,7 @@ class Doctor(models.Model):
     # service = models.ForeignKey(Service, on_delete=models.CASCADE)
     insurance = models.ManyToManyField(Insurance)
     clinic = models.ForeignKey(
-        Clinic, on_delete=models.CASCADE, related_name="doctor", null=True, blank=True
+        clinic.models.Clinic, on_delete=models.CASCADE, related_name="doctor", null=True, blank=True
     )
     expertise = models.ManyToManyField(Expertise, related_name="doctor")
     full_name = models.CharField(max_length=250, null=True, blank=True)
@@ -115,5 +115,28 @@ class DoctorDate(models.Model):
 
 class Discount(models.Model):
     expertise = models.ForeignKey(Expertise, on_delete=models.CASCADE)
-    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE, related_name="discount")
+    clinic = models.ForeignKey(clinic.models.Clinic, on_delete=models.CASCADE, related_name="discount")
     percent = IntegerRangeField(min_value=1, max_value=100)
+
+
+class Advantage(models.Model):
+    title = models.CharField(max_length=125)
+
+    def __str__(self):
+        return self.title
+
+
+class DisAdvantage(models.Model):
+    title = models.CharField(max_length=125)
+
+    def __str__(self):
+        return self.title
+
+#
+# class DoctorVoting(models.Model):
+#     reserve = models.ForeignKey(Reservation, on_delete=models.CASCADE)
+#     advantage = models.ManyToManyField(Advantage)
+#     disadvantage = models.ManyToManyField(DisAdvantage)
+#
+#     def __str__(self):
+#         return f"{self.reserve.name}"

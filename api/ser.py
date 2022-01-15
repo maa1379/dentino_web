@@ -245,8 +245,8 @@ class UserProfile(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ("name", "family", "national_code", "is_done", "invite_code", "referral_code",
-            "invited_user_count",
-            "user_score")
+                  "invited_user_count",
+                  "user_score")
 
 
 class PrescriptionsSerializer(serializers.ModelSerializer):
@@ -378,6 +378,11 @@ class DoctorSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+
+class clinicLoginSerializer(serializers.ModelSerializer):
+    username=serializers.CharField()
+    password=serializers.CharField()
+
 # class UserSerializer(serializers.Serializer):
 #     name = serializers.CharField(min_length=3, max_length=30, required=False)
 #     family = serializers.CharField(min_length=3, max_length=30, required=False)
@@ -507,3 +512,26 @@ class OrderItemSerializer(serializers.ModelSerializer):
     def get_product(self, obj):
         result = obj.product
         # return ProductsOrderCartSerializer(instance=result).data
+
+
+class ClinicDetailSerializer(serializers.ModelSerializer):
+    clinic_doctor_count = serializers.SerializerMethodField()
+    clinic_discount_count = serializers.SerializerMethodField()
+    expertise_count = serializers.SerializerMethodField()
+    clinic_reserve_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Clinic
+        fields = ("name", "clinic_doctor_count", "clinic_discount_count", "expertise_count", "clinic_reserve_count")
+
+    def get_clinic_doctor_count(self, obj):
+        return Doctor.objects.filter(clinic=obj).count()
+
+    def get_clinic_discount_count(self, obj):
+        return Discount.objects.filter(clinic=obj).count()
+
+    def get_expertise_count(self, obj):
+        return Expertise.objects.filter(doctor__clinic=obj).count()
+
+    def get_clinic_reserve_count(self, obj):
+        return Reservation.objects.filter(doctor__clinic=obj).count()
