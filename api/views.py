@@ -380,58 +380,49 @@ class TimeListApiView(generics.ListAPIView):
         visit_time_date = request.POST.get("date_id")
         vistime = VisitTime.objects.get(id=visit_time_date)
         ali = VisitTime.objects.all().values_list("id")
+        print(ali)
         try:
             instance = VisitTime.objects.get(doctor=pk, id=visit_time_date)
+            my_database = []
             my_list = []
             a = instance.start_time
             b = instance.finish_time
-            # check = DoctorDate.objects.filter(doctor=doctor, date=visit_time_date)
-            # print(check)
-            # if check.count() == 0:
-            while True:
+            check = DoctorDate.objects.filter(doctor=doctor, date=visit_time_date)
+            print(check)
+            if check.count() == 0:
+                while True:
                     # if elyas:
-                a = a + timedelta(minutes=30)
-                my_list.append(
-                    str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
-                    :5
-                    ]
-                )
-                    # name = DoctorDate.objects.create(
-            #             doctor=doctor,
-            #             date=vistime,
-            #             name=str(
-            #                 a.time().replace(hour=a.hour, minute=a.minute, second=00)
-            #             )[:5],
-            #         )
-                if a >= b:
-                    break
-
-            a = instance.start_time2
-            b = instance.finish_time2
-            while True:
                     a = a + timedelta(minutes=30)
                     my_list.append(
-                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
-                        :5
-                        ]
+                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5]
                     )
-                    # DoctorDate.objects.create(
-                    #     doctor=doctor,
-                    #     date=vistime,
-                    #     name=str(
-                    #         a.time().replace(hour=a.hour, minute=a.minute, second=00)
-                    #     )[:5],
-                    # )
+                    name = DoctorDate.objects.create(doctor=doctor, date=vistime, name=str(
+                        a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5])
+                    if a >= b:
+                        break
+
+                a = instance.start_time2
+                b = instance.finish_time2
+                while True:
+                    a = a + timedelta(minutes=30)
+                    my_list.append(
+                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5]
+                    )
+                    DoctorDate.objects.create(doctor=doctor, date=vistime, name=str(
+                        a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5])
                     if a >= b:
                         # my_list.append(pk)
                         # my_list.append(id)
                         break
 
-            # saved = TimelistSer(instance=check, many=True).data
-            # for item in saved:
-            #     my_list.append(str(item).removesuffix("name"))
-            # ser_data = TimeSer(instance).data
+            saved = TimelistSer(instance=check, many=True).data
+            for item in saved:
+                my_list.append(item)
+                print("added")
+
+            ser_data = TimeSer(instance).data
             temp_data = {
+                "data": ser_data,
                 "my_list": my_list,
             }
             return SuccessResponse(data=temp_data).send()
