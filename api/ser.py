@@ -8,8 +8,14 @@ from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
 from doctor.models import Discount, Doctor, Expertise, Insurance, VisitTime
 from location.models import City, Province, Zone
-from partial.models import (Company, Complaint, DoctorDictionary,
-                            DoctorDictionaryCategory, Prescriptions, Price)
+from partial.models import (
+    Company,
+    Complaint,
+    DoctorDictionary,
+    DoctorDictionaryCategory,
+    Prescriptions,
+    Price,
+)
 from shop.models import Category, Product
 
 user = get_user_model()
@@ -28,6 +34,12 @@ class DiscountListSerializer(serializers.ModelSerializer):
 
     def get_expertise_name(self, obj):
         return obj.expertise.title
+
+
+class DiscountCRUDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Discount
+        fields = ("percent", "expertise")
 
 
 class DiscountClinicSerializer(serializers.ModelSerializer):
@@ -93,7 +105,15 @@ class DeleteCartItemSerializer(serializers.Serializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ("id", "name", "price", "image", "category", "sell", "discount_percent")
+        fields = (
+            "id",
+            "name",
+            "price",
+            "image",
+            "category",
+            "sell",
+            "discount_percent",
+        )
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -244,9 +264,16 @@ class UserProfile(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ("name", "family", "national_code", "is_done", "invite_code", "referral_code",
-                  "invited_user_count",
-                  "user_score")
+        fields = (
+            "name",
+            "family",
+            "national_code",
+            "is_done",
+            "invite_code",
+            "referral_code",
+            "invited_user_count",
+            "user_score",
+        )
 
 
 class PrescriptionsSerializer(serializers.ModelSerializer):
@@ -283,24 +310,25 @@ class ClinicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clinic
 
-        fields = ('name',
-                  'logo',
-                  'address',
-                  'instagram',
-                  'phone_number',
-                  'clinic_description',
-                  'image1',
-                  'image2',
-                  'image3',
-                  'location',
-                  'type',
-                  'insurances',
-                  'zone_name',
-                  'companies',
-                  'insurances',
-                  'id',
-                  "clinic_discount",
-                  )
+        fields = (
+            "name",
+            "logo",
+            "address",
+            "instagram",
+            "phone_number",
+            "clinic_description",
+            "image1",
+            "image2",
+            "image3",
+            "location",
+            "type",
+            "insurances",
+            "zone_name",
+            "companies",
+            "insurances",
+            "id",
+            "clinic_discount",
+        )
 
         # fields = (
         #     "name",
@@ -378,10 +406,10 @@ class DoctorSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-
 class clinicLoginSerializer(serializers.ModelSerializer):
-    username=serializers.CharField()
-    password=serializers.CharField()
+    username = serializers.CharField()
+    password = serializers.CharField()
+
 
 # class UserSerializer(serializers.Serializer):
 #     name = serializers.CharField(min_length=3, max_length=30, required=False)
@@ -522,7 +550,13 @@ class ClinicDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Clinic
-        fields = ("name", "clinic_doctor_count", "clinic_discount_count", "expertise_count", "clinic_reserve_count")
+        fields = (
+            "name",
+            "clinic_doctor_count",
+            "clinic_discount_count",
+            "expertise_count",
+            "clinic_reserve_count",
+        )
 
     def get_clinic_doctor_count(self, obj):
         return Doctor.objects.filter(clinic=obj).count()
@@ -535,3 +569,23 @@ class ClinicDetailSerializer(serializers.ModelSerializer):
 
     def get_clinic_reserve_count(self, obj):
         return Reservation.objects.filter(doctor__clinic=obj).count()
+
+
+class DoctorCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Doctor
+        fields = (
+            "name",
+            "family",
+            "national_code",
+            "phone_number",
+            "ID_photo",
+            "profile",
+            "medical_code",
+            "insurance",
+            "expertise",
+            "full_name",
+            "bio",
+            "age",
+            "parvaneh_tebabat",
+        )

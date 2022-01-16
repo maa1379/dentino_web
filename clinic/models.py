@@ -57,7 +57,14 @@ class Clinic(models.Model):
     parvaneh_masole = models.ImageField(
         upload_to="images/clinic/", null=True, blank=True
     )
-    notification = models.CharField(validators=[phone_regex, ], null=True, blank=True, max_length=11)
+    notification = models.CharField(
+        validators=[
+            phone_regex,
+        ],
+        null=True,
+        blank=True,
+        max_length=11,
+    )
 
     # parvaneh_masole=models.ImageField(upload_to="images/clinic/")
     # city=models.ForeignKey("Location",on_delete=models.CASCADE)
@@ -83,7 +90,7 @@ class Winner(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
     clinic = models.CharField(max_length=125)
     expertise = models.CharField(max_length=150)
-    discount=models.IntegerField()
+    discount = models.IntegerField()
     created = models.DateField(auto_now_add=True)
     used = models.BooleanField(default=False)
 

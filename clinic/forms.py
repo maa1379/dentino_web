@@ -1,6 +1,7 @@
 from django import forms
 
 from doctor.models import Discount
+
 from .models import Clinic, Service
 
 
@@ -39,8 +40,8 @@ class ClinicCreateForm(forms.ModelForm):
             "phone_number",
             "telegram",
             "instagram",
-            'parvaneh_clinic',
-            'parvaneh_masole',
+            "parvaneh_clinic",
+            "parvaneh_masole",
             "notification",
         )
         labels = {
@@ -60,8 +61,9 @@ class ClinicCreateForm(forms.ModelForm):
             "whatsapp": "واتساپ",
             "parvaneh_masole": "پروانه مسول",
             "parvaneh_clinic": "پروانه کلینیک",
-            "notification": "شماره اطلاع رسانی"
+            "notification": "شماره اطلاع رسانی",
         }
+
 
 #
 # class ClinicFilter(django_filters.FilterSet):

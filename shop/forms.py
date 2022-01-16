@@ -37,7 +37,7 @@ class ProductForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ("title", "icon","parent")
+        fields = ("title", "icon", "parent")
 
         labels = {
             "title": "عنوان",

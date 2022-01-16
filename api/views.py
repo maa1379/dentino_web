@@ -3,12 +3,9 @@ from datetime import timedelta
 from decimal import Decimal
 
 # from django.http import HttpRespone
-from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.http import HttpResponsePermanentRedirect
-from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import View
 from django_filters import rest_framework as filters
 from kavenegar import *
@@ -29,31 +26,54 @@ from clinic.models import Clinic, Winner
 from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
 from doctor.api.serailizers import DoctorSer, VisitTimeSerializer
-from doctor.models import (Discount, Doctor, DoctorDate, Expertise, Insurance,
-                           VisitTime)
+from doctor.models import Discount, Doctor, DoctorDate, Expertise, Insurance, VisitTime
 from location.models import City, Province, Zone
 from order.models import Order, OrderItem
-from partial.models import (Company, Complaint, DoctorDictionary,
-                            Prescriptions, Price)
+from partial.models import Company, Complaint, DoctorDictionary, Prescriptions, Price
 from reservation.models import Reservation
 from shop.models import Category, Product
 from utilities.respones import ErrorResponse, SuccessResponse
 from .filters import DoctorFilter
-from .ser import (About_usSerializer, AddToCartSerializer,
-                  CategoryListSerializer, CitySerializer, ClinicSerializer,
-                  ClinicShortSeralizer, CommonDetailSerializer,
-                  CommonListSerializer, CompanySerializer,
-                  ComplimentSerializer, ContactUsSerializer,
-                  DeleteCartItemSerializer, DictCategorySer,
-                  DiscountListSerializer, DoctorDictionarySerializer,
-                  DoctorProfileSerializer, DoctorSerializer,
-                  ExpertiseSerializer, InsuranceSerializer,
-                  OrderDetailSerializer, OrderListSerializer, OrderSerializer,
-                  PrescriptionsSerializer, ProductDetailSerializer,
-                  ProductListSerializer, ProvinceSerializer,
-                  RegisterSerializer, RseSerializer, SliderSerializer, TimeSer,
-                  UserProfile, UserReservationSerializer, UserUpdateSerializer,
-                  UserVerifySerializer, ClinicDetailSerializer, clinicLoginSerializer)
+from .ser import (
+    About_usSerializer,
+    AddToCartSerializer,
+    CategoryListSerializer,
+    CitySerializer,
+    ClinicDetailSerializer,
+    ClinicSerializer,
+    ClinicShortSeralizer,
+    CommonDetailSerializer,
+    CommonListSerializer,
+    CompanySerializer,
+    ComplimentSerializer,
+    ContactUsSerializer,
+    DeleteCartItemSerializer,
+    DictCategorySer,
+    DiscountCRUDSerializer,
+    DiscountListSerializer,
+    DoctorCreateSerializer,
+    DoctorDictionarySerializer,
+    DoctorProfileSerializer,
+    DoctorSerializer,
+    ExpertiseSerializer,
+    InsuranceSerializer,
+    OrderDetailSerializer,
+    OrderListSerializer,
+    OrderSerializer,
+    PrescriptionsSerializer,
+    ProductDetailSerializer,
+    ProductListSerializer,
+    ProvinceSerializer,
+    RegisterSerializer,
+    RseSerializer,
+    SliderSerializer,
+    TimeSer,
+    UserProfile,
+    UserReservationSerializer,
+    UserUpdateSerializer,
+    UserVerifySerializer,
+    clinicLoginSerializer,
+)
 
 
 def UniqueGenerator(length=8):
@@ -64,22 +84,92 @@ def UniqueGenerator(length=8):
     return result
 
 
-class CoustomRedirect(HttpResponsePermanentRedirect):
-    allowed_schemes = [settings.APP_SCHEME, "http", "https"]
-
-
 from django.conf import settings
-# from zeep import Client
-from django.http import HttpResponsePermanentRedirect
 
 
-class CoustomRedirect(HttpResponsePermanentRedirect):
-    allowed_schemes = [settings.APP_SCHEME, "http", "https"]
+class DiscountCreateApiView(generics.CreateAPIView):
+    serializer_class = DiscountCRUDSerializer
+    queryset = Discount.objects.all()
+
+    def perform_create(self, serializer):
+        clinic = self.request.user.profile.clinic
+        return serializer.save(clinic=clinic)
+
+
+class DiscountDeleteView(GenericAPIView):
+    def delete(self, request):
+        try:
+            discount_id = request.POST.get("discount_id")
+            discount = get_object_or_404(Discount, id=discount_id)
+            discount.delete()
+            return SuccessResponse(
+                data="object deleted", status=status.HTTP_200_OK
+            ).send()
+        except Exception as e:
+            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DoctorCreateApiView(generics.CreateAPIView):
+    serializer_class = DoctorCreateSerializer
+    queryset = Doctor.objects.all()
+
+    def perform_create(self, serializer):
+        clinic = self.request.user.profile.clinic
+        return serializer.save(clinic=clinic)
+
+
+class DoctorUpdateApiView(generics.UpdateAPIView):
+    serializer_class = DoctorCreateSerializer
+    model = Doctor
+
+    def put(self, request):
+        try:
+            doctor_id = request.POST.get("doctor_id")
+            doctor = get_object_or_404(self.model, id=doctor_id)
+            ser_data = self.serializer_class(
+                instance=doctor, data=request.data, partial=True
+            )
+            if ser_data.is_valid(raise_exception=True):
+                ser_data.save()
+                return SuccessResponse(
+                    data=ser_data.data, status=status.HTTP_201_CREATED
+                )
+            else:
+                return ErrorResponse(
+                    message="failed", status=status.HTTP_400_BAD_REQUEST
+                )
+        except Exception as e:
+            return ErrorResponse(
+                message=e, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    def perform_update(self, serializer):
+        clinic = self.request.user.profile.clinic
+        return serializer.save(clinic=clinic)
+
+
+class DoctorDeleteApiView(GenericAPIView):
+    def delete(self, request):
+        try:
+            doctor_id = request.POST.get("doctor_id")
+            doctor = get_object_or_404(Doctor, id=doctor_id)
+            doctor.delete()
+            return SuccessResponse(
+                data="object deleted", status=status.HTTP_200_OK
+            ).send()
+        except Exception as e:
+            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST)
+
 
 from rest_framework.permissions import AllowAny
+
+
 class ClinicLoginApiView(GenericAPIView):
     serializer_class = clinicLoginSerializer
-    permission_classes = [AllowAny,]
+    permission_classes = [
+        AllowAny,
+    ]
+
     def post(self, request):
         try:
             ser_data = self.serializer_class(request.data)
@@ -95,7 +185,10 @@ class ClinicLoginApiView(GenericAPIView):
                     }
                     return SuccessResponse(data=data, status=status.HTTP_200_OK)
                 else:
-                    return ErrorResponse(message="this user is not clinic ", status=status.HTTP_400_BAD_REQUEST)
+                    return ErrorResponse(
+                        message="this user is not clinic ",
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
         except Exception as e:
             return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST)
 
@@ -287,63 +380,59 @@ class TimeListApiView(generics.ListAPIView):
         visit_time_date = request.POST.get("date_id")
         vistime = VisitTime.objects.get(id=visit_time_date)
         ali = VisitTime.objects.all().values_list("id")
-        print(ali)
         try:
             instance = VisitTime.objects.get(doctor=pk, id=visit_time_date)
-            my_database = []
             my_list = []
             a = instance.start_time
             b = instance.finish_time
-            check = DoctorDate.objects.filter(doctor=doctor, date=visit_time_date)
-            print(check)
-            if check.count() == 0:
-                while True:
+            # check = DoctorDate.objects.filter(doctor=doctor, date=visit_time_date)
+            # print(check)
+            # if check.count() == 0:
+            while True:
                     # if elyas:
-                    a = a + timedelta(minutes=30)
-                    my_list.append(
-                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
-                        :5
-                        ]
-                    )
-                    name = DoctorDate.objects.create(
-                        doctor=doctor,
-                        date=vistime,
-                        name=str(
-                            a.time().replace(hour=a.hour, minute=a.minute, second=00)
-                        )[:5],
-                    )
-                    if a >= b:
-                        break
+                a = a + timedelta(minutes=30)
+                my_list.append(
+                    str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
+                    :5
+                    ]
+                )
+                    # name = DoctorDate.objects.create(
+            #             doctor=doctor,
+            #             date=vistime,
+            #             name=str(
+            #                 a.time().replace(hour=a.hour, minute=a.minute, second=00)
+            #             )[:5],
+            #         )
+                if a >= b:
+                    break
 
-                a = instance.start_time2
-                b = instance.finish_time2
-                while True:
+            a = instance.start_time2
+            b = instance.finish_time2
+            while True:
                     a = a + timedelta(minutes=30)
                     my_list.append(
                         str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
                         :5
                         ]
                     )
-                    DoctorDate.objects.create(
-                        doctor=doctor,
-                        date=vistime,
-                        name=str(
-                            a.time().replace(hour=a.hour, minute=a.minute, second=00)
-                        )[:5],
-                    )
+                    # DoctorDate.objects.create(
+                    #     doctor=doctor,
+                    #     date=vistime,
+                    #     name=str(
+                    #         a.time().replace(hour=a.hour, minute=a.minute, second=00)
+                    #     )[:5],
+                    # )
                     if a >= b:
                         # my_list.append(pk)
                         # my_list.append(id)
                         break
 
-            saved = TimelistSer(instance=check, many=True).data
-            for item in saved:
-                my_list.append(str(item).removesuffix("name"))
-            ser_data = TimeSer(instance).data
+            # saved = TimelistSer(instance=check, many=True).data
+            # for item in saved:
+            #     my_list.append(str(item).removesuffix("name"))
+            # ser_data = TimeSer(instance).data
             temp_data = {
-                "data": ser_data,
                 "my_list": my_list,
-                # "check": my_database,
             }
             return SuccessResponse(data=temp_data).send()
         except Exception as e:
@@ -490,9 +579,13 @@ class DoctorListApiTest(generics.ListAPIView):
         city = request.POST.get("city")
         # province=request.POST.get("province")
         if city and not region:
-            query_set = Doctor.objects.filter(expertise=expertise, clinic__location__city__name=city)
+            query_set = Doctor.objects.filter(
+                expertise=expertise, clinic__location__city__name=city
+            )
         else:
-            query_set = Doctor.objects.filter(expertise=expertise, clinic__location__name=region)
+            query_set = Doctor.objects.filter(
+                expertise=expertise, clinic__location__name=region
+            )
 
         # query_set = Doctor.objects.filter(
         # expertise=expertise, clinic__location__name=region

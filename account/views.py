@@ -37,18 +37,17 @@ def SignUpUserView(request):
     return render(request, "account/signup.html", {"form": form})
 
 
-
-
-
 def UserUpdateView(request, id):
     user = get_object_or_404(User, id=id)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = EditProfileForm(request.POST, instance=user.profile)
         if form.is_valid():
             form.save()
-            user.username = form.cleaned_data['phone_number']
+            user.username = form.cleaned_data["phone_number"]
             user.save()
             return redirect("account:user_list")
     else:
-        form = EditProfileForm(instance=user.profile, initial={'phone_number': request.user.username})
-    return render(request, 'account/edit_profile.html', {'form': form})
+        form = EditProfileForm(
+            instance=user.profile, initial={"phone_number": request.user.username}
+        )
+    return render(request, "account/edit_profile.html", {"form": form})

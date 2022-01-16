@@ -80,7 +80,7 @@ class DoctorForm(forms.ModelForm):
             "age",
             "bio",
             "medical_code",
-            "parvaneh_tebabat"
+            "parvaneh_tebabat",
         )
 
         labels = {

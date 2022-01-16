@@ -1,13 +1,29 @@
 from django.urls import path
 
 from .views import (  # InsuranceCreateVIew,; InsuranceDeleteView,; InsuranceListView,; InsuranceUpdateView,
-    ComanyDeleteView, CompanyCreateView, CompanyListView, CompanyUpdateView,
-    ComplimentListVIew, DoctoDictonaryUpdate, DoctorDictCatCrate,
-    DoctorDictCatDelete, DoctorDictCategoryListView, DoctorDictCatUpdate,
-    DoctorDictionaryCreate, DoctorDictionaryDelete, DoctorDictionaryList,
-    PrescriptionCreate, PrescriptionDeleteVIew, PrescriptionDetailView,
-    PrescriptionListView, PrescriptionUpdate, PriceCreateVIew, PriceDeleteView,
-    PriceListView, PriceUpdateView)
+    ComanyDeleteView,
+    CompanyCreateView,
+    CompanyListView,
+    CompanyUpdateView,
+    ComplimentListVIew,
+    DoctoDictonaryUpdate,
+    DoctorDictCatCrate,
+    DoctorDictCatDelete,
+    DoctorDictCategoryListView,
+    DoctorDictCatUpdate,
+    DoctorDictionaryCreate,
+    DoctorDictionaryDelete,
+    DoctorDictionaryList,
+    PrescriptionCreate,
+    PrescriptionDeleteVIew,
+    PrescriptionDetailView,
+    PrescriptionListView,
+    PrescriptionUpdate,
+    PriceCreateVIew,
+    PriceDeleteView,
+    PriceListView,
+    PriceUpdateView,
+)
 
 app_name = "partial"
 urlpatterns = (
@@ -61,14 +77,15 @@ urlpatterns = (
     path("compliment_list/", ComplimentListVIew.as_view(), name="compliment"),
     path("dr_dict_cat_list/", DoctorDictCategoryListView.as_view(), name="dr_cat_list"),
     path("dr_dict_cat_create/", DoctorDictCatCrate.as_view(), name="dr_cat_create"),
-
-    path("dr_dict_cat/update/<int:id>/", DoctorDictCatUpdate.as_view(), name="dr_cat_update"),
-
     path(
         "dr_dict_cat/update/<int:id>/",
         DoctorDictCatUpdate.as_view(),
         name="dr_cat_update",
     ),
-
+    path(
+        "dr_dict_cat/update/<int:id>/",
+        DoctorDictCatUpdate.as_view(),
+        name="dr_cat_update",
+    ),
     path("dr_dict_cat/delete/<int:id>/", DoctorDictCatDelete, name="dr_cat_delete"),
 )

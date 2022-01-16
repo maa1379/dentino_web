@@ -7,40 +7,71 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='About_Us',
+            name="About_Us",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("content", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='Contact_Us',
+            name="Contact_Us",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, max_length=200, null=True)),
-                ('message', models.TextField(blank=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(blank=True, max_length=200, null=True)),
+                ("message", models.TextField(blank=True, null=True)),
             ],
         ),
         migrations.CreateModel(
-            name='SiteConfig',
+            name="SiteConfig",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=125)),
-                ('description', models.TextField()),
-                ('icon', models.ImageField(upload_to='images/icon/')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=125)),
+                ("description", models.TextField()),
+                ("icon", models.ImageField(upload_to="images/icon/")),
             ],
         ),
         migrations.CreateModel(
-            name='Slider',
+            name="Slider",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=125)),
-                ('picture', models.ImageField(upload_to='images/sliders/%Y/%m')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=125)),
+                ("picture", models.ImageField(upload_to="images/sliders/%Y/%m")),
             ],
         ),
     ]

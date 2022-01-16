@@ -7,19 +7,31 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Common_Course',
+            name="Common_Course",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=500)),
-                ('image', models.ImageField(upload_to='images/common_course')),
-                ('description', models.TextField()),
-                ('source', models.CharField(max_length=125)),
-                ('video', models.FileField(blank=True, null=True, upload_to='common_course/video')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=500)),
+                ("image", models.ImageField(upload_to="images/common_course")),
+                ("description", models.TextField()),
+                ("source", models.CharField(max_length=125)),
+                (
+                    "video",
+                    models.FileField(
+                        blank=True, null=True, upload_to="common_course/video"
+                    ),
+                ),
             ],
         ),
     ]

@@ -1,14 +1,24 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
-                                  View)
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, View
 
 from config.mixins import SuperUserMixin
 
-from .forms import (CompanyForm, DoctorDictCatForm, DoctorDictionaryForm,
-                    PrescriptionForm, PriceForm)
-from .models import (Company, Complaint, DoctorDictionary,
-                     DoctorDictionaryCategory, Prescriptions, Price)
+from .forms import (
+    CompanyForm,
+    DoctorDictCatForm,
+    DoctorDictionaryForm,
+    PrescriptionForm,
+    PriceForm,
+)
+from .models import (
+    Company,
+    Complaint,
+    DoctorDictionary,
+    DoctorDictionaryCategory,
+    Prescriptions,
+    Price,
+)
 
 
 class DoctorDictCategoryListView(ListView):
@@ -32,11 +42,11 @@ class DoctorDictCatUpdate(UpdateView):
     slug_url_kwarg = "id"
 
 
-
 def DoctorDictCatDelete(request, id):
     dict_cat = get_object_or_404(DoctorDictionaryCategory, id=id)
     dict_cat.delete()
     return redirect("partial:dr_cat_list")
+
 
 class DoctorDictCategoryListView(ListView):
     model = DoctorDictionaryCategory
@@ -49,7 +59,8 @@ class DoctorDictCatCrate(CreateView):
     template_name = "partial/dr_cat_create.html"
     success_url = reverse_lazy("partial:dr_cat_list")
 
-class  DoctorDictCatUpdate(UpdateView):
+
+class DoctorDictCatUpdate(UpdateView):
     model = DoctorDictionaryCategory
     form_class = DoctorDictCatForm
     template_name = "partial/dr_cat_update.html"
@@ -58,11 +69,10 @@ class  DoctorDictCatUpdate(UpdateView):
     slug_url_kwarg = "id"
 
 
-def DoctorDictCatDelete(request,id):
-    dict_cat=get_object_or_404(DoctorDictionaryCategory,id=id)
+def DoctorDictCatDelete(request, id):
+    dict_cat = get_object_or_404(DoctorDictionaryCategory, id=id)
     dict_cat.delete()
     return redirect("partial:dr_cat_list")
-
 
 
 class PrescriptionListView(SuperUserMixin, ListView):

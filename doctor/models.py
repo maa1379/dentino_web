@@ -3,7 +3,8 @@ import datetime
 from django.core.validators import RegexValidator
 
 # import reservation.models
-import  clinic.models
+import clinic.models
+
 regex = RegexValidator(
     regex=r"^\d{10}$",
     message=(
@@ -16,12 +17,14 @@ from django.db import models
 
 
 class IntegerRangeField(models.IntegerField):
-    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+    def __init__(
+        self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs
+    ):
         self.min_value, self.max_value = min_value, max_value
         models.IntegerField.__init__(self, verbose_name, name, **kwargs)
 
     def formfield(self, **kwargs):
-        defaults = {'min_value': self.min_value, 'max_value': self.max_value}
+        defaults = {"min_value": self.min_value, "max_value": self.max_value}
         defaults.update(kwargs)
         return super(IntegerRangeField, self).formfield(**defaults)
 
@@ -54,7 +57,11 @@ class Doctor(models.Model):
     # service = models.ForeignKey(Service, on_delete=models.CASCADE)
     insurance = models.ManyToManyField(Insurance)
     clinic = models.ForeignKey(
-        clinic.models.Clinic, on_delete=models.CASCADE, related_name="doctor", null=True, blank=True
+        clinic.models.Clinic,
+        on_delete=models.CASCADE,
+        related_name="doctor",
+        null=True,
+        blank=True,
     )
     expertise = models.ManyToManyField(Expertise, related_name="doctor")
     full_name = models.CharField(max_length=250, null=True, blank=True)
@@ -115,7 +122,9 @@ class DoctorDate(models.Model):
 
 class Discount(models.Model):
     expertise = models.ForeignKey(Expertise, on_delete=models.CASCADE)
-    clinic = models.ForeignKey(clinic.models.Clinic, on_delete=models.CASCADE, related_name="discount")
+    clinic = models.ForeignKey(
+        clinic.models.Clinic, on_delete=models.CASCADE, related_name="discount"
+    )
     percent = IntegerRangeField(min_value=1, max_value=100)
 
 
@@ -131,6 +140,7 @@ class DisAdvantage(models.Model):
 
     def __str__(self):
         return self.title
+
 
 #
 # class DoctorVoting(models.Model):
