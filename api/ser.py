@@ -17,7 +17,7 @@ user = get_user_model()
 
 class ClinicRegister(serializers.Serializer):
     username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField()
 
 
 
