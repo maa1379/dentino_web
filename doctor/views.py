@@ -159,6 +159,8 @@ class DoctorCreateView(CreateView):
 
     def form_valid(self, form):
         new = form.save(commit=False)
+        cd=form.cleaned_data
+        # doctor=get_object_or_404(Doctor,)
         if self.request.user.profile.is_clinic:
             clinic = Clinic.objects.get(id=self.request.user.profile.clinic.id)
         else:

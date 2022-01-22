@@ -34,18 +34,24 @@ def UniqueGenerator(length=8):
 
 # Create your models here.
 class Profile(models.Model):
+    TYPE=(
+        ("عادی","عادی"),
+        ("کلینیک","کلینیک"),
+        ("فروشگاه","فروشگاه")
+
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     national_code = models.CharField(max_length=10, null=True, blank=True)
     name = models.CharField(max_length=125, default="")
     family = models.CharField(max_length=125, default="")
     is_done = models.BooleanField(default=False)
-    is_clinic = models.BooleanField(default=False)
     clinic = models.OneToOneField(
         Clinic, on_delete=models.CASCADE, blank=True, null=True
     )
     referral_code = models.CharField(max_length=8, default=UniqueGenerator)
     invite_code = models.CharField(max_length=8, default="")
     rate = models.IntegerField()
+    type=models.CharField(max_length=10,choices=TYPE)
 
     @property
     def invited_user_count(self):

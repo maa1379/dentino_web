@@ -1,3 +1,4 @@
+from asyncio import exceptions
 import random
 from datetime import timedelta
 from decimal import Decimal
@@ -85,6 +86,12 @@ def UniqueGenerator(length=8):
 
 
 from django.conf import settings
+
+
+class UserTypeApiView(GenericAPIView):
+    def get(self):
+        user_type = self.request.user.profile.type
+        return SuccessResponse(data=user_type, status=200).send()
 
 
 class DiscountCreateApiView(generics.CreateAPIView):
@@ -834,14 +841,15 @@ class ClinicListApiView(generics.ListAPIView):
     serializer_class = ClinicSerializer
     model = Clinic
 
-    def get(self, request, *args, **kwargs):
-        # try:
-        instance = self.model.objects.all()
-        serialize_data = self.get_serializer(instance, many=True).data
-        return SuccessResponse(data=serialize_data, status=201).send()
+    def post(self, request, *args, **kwargs):
+        clinic_type = request.POST.get("clinic_type")
+        try:
+            instance = self.model.objects.filter(type=clinic_type)
+            serialize_data = self.get_serializer(instance, many=True).data
+            return SuccessResponse(data=serialize_data, status=201).send()
 
-    # except:
-    #     return ErrorResponse(message="failed.", status=404).send()
+        except exceptions as e:
+            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST).send()
 
 
 class ClinicDoctorListApiView(generics.ListAPIView):

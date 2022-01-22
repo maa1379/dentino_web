@@ -56,11 +56,13 @@ from .views import (
     my_django_view,
     paymentno,
     paymentok,
+    UserTypeApiView,
 )
 
 app_name = "api"
 
 urlpatterns = [
+    path('user_type/',UserTypeApiView.as_view(),name="user_type"),
     path("order_create/", OrderCreate.as_view(), name="order_create"),
     path("order_create/", OrderCreate.as_view(), name="order_create"),
     path("medical_login/", ClinicLoginApiView.as_view(), name="clinic_login"),

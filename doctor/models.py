@@ -56,12 +56,9 @@ class Doctor(models.Model):
     medical_code = models.CharField(max_length=11)
     # service = models.ForeignKey(Service, on_delete=models.CASCADE)
     insurance = models.ManyToManyField(Insurance)
-    clinic = models.ForeignKey(
+    clinic = models.ManyToManyField(
         clinic.models.Clinic,
-        on_delete=models.CASCADE,
         related_name="doctor",
-        null=True,
-        blank=True,
     )
     expertise = models.ManyToManyField(Expertise, related_name="doctor")
     full_name = models.CharField(max_length=250, null=True, blank=True)
