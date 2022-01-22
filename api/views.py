@@ -93,9 +93,9 @@ class ClinicRegisterApiView(GenericAPIView):
                             "access": str(token.access_token),
                             "clinic_name": user.profile.clinic.name,
                         }
-                    return SuccessResponse(data=data, status=status.HTTP_200_OK)
+                    return SuccessResponse(data=data, status=status.HTTP_200_OK).send()
                 except User.DoesNotExist as e:
-                    return ErrorResponse(message=e)
+                    return ErrorResponse(message=e).send()
         except Exception as e:
             return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST).send()
 
