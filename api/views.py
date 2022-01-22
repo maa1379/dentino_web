@@ -54,7 +54,7 @@ from .ser import (About_usSerializer, AddToCartSerializer,
                   ProductListSerializer, ProvinceSerializer,
                   RegisterSerializer, RseSerializer, SliderSerializer, TimeSer,
                   UserProfile, UserReservationSerializer, UserUpdateSerializer,
-                  UserVerifySerializer, clinicLoginSerializer,ClinicRegister)
+                  UserVerifySerializer, clinicLoginSerializer, ClinicRegister)
 
 
 def UniqueGenerator(length=8):
@@ -69,31 +69,33 @@ from django.conf import settings
 
 
 class UserTypeApiView(GenericAPIView):
-    def get(self,request):
+    def get(self, request):
         user_type = self.request.user.profile.type
         # print(user_type)
         return SuccessResponse(data=user_type, status=200).send()
 
+
 class ClinicRegisterApiView(GenericAPIView):
     serializer_class = ClinicRegister
+
     def post(self, request):
         try:
             serialized_data = self.serializer_class(data=request.data)
             if serialized_data.is_valid(raise_exception=True):
                 username = serialized_data.data['username']
-                password=serialized_data.data["password"]
-                user=authenticate(request,username=username,password=password)
+                password = serialized_data.data["password"]
+                user = authenticate(request, username=username, password=password)
                 try:
                     if user:
                         token = RefreshToken.for_user(user)
                         data = {
-                        "refresh": str(token),
-                        "access": str(token.access_token),
-                        "clinic_name": user.profile.clinic.name,
+                            "refresh": str(token),
+                            "access": str(token.access_token),
+                            "clinic_name": user.profile.clinic.name,
                         }
-                    return SuccessResponse(data=data,status=status.HTTP_200_OK)
+                    return SuccessResponse(data=data, status=status.HTTP_200_OK)
                 except User.DoesNotExist as e:
-                        return ErrorResponse(message=e)
+                    return ErrorResponse(message=e)
         except Exception as e:
             return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST).send()
 
@@ -844,6 +846,7 @@ class CommonCourseApiView(generics.ListAPIView):
 class ClinicListApiView(GenericAPIView):
     serializer_class = ClinicSerializer
     model = Clinic
+
     def post(self, request, *args, **kwargs):
         # clinic_type = request.POST.get("clinic_type")
         try:
@@ -1257,6 +1260,7 @@ class ToBank(GenericAPIView):
 
 
 from django.views.generic import View
+
 
 # return HttpResponseRedirect(redirect_to=f'{star_pay_url}{authority}')
 

@@ -24,7 +24,7 @@ from .views import (About_usApiView, AddToCart, CatDicListApiView,
 app_name = "api"
 
 urlpatterns = [
-    path("clinic_register/",ClinicRegisterApiView.as_view(),name="clinic_register"),
+    path("clinic_Login/",ClinicRegisterApiView.as_view(),name="clinic_register"),
     path('user_type/',UserTypeApiView.as_view(),name="user_type"),
     path("order_create/", OrderCreate.as_view(), name="order_create"),
     path("order_create/", OrderCreate.as_view(), name="order_create"),
