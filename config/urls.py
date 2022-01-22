@@ -1,17 +1,8 @@
 from django.urls import path
 
-from .views import (
-    AboutUS_View,
-    AddSliderView,
-    HomeView,
-    PanelLoginView,
-    PanelLogoutView,
-    PanelView,
-    SiteConfigView,
-    SliderDelete,
-    SliderListView,
-    SliderUpdate,
-)
+from .views import (AboutUS_View, AddSliderView, HomeView, PanelLoginView,
+                    PanelLogoutView, PanelView, SiteConfigView, SliderDelete,
+                    SliderListView, SliderUpdate)
 
 app_name = "config"
 urlpatterns = [

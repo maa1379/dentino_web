@@ -12,7 +12,8 @@ class ExpertiseSerializer(serializers.ModelSerializer):
     # return VisitTime.objects.filter(doctor__clinic__name=obj.name)
 
 
-from django_jalali.serializers.serializerfield import JDateField, JDateTimeField
+from django_jalali.serializers.serializerfield import (JDateField,
+                                                       JDateTimeField)
 
 
 class VisitTimeSerializer(serializers.ModelSerializer):

@@ -1,12 +1,7 @@
 from django.urls import path
 
-from .views import (
-    CommonCourseCreate,
-    CommonCourseDelete,
-    CommonCourseDetail,
-    CommonCourseList,
-    CommonCourseUpdate,
-)
+from .views import (CommonCourseCreate, CommonCourseDelete, CommonCourseDetail,
+                    CommonCourseList, CommonCourseUpdate)
 
 app_name = "commmon_course"
 urlpatterns = [

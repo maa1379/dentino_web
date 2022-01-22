@@ -1,5 +1,5 @@
-from asyncio import exceptions
 import random
+from asyncio import exceptions
 from datetime import timedelta
 from decimal import Decimal
 
@@ -27,54 +27,34 @@ from clinic.models import Clinic, Winner
 from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
 from doctor.api.serailizers import DoctorSer, VisitTimeSerializer
-from doctor.models import Discount, Doctor, DoctorDate, Expertise, Insurance, VisitTime
+from doctor.models import (Discount, Doctor, DoctorDate, Expertise, Insurance,
+                           VisitTime)
 from location.models import City, Province, Zone
 from order.models import Order, OrderItem
-from partial.models import Company, Complaint, DoctorDictionary, Prescriptions, Price
+from partial.models import (Company, Complaint, DoctorDictionary,
+                            Prescriptions, Price)
 from reservation.models import Reservation
 from shop.models import Category, Product
 from utilities.respones import ErrorResponse, SuccessResponse
+
 from .filters import DoctorFilter
-from .ser import (
-    About_usSerializer,
-    AddToCartSerializer,
-    CategoryListSerializer,
-    CitySerializer,
-    ClinicDetailSerializer,
-    ClinicSerializer,
-    ClinicShortSeralizer,
-    CommonDetailSerializer,
-    CommonListSerializer,
-    CompanySerializer,
-    ComplimentSerializer,
-    ContactUsSerializer,
-    DeleteCartItemSerializer,
-    DictCategorySer,
-    DiscountCRUDSerializer,
-    DiscountListSerializer,
-    DoctorCreateSerializer,
-    DoctorDictionarySerializer,
-    DoctorProfileSerializer,
-    DoctorSerializer,
-    ExpertiseSerializer,
-    InsuranceSerializer,
-    OrderDetailSerializer,
-    OrderListSerializer,
-    OrderSerializer,
-    PrescriptionsSerializer,
-    ProductDetailSerializer,
-    ProductListSerializer,
-    ProvinceSerializer,
-    RegisterSerializer,
-    RseSerializer,
-    SliderSerializer,
-    TimeSer,
-    UserProfile,
-    UserReservationSerializer,
-    UserUpdateSerializer,
-    UserVerifySerializer,
-    clinicLoginSerializer,
-)
+from .ser import (About_usSerializer, AddToCartSerializer,
+                  CategoryListSerializer, CitySerializer,
+                  ClinicDetailSerializer, ClinicSerializer,
+                  ClinicShortSeralizer, CommonDetailSerializer,
+                  CommonListSerializer, CompanySerializer,
+                  ComplimentSerializer, ContactUsSerializer,
+                  DeleteCartItemSerializer, DictCategorySer,
+                  DiscountCRUDSerializer, DiscountListSerializer,
+                  DoctorCreateSerializer, DoctorDictionarySerializer,
+                  DoctorProfileSerializer, DoctorSerializer,
+                  ExpertiseSerializer, InsuranceSerializer,
+                  OrderDetailSerializer, OrderListSerializer, OrderSerializer,
+                  PrescriptionsSerializer, ProductDetailSerializer,
+                  ProductListSerializer, ProvinceSerializer,
+                  RegisterSerializer, RseSerializer, SliderSerializer, TimeSer,
+                  UserProfile, UserReservationSerializer, UserUpdateSerializer,
+                  UserVerifySerializer, clinicLoginSerializer,ClinicRegister)
 
 
 def UniqueGenerator(length=8):
@@ -93,6 +73,29 @@ class UserTypeApiView(GenericAPIView):
         user_type = self.request.user.profile.type
         # print(user_type)
         return SuccessResponse(data=user_type, status=200).send()
+
+class ClinicRegisterApiView(GenericAPIView):
+    serializer_class = ClinicRegister
+    def post(self, request):
+        try:
+            serialized_data = self.serializer_class(data=request.data)
+            if serialized_data.is_valid(raise_exception=True):
+                username = serialized_data.data['username']
+                password=serialized_data.data["password"]
+                user=authenticate(request,username=username,password=password)
+                try:
+                    if user:
+                        token = RefreshToken.for_user(user)
+                        data = {
+                        "refresh": str(token),
+                        "access": str(token.access_token),
+                        "clinic_name": user.profile.clinic.name,
+                        }
+                    return SuccessResponse(data=data,status=status.HTTP_200_OK)
+                except User.DoesNotExist as e:
+                        return ErrorResponse(message=e)
+        except Exception as e:
+            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST).send()
 
 
 class DiscountCreateApiView(generics.CreateAPIView):
@@ -838,14 +841,13 @@ class CommonCourseApiView(generics.ListAPIView):
             return ErrorResponse(message="failed.", status=404).send()
 
 
-class ClinicListApiView(generics.ListAPIView):
+class ClinicListApiView(GenericAPIView):
     serializer_class = ClinicSerializer
     model = Clinic
-
     def post(self, request, *args, **kwargs):
-        clinic_type = request.POST.get("clinic_type")
+        # clinic_type = request.POST.get("clinic_type")
         try:
-            instance = self.model.objects.filter(type=clinic_type)
+            instance = self.model.objects.filter(verified=True)
             serialize_data = self.get_serializer(instance, many=True).data
             return SuccessResponse(data=serialize_data, status=201).send()
 
@@ -1255,7 +1257,6 @@ class ToBank(GenericAPIView):
 
 
 from django.views.generic import View
-
 
 # return HttpResponseRedirect(redirect_to=f'{star_pay_url}{authority}')
 

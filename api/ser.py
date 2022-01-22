@@ -8,17 +8,17 @@ from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
 from doctor.models import Discount, Doctor, Expertise, Insurance, VisitTime
 from location.models import City, Province, Zone
-from partial.models import (
-    Company,
-    Complaint,
-    DoctorDictionary,
-    DoctorDictionaryCategory,
-    Prescriptions,
-    Price,
-)
+from partial.models import (Company, Complaint, DoctorDictionary,
+                            DoctorDictionaryCategory, Prescriptions, Price)
 from shop.models import Category, Product
 
 user = get_user_model()
+
+
+class ClinicRegister(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+
 
 
 class DiscountListSerializer(serializers.ModelSerializer):

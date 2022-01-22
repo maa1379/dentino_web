@@ -1,24 +1,12 @@
 from django.urls import path
 
-from .views import (
-    DeleteDiscount,
-    DoctorCreateView,
-    DoctorDeleteView,
-    DoctorDetailView,
-    DoctorListView,
-    DoctorUpdateView,
-    ExpertiseCreateView,
-    ExpertiseDelete,
-    ExpertiseListView,
-    ExpertiseUpdateView,
-    InsuranceCreateVIew,
-    InsuranceDeleteView,
-    InsuranceListView,
-    InsuranceUpdateView,
-    Unverified_Doctor_ListView,
-    VisitTimeView,
-    verify_doctor,
-)
+from .views import (DeleteDiscount, DoctorCreateView, DoctorDeleteView,
+                    DoctorDetailView, DoctorListView, DoctorUpdateView,
+                    ExpertiseCreateView, ExpertiseDelete, ExpertiseListView,
+                    ExpertiseUpdateView, InsuranceCreateVIew,
+                    InsuranceDeleteView, InsuranceListView,
+                    InsuranceUpdateView, Unverified_Doctor_ListView,
+                    VisitTimeView, verify_doctor)
 
 app_name = "doctor"
 

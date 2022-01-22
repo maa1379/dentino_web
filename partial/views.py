@@ -1,24 +1,14 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, View
+from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
+                                  View)
 
 from config.mixins import SuperUserMixin
 
-from .forms import (
-    CompanyForm,
-    DoctorDictCatForm,
-    DoctorDictionaryForm,
-    PrescriptionForm,
-    PriceForm,
-)
-from .models import (
-    Company,
-    Complaint,
-    DoctorDictionary,
-    DoctorDictionaryCategory,
-    Prescriptions,
-    Price,
-)
+from .forms import (CompanyForm, DoctorDictCatForm, DoctorDictionaryForm,
+                    PrescriptionForm, PriceForm)
+from .models import (Company, Complaint, DoctorDictionary,
+                     DoctorDictionaryCategory, Prescriptions, Price)
 
 
 class DoctorDictCategoryListView(ListView):
