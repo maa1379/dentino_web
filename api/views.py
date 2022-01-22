@@ -859,7 +859,7 @@ class ClinicDoctorListApiView(generics.ListAPIView):
     serializer_class = DoctorSerializer
     model = Doctor
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         clinic = request.POST.get("clinic_id")
         try:
             instance = self.model.objects.filter(clinic=clinic)
