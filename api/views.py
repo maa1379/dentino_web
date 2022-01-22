@@ -89,8 +89,9 @@ from django.conf import settings
 
 
 class UserTypeApiView(GenericAPIView):
-    def get(self):
+    def get(self,request):
         user_type = self.request.user.profile.type
+        # print(user_type)
         return SuccessResponse(data=user_type, status=200).send()
 
 

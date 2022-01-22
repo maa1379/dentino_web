@@ -51,7 +51,7 @@ class Profile(models.Model):
     referral_code = models.CharField(max_length=8, default=UniqueGenerator)
     invite_code = models.CharField(max_length=8, default="")
     rate = models.IntegerField()
-    type=models.CharField(max_length=10,choices=TYPE)
+    type=models.CharField(max_length=10,choices=TYPE,null=True,blank=True)
 
     @property
     def invited_user_count(self):
