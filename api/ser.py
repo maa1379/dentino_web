@@ -384,9 +384,9 @@ class ClinicPanelSerializer(serializers.ModelSerializer):
 
     def get_doctor_number(self, obj):
         return obj.discount.all().count()
-
-    def get_insurances_number(self, obj):
-        return obj.doctor.insurance.all().count()
+    #
+    # def get_insurances_number(self, obj):
+    #     return obj.doctor.insurance.all().count()
 
     def get_clinic_discount_number(self, obj):
         return obj.discount.all().count()
