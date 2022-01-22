@@ -367,7 +367,7 @@ class ClinicSerializer(serializers.ModelSerializer):
 
 class ClinicPanelSerializer(serializers.ModelSerializer):
     companies_number = serializers.SerializerMethodField()
-    insurances_number = serializers.SerializerMethodField()
+    # insurances_number = serializers.SerializerMethodField()
     clinic_discount_number = serializers.SerializerMethodField()
     doctor_number = serializers.SerializerMethodField()
     reservtion_number = serializers.SerializerMethodField()
