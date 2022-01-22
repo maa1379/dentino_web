@@ -19,11 +19,12 @@ from .views import (About_usApiView, AddToCart, CatDicListApiView,
                     UserProfileApiView, UserReferralCodeApiView,
                     UserReserveList, UserTypeApiView, Verify,
                     VerifyUserRegister, WinnerApiView, ZoneListApiView,
-                    my_django_view, paymentno, paymentok,ClinicRegisterApiView)
+                    my_django_view, paymentno, paymentok,ClinicRegisterApiView,ClinicPanelView)
 
 app_name = "api"
 
 urlpatterns = [
+    path("clinic_panel/",ClinicPanelView.as_view(),name="clinic_panel"),
     path("clinic_Login/",ClinicRegisterApiView.as_view(),name="clinic_register"),
     path('user_type/',UserTypeApiView.as_view(),name="user_type"),
     path("order_create/", OrderCreate.as_view(), name="order_create"),

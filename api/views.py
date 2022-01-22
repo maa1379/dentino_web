@@ -54,7 +54,7 @@ from .ser import (About_usSerializer, AddToCartSerializer,
                   ProductListSerializer, ProvinceSerializer,
                   RegisterSerializer, RseSerializer, SliderSerializer, TimeSer,
                   UserProfile, UserReservationSerializer, UserUpdateSerializer,
-                  UserVerifySerializer, clinicLoginSerializer, ClinicRegister)
+                  UserVerifySerializer, clinicLoginSerializer, ClinicRegister, ClinicPanelSerializer)
 
 
 def UniqueGenerator(length=8):
@@ -73,6 +73,14 @@ class UserTypeApiView(GenericAPIView):
         user_type = self.request.user.profile.type
         # print(user_type)
         return SuccessResponse(data=user_type, status=200).send()
+
+
+class ClinicPanelView(GenericAPIView):
+    def get(self, request):
+        user_clinic = request.user.profile.clinic.id
+        clinic = get_object_or_404(Clinic, id=user_clinic)
+        data = ClinicPanelSerializer(clinic).data
+        return SuccessResponse(data=data, status=status.HTTP_200_OK).send()
 
 
 class ClinicRegisterApiView(GenericAPIView):

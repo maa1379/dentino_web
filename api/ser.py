@@ -20,7 +20,6 @@ class ClinicRegister(serializers.Serializer):
     password = serializers.CharField()
 
 
-
 class DiscountListSerializer(serializers.ModelSerializer):
     clinic_name = serializers.SerializerMethodField()
     expertise_name = serializers.SerializerMethodField()
@@ -364,6 +363,33 @@ class ClinicSerializer(serializers.ModelSerializer):
     def get_clinic_discount(self, obj):
         discount = Discount.objects.filter(clinic=obj)
         return DiscountClinicSerializer(discount, many=True).data
+
+
+class ClinicPanelSerializer(serializers.ModelSerializer):
+    companies_number = serializers.SerializerMethodField()
+    insurances_number = serializers.SerializerMethodField()
+    clinic_discount_number = serializers.SerializerMethodField()
+    doctor_number = serializers.SerializerMethodField()
+    reservtion_number = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Clinic
+        fields = ("name", "companies_number", "clinic_discount_number","doctor_number","reservtion_number")
+
+    def get_companies_number(self, obj):
+        return obj.company.all().count()
+
+    def get_reservtion_number(self, obj):
+        return Reservation.objects.filter(doctor__clinic=obj).count()
+
+    def get_doctor_number(self, obj):
+        return obj.discount.all().count()
+
+    def get_insurances_number(self, obj):
+        return obj.doctor.insurance.all().count()
+
+    def get_clinic_discount_number(self, obj):
+        return obj.discount.all().count()
 
 
 class ClinicShortSeralizer(serializers.ModelSerializer):
