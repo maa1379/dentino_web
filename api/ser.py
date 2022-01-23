@@ -610,10 +610,17 @@ class ClinicDetailSerializer(serializers.ModelSerializer):
         return Reservation.objects.filter(doctor__clinic=obj).count()
 
 
+from drf_extra_fields.fields import Base64ImageField
+
+
 class DoctorCreateSerializer(serializers.ModelSerializer):
-    expertise=serializers.CharField()
-    insurance=serializers.CharField()
-    clinic=serializers.CharField()
+    expertise = serializers.CharField()
+    insurance = serializers.CharField()
+    clinic = serializers.CharField()
+    profile = Base64ImageField()
+    parvaneh_tebabat = Base64ImageField()
+    ID_photo = Base64ImageField()
+
     class Meta:
         model = Doctor
         fields = (
@@ -621,14 +628,14 @@ class DoctorCreateSerializer(serializers.ModelSerializer):
             "family",
             "national_code",
             "phone_number",
-            # "ID_photo",
-            # "profile",
+            "ID_photo",
+            "profile",
             "medical_code",
             "insurance",
             "expertise",
             "bio",
             "age",
-            # "parvaneh_tebabat",
+            "parvaneh_tebabat",
             "clinic"
         )
 
@@ -648,6 +655,3 @@ class DoctorCreateSerializer(serializers.ModelSerializer):
         #     for exp in expertise:
         #         Doctor.expertise.add(Expertise.objects.get(id=exp),**validated_data)
         #     return expertise
-
-
-

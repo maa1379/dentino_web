@@ -18,7 +18,7 @@ from django.db import models
 
 class IntegerRangeField(models.IntegerField):
     def __init__(
-        self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs
+            self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs
     ):
         self.min_value, self.max_value = min_value, max_value
         models.IntegerField.__init__(self, verbose_name, name, **kwargs)
@@ -44,15 +44,14 @@ class Expertise(models.Model):
     def __str__(self):
         return self.title
 
-
 # Create your models here.
 class Doctor(models.Model):
     name = models.CharField(max_length=100)
     family = models.CharField(max_length=100)
     national_code = models.CharField(max_length=11)
     phone_number = models.CharField(max_length=11)
-    # ID_photo = models.ImageField(upload_to="images/doctor/ID_photo/")
-    # profile = models.ImageField(upload_to="images/doctor/profile/")
+    ID_photo = models.FileField(upload_to="images/doctor/ID_photo/", null=True, blank=True)
+    profile = models.FileField(upload_to="images/doctor/profile/", null=True, blank=True)
     medical_code = models.CharField(max_length=11)
     # service = models.ForeignKey(Service, on_delete=models.CASCADE)
     insurance = models.ManyToManyField(Insurance)
@@ -65,9 +64,9 @@ class Doctor(models.Model):
     bio = models.TextField(blank=True, null=True)
     age = IntegerRangeField(min_value=20, max_value=100)
     star = models.PositiveIntegerField(blank=True, null=True)
-    # parvaneh_tebabat = models.ImageField(
-    #     upload_to="images/doctor/", null=True, blank=True
-    # )
+    parvaneh_tebabat = models.FileField(
+        upload_to="images/doctor/", null=True, blank=True
+    )
     verified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -137,7 +136,6 @@ class DisAdvantage(models.Model):
 
     def __str__(self):
         return self.title
-
 
 #
 # class DoctorVoting(models.Model):

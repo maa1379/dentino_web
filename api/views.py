@@ -6,6 +6,7 @@ from decimal import Decimal
 # from django.http import HttpRespone
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.core.files.base import ContentFile
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import View
 from django_filters import rest_framework as filters
@@ -79,7 +80,7 @@ from .ser import (
     UserVerifySerializer,
     clinicLoginSerializer,
 )
-
+import base64
 
 def UniqueGenerator(length=8):
     source = "0123456789"
@@ -155,10 +156,16 @@ class DiscountDeleteView(GenericAPIView):
 
 from rest_framework import viewsets
 
+import base64
+
+from django.core.files.base import ContentFile
+
 
 class DoctorCreateApiView(viewsets.ModelViewSet):
     serializer_class = DoctorCreateSerializer
     queryset = Doctor.objects.all()
+
+
 
     def perform_create(self, serializer):
         doctor_obj = Doctor()
@@ -169,6 +176,21 @@ class DoctorCreateApiView(viewsets.ModelViewSet):
         doctor_obj.medical_code = self.request.data['medical_code']
         doctor_obj.bio = self.request.data['bio']
         doctor_obj.age = self.request.data['age']
+        id_photo_data=self.request.data["ID_photo"]
+        format, imgstr = id_photo_data.split(';base64,')
+        ext = format.split('/')[-1]
+        ID_Photo = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
+        doctor_obj.ID_photo=ID_Photo
+        profile_data=self.request.data["profile"]
+        format, imgstr = profile_data.split(';base64,')
+        ext = format.split('/')[-1]
+        profile = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
+        doctor_obj.profile=profile
+        parvaneh_tebabat_data=self.request.data["parvaneh_tebabat"]
+        format, imgstr = parvaneh_tebabat_data.split(';base64,')
+        ext = format.split('/')[-1]
+        parvaneh_tebabat = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
+        doctor_obj.parvaneh_tebabat=parvaneh_tebabat
         doctor_obj.save()
 
         insurance = self.request.data['insurance'].split(',')
@@ -184,7 +206,7 @@ class DoctorCreateApiView(viewsets.ModelViewSet):
             target = Expertise.objects.get(id=int(id))
             doctor_obj.expertise.add(target)
 
-        print(self.request.data)
+        # print(self.request.data)
 
 
     def post(self, request):

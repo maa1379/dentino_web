@@ -49,6 +49,8 @@
 #     "commoncourse.apps.CommoncourseConfig",
 #     "jdatetime",
 #     "minio_storage",
+#
+#
 # ]
 #
 # MIDDLEWARE = [
