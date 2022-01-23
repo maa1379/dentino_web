@@ -1,9 +1,18 @@
 from django.urls import path
 
-from .views import (ClinicCreateView, ClinicDeleteView, ClinicDetailView,
-                    ClinicListView, ClinicUpdateVIew, CreateDiscount,
-                    DiscountDelete, DiscountListView, UnverifiedClinicListView,
-                    UpdateDiscount, VerifyClinic)
+from .views import (
+    ClinicCreateView,
+    ClinicDeleteView,
+    ClinicDetailView,
+    ClinicListView,
+    ClinicUpdateVIew,
+    CreateDiscount,
+    DiscountDelete,
+    DiscountListView,
+    UnverifiedClinicListView,
+    UpdateDiscount,
+    VerifyClinic,
+)
 
 app_name = "clinic"
 urlpatterns = [

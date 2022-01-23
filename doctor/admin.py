@@ -2,8 +2,7 @@ from django.contrib import admin
 
 from doctor.models import VisitTime
 
-from .models import (Discount, Doctor, DoctorDate, Expertise, Insurance,
-                     VisitTime)
+from .models import Discount, Doctor, DoctorDate, Expertise, Insurance, VisitTime
 
 admin.site.register(Doctor)
 

@@ -1,9 +1,18 @@
 from django.urls import path
 
-from .views import (CategoryCreateView, CategoryDeleteView, CategoryDetail,
-                    CategoryListView, CategoryUpdateView, ProductCreateView,
-                    ProductDeleteView, ProductDetail, ProductListView,
-                    ProductUpdateView, SubCategoryListView)
+from .views import (
+    CategoryCreateView,
+    CategoryDeleteView,
+    CategoryDetail,
+    CategoryListView,
+    CategoryUpdateView,
+    ProductCreateView,
+    ProductDeleteView,
+    ProductDetail,
+    ProductListView,
+    ProductUpdateView,
+    SubCategoryListView,
+)
 
 app_name = "shop"
 

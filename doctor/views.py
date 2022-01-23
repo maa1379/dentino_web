@@ -1,8 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import (CreateView, DetailView, ListView, UpdateView,
-                                  View)
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, View
 from kavenegar import KavenegarAPI
 
 from clinic.models import Clinic
@@ -35,53 +34,53 @@ class VisitTimeCreate(CreateView):
 
 
 def VisitTimeView(request):
-#     # print(request.META.get("HTTP_REFERER"))
-#     # perviouse_url = request.META.get("HTTP_REFERER")
-#     # doctor=perviouse_url[-2]
-#     # print(doctor)
-#     # doctor=get_object_or_404(Doctor,id=doctor.id)
-#
-      form = TestForm
-#     # print(request.POST.get("date"))
-#     date = request.POST.get("date")
-#     day = request.POST.get("day")
-#     start_time1 = request.POST.get("start_time1")
-#     start_time2 = request.POST.get("start_time2")
-#     finish_time1 = request.POST.get("finish_time1")
-#     finish_time2 = request.POST.get("finish_time2")
-#     # VisitTime.objects.create(doctor=1,date=date,day=day,start_time1=start_time1,
-#     #                          start_time2=start_time2,finish_time1=finish_time1,finish_time2=finish_time2)
-#
-#     hour_1 = str(start_time1[0:2])
-#     # print(hour_1)
-#     minutes_1 = int(start_time1[3:5])
-#     # hour_2= int(start_time2[0:2])
-#     # minutes_2 = int(start_time2[3:5])
-#     # hour_3 = int(finish_time1[0:2])
-#     # minutes_3 = int(finish_time1[3:5])
-#     # hour_4 = int(finish_time2[0:2])
-#     # minutes_4 = int(finish_time2[3:5])
-#
-#     # test=finish_time1(0,2)
-#     # print(test)
-#     # print(start_time1[:2])
-#     # date_string = f'2021-12-31 +{start_time1}'
-#     # dateobj = datetime.date(2021, 12, 31)
-#     # timeobj = datetime.time(start_time1[:2],start_time1[3:5], 00)
-#     # datetimeobj = datetime(2021,12,31,hour,minutes,00)
-#     # print(datetimeobj)
-#     # start_time1_value=datetime.datetime(2021,5,12,hour_1,minutes_1)
-#     # start_time2_value=datetime.datetime(2021,5,12,hour_2,minutes_2)
-#     # finish_time2_value=datetime.datetime(2021,5,12,hour_2,minutes_2)
-#     # _time2_value=datetime.datetime(2021,5,12,hour_2,minutes_2)
-#     # datetime = datetime.strptime(date_string, '%Y-%m-%d')
-#     # if request.method=="POST":
-#     #     if form.is_valid():
-#     #         day=form.cleaned_data["day"]
-#     #         date=form.cleaned_data["date"]
-#     #
-#     # VisitTime.objects.create(day=day,date=date,doctor=,start_time=start_time1,start_time2=start_time2,finish_time=finish_time1,finish_time2=finish_time2)
-      return render(request, "doctor/visit_time.html", {"form": form})
+    #     # print(request.META.get("HTTP_REFERER"))
+    #     # perviouse_url = request.META.get("HTTP_REFERER")
+    #     # doctor=perviouse_url[-2]
+    #     # print(doctor)
+    #     # doctor=get_object_or_404(Doctor,id=doctor.id)
+    #
+    form = TestForm
+    #     # print(request.POST.get("date"))
+    #     date = request.POST.get("date")
+    #     day = request.POST.get("day")
+    #     start_time1 = request.POST.get("start_time1")
+    #     start_time2 = request.POST.get("start_time2")
+    #     finish_time1 = request.POST.get("finish_time1")
+    #     finish_time2 = request.POST.get("finish_time2")
+    #     # VisitTime.objects.create(doctor=1,date=date,day=day,start_time1=start_time1,
+    #     #                          start_time2=start_time2,finish_time1=finish_time1,finish_time2=finish_time2)
+    #
+    #     hour_1 = str(start_time1[0:2])
+    #     # print(hour_1)
+    #     minutes_1 = int(start_time1[3:5])
+    #     # hour_2= int(start_time2[0:2])
+    #     # minutes_2 = int(start_time2[3:5])
+    #     # hour_3 = int(finish_time1[0:2])
+    #     # minutes_3 = int(finish_time1[3:5])
+    #     # hour_4 = int(finish_time2[0:2])
+    #     # minutes_4 = int(finish_time2[3:5])
+    #
+    #     # test=finish_time1(0,2)
+    #     # print(test)
+    #     # print(start_time1[:2])
+    #     # date_string = f'2021-12-31 +{start_time1}'
+    #     # dateobj = datetime.date(2021, 12, 31)
+    #     # timeobj = datetime.time(start_time1[:2],start_time1[3:5], 00)
+    #     # datetimeobj = datetime(2021,12,31,hour,minutes,00)
+    #     # print(datetimeobj)
+    #     # start_time1_value=datetime.datetime(2021,5,12,hour_1,minutes_1)
+    #     # start_time2_value=datetime.datetime(2021,5,12,hour_2,minutes_2)
+    #     # finish_time2_value=datetime.datetime(2021,5,12,hour_2,minutes_2)
+    #     # _time2_value=datetime.datetime(2021,5,12,hour_2,minutes_2)
+    #     # datetime = datetime.strptime(date_string, '%Y-%m-%d')
+    #     # if request.method=="POST":
+    #     #     if form.is_valid():
+    #     #         day=form.cleaned_data["day"]
+    #     #         date=form.cleaned_data["date"]
+    #     #
+    #     # VisitTime.objects.create(day=day,date=date,doctor=,start_time=start_time1,start_time2=start_time2,finish_time=finish_time1,finish_time2=finish_time2)
+    return render(request, "doctor/visit_time.html", {"form": form})
 
 
 class ExpertiseListView(ListView):
@@ -160,7 +159,7 @@ class DoctorCreateView(CreateView):
 
     def form_valid(self, form):
         new = form.save(commit=False)
-        cd=form.cleaned_data
+        cd = form.cleaned_data
         # doctor=get_object_or_404(Doctor,)
         if self.request.user.profile.is_clinic:
             clinic = Clinic.objects.get(id=self.request.user.profile.clinic.id)

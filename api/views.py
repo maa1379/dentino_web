@@ -27,34 +27,57 @@ from clinic.models import Clinic, Winner
 from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
 from doctor.api.serailizers import DoctorSer, VisitTimeSerializer
-from doctor.models import (Discount, Doctor, DoctorDate, Expertise, Insurance,
-                           VisitTime)
+from doctor.models import Discount, Doctor, DoctorDate, Expertise, Insurance, VisitTime
 from location.models import City, Province, Zone
 from order.models import Order, OrderItem
-from partial.models import (Company, Complaint, DoctorDictionary,
-                            Prescriptions, Price)
+from partial.models import Company, Complaint, DoctorDictionary, Prescriptions, Price
 from reservation.models import Reservation
 from shop.models import Category, Product
 from utilities.respones import ErrorResponse, SuccessResponse
 
 from .filters import DoctorFilter
-from .ser import (About_usSerializer, AddToCartSerializer,
-                  CategoryListSerializer, CitySerializer,
-                  ClinicDetailSerializer, ClinicSerializer,
-                  ClinicShortSeralizer, CommonDetailSerializer,
-                  CommonListSerializer, CompanySerializer,
-                  ComplimentSerializer, ContactUsSerializer,
-                  DeleteCartItemSerializer, DictCategorySer,
-                  DiscountCRUDSerializer, DiscountListSerializer,
-                  DoctorCreateSerializer, DoctorDictionarySerializer,
-                  DoctorProfileSerializer, DoctorSerializer,
-                  ExpertiseSerializer, InsuranceSerializer,
-                  OrderDetailSerializer, OrderListSerializer, OrderSerializer,
-                  PrescriptionsSerializer, ProductDetailSerializer,
-                  ProductListSerializer, ProvinceSerializer,
-                  RegisterSerializer, RseSerializer, SliderSerializer, TimeSer,
-                  UserProfile, UserReservationSerializer, UserUpdateSerializer,
-                  UserVerifySerializer, clinicLoginSerializer, ClinicRegister, ClinicPanelSerializer)
+from .ser import (
+    About_usSerializer,
+    AddToCartSerializer,
+    CategoryListSerializer,
+    CitySerializer,
+    ClinicDetailSerializer,
+    ClinicPanelSerializer,
+    ClinicRegister,
+    ClinicSerializer,
+    ClinicShortSeralizer,
+    CommonDetailSerializer,
+    CommonListSerializer,
+    CompanySerializer,
+    ComplimentSerializer,
+    ContactUsSerializer,
+    DeleteCartItemSerializer,
+    DictCategorySer,
+    DiscountCRUDSerializer,
+    DiscountListSerializer,
+    DoctorCreateSerializer,
+    DoctorDictionarySerializer,
+    DoctorProfileSerializer,
+    DoctorSerializer,
+    ExpertiseSerializer,
+    InsuranceSerializer,
+    OrderDetailSerializer,
+    OrderListSerializer,
+    OrderSerializer,
+    PrescriptionsSerializer,
+    ProductDetailSerializer,
+    ProductListSerializer,
+    ProvinceSerializer,
+    RegisterSerializer,
+    RseSerializer,
+    SliderSerializer,
+    TimeSer,
+    UserProfile,
+    UserReservationSerializer,
+    UserUpdateSerializer,
+    UserVerifySerializer,
+    clinicLoginSerializer,
+)
 
 
 def UniqueGenerator(length=8):
@@ -90,7 +113,7 @@ class ClinicRegisterApiView(GenericAPIView):
         try:
             serialized_data = self.serializer_class(data=request.data)
             if serialized_data.is_valid(raise_exception=True):
-                username = serialized_data.data['username']
+                username = serialized_data.data["username"]
                 password = serialized_data.data["password"]
                 user = authenticate(request, username=username, password=password)
                 try:
@@ -415,10 +438,17 @@ class TimeListApiView(generics.ListAPIView):
                     # if elyas:
                     a = a + timedelta(minutes=30)
                     my_list.append(
-                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5]
+                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
+                            :5
+                        ]
                     )
-                    name = DoctorDate.objects.create(doctor=doctor, date=vistime, name=str(
-                        a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5])
+                    name = DoctorDate.objects.create(
+                        doctor=doctor,
+                        date=vistime,
+                        name=str(
+                            a.time().replace(hour=a.hour, minute=a.minute, second=00)
+                        )[:5],
+                    )
                     if a >= b:
                         break
 
@@ -427,10 +457,17 @@ class TimeListApiView(generics.ListAPIView):
                 while True:
                     a = a + timedelta(minutes=30)
                     my_list.append(
-                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5]
+                        str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
+                            :5
+                        ]
                     )
-                    DoctorDate.objects.create(doctor=doctor, date=vistime, name=str(
-                        a.time().replace(hour=a.hour, minute=a.minute, second=00))[:5])
+                    DoctorDate.objects.create(
+                        doctor=doctor,
+                        date=vistime,
+                        name=str(
+                            a.time().replace(hour=a.hour, minute=a.minute, second=00)
+                        )[:5],
+                    )
                     if a >= b:
                         # my_list.append(pk)
                         # my_list.append(id)
@@ -1268,7 +1305,6 @@ class ToBank(GenericAPIView):
 
 
 from django.views.generic import View
-
 
 # return HttpResponseRedirect(redirect_to=f'{star_pay_url}{authority}')
 

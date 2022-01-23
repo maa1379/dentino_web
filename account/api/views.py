@@ -8,8 +8,7 @@ from utilities.exception import exceptions
 from utilities.respones import ErrorResponse, SuccessResponse
 
 from ..models import Code, User
-from .serializers import (RegisterSerializer, UserUpdateSerializer,
-                          UserVerifySerializer)
+from .serializers import RegisterSerializer, UserUpdateSerializer, UserVerifySerializer
 
 sms = randint(1000, 9999) // 4
 

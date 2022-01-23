@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('clinic', '0001_initial'),
-        ('doctor', '0002_advantage_disadvantage'),
+        ("clinic", "0001_initial"),
+        ("doctor", "0002_advantage_disadvantage"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='doctor',
-            name='clinic',
+            model_name="doctor",
+            name="clinic",
         ),
         migrations.AddField(
-            model_name='doctor',
-            name='clinic',
-            field=models.ManyToManyField(related_name='doctor', to='clinic.Clinic'),
+            model_name="doctor",
+            name="clinic",
+            field=models.ManyToManyField(related_name="doctor", to="clinic.Clinic"),
         ),
     ]

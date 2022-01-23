@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('account', '0002_profile_rate'),
+        ("account", "0002_profile_rate"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='profile',
-            name='is_clinic',
+            model_name="profile",
+            name="is_clinic",
         ),
         migrations.AddField(
-            model_name='profile',
-            name='type',
-            field=models.CharField(choices=[('عادی', 'عادی'), ('کلینیک', 'کلینیک'), ('فروشگاه', 'فروشگاه')], default='asd', max_length=10),
+            model_name="profile",
+            name="type",
+            field=models.CharField(
+                choices=[
+                    ("عادی", "عادی"),
+                    ("کلینیک", "کلینیک"),
+                    ("فروشگاه", "فروشگاه"),
+                ],
+                default="asd",
+                max_length=10,
+            ),
             preserve_default=False,
         ),
     ]

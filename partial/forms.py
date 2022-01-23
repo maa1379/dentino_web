@@ -1,7 +1,12 @@
 from django import forms
 
-from .models import (Company, DoctorDictionary, DoctorDictionaryCategory,
-                     Prescriptions, Price)
+from .models import (
+    Company,
+    DoctorDictionary,
+    DoctorDictionaryCategory,
+    Prescriptions,
+    Price,
+)
 
 
 class DoctorDictCatForm(forms.ModelForm):

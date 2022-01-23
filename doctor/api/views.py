@@ -4,8 +4,12 @@ from rest_framework import generics
 from utilities.respones import ErrorResponse, SuccessResponse
 
 from ..models import Doctor, Expertise, VisitTime
-from .serailizers import (DoctorSer, ExpertiseSerializer, TimeSerializer,
-                          VisitTimeSerializer)
+from .serailizers import (
+    DoctorSer,
+    ExpertiseSerializer,
+    TimeSerializer,
+    VisitTimeSerializer,
+)
 
 
 class ExpertiseList(generics.ListAPIView):

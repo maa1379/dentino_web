@@ -1,9 +1,20 @@
 from django.urls import path
 
-from .views import (CityCreateView, CityDeleteView, CityListView,
-                    CityUpdateView, ProvinceCreate, ProvinceDelete,
-                    ProvinceDetail, ProvinceListView, ProvinceUpdate,
-                    ZoneCreate, ZoneDeleteView, ZoneListView, ZoneUpdate)
+from .views import (
+    CityCreateView,
+    CityDeleteView,
+    CityListView,
+    CityUpdateView,
+    ProvinceCreate,
+    ProvinceDelete,
+    ProvinceDetail,
+    ProvinceListView,
+    ProvinceUpdate,
+    ZoneCreate,
+    ZoneDeleteView,
+    ZoneListView,
+    ZoneUpdate,
+)
 
 app_name = "Location"
 urlpatterns = [

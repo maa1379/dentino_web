@@ -8,8 +8,14 @@ from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
 from doctor.models import Discount, Doctor, Expertise, Insurance, VisitTime
 from location.models import City, Province, Zone
-from partial.models import (Company, Complaint, DoctorDictionary,
-                            DoctorDictionaryCategory, Prescriptions, Price)
+from partial.models import (
+    Company,
+    Complaint,
+    DoctorDictionary,
+    DoctorDictionaryCategory,
+    Prescriptions,
+    Price,
+)
 from shop.models import Category, Product
 
 user = get_user_model()
@@ -374,7 +380,13 @@ class ClinicPanelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Clinic
-        fields = ("name", "companies_number", "clinic_discount_number","doctor_number","reservtion_number")
+        fields = (
+            "name",
+            "companies_number",
+            "clinic_discount_number",
+            "doctor_number",
+            "reservtion_number",
+        )
 
     def get_companies_number(self, obj):
         return obj.company.all().count()
@@ -384,6 +396,7 @@ class ClinicPanelSerializer(serializers.ModelSerializer):
 
     def get_doctor_number(self, obj):
         return obj.discount.all().count()
+
     #
     # def get_insurances_number(self, obj):
     #     return obj.doctor.insurance.all().count()
@@ -610,7 +623,6 @@ class DoctorCreateSerializer(serializers.ModelSerializer):
             "medical_code",
             "insurance",
             "expertise",
-            "full_name",
             "bio",
             "age",
             "parvaneh_tebabat",
