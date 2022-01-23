@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 
 from .views import (
     About_usApiView,
@@ -66,14 +67,15 @@ from .views import (
 )
 
 app_name = "api"
-
+router = routers.SimpleRouter()
+router.register(r'doctor_create', DoctorCreateApiView)
 urlpatterns = [
-
+    path(r'', include(router.urls)),
     path("discount_delete/",DiscountDeleteView.as_view(),name="discount_delete"),
     path("discount_create/",DiscountCreateApiView.as_view(),name="discount_create"),
-    path("panel/doctor/create/", DoctorCreateApiView.as_view(), name="doctor_create"),
+    # path("panel/doctor/create/", DoctorCreateApiView.as_view(), name="doctor_create"),
     path("clinic_panel/", ClinicPanelView.as_view(), name="clinic_panel"),
-    path("doctor_create/", DoctorCreateApiView.as_view(), name="doctor_create"),
+    # path("doctor_create/", DoctorCreateApiView, name="doctor_create"),
     path("doctor_update/", DoctorUpdateApiView.as_view(), name="doctor_update"),
     path("doctor_delete/", DoctorDeleteApiView.as_view(), name="doctor_delete"),
     path("clinic_Login/", ClinicRegisterApiView.as_view(), name="clinic_register"),

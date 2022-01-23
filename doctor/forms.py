@@ -73,14 +73,14 @@ class DoctorForm(forms.ModelForm):
             "family",
             "national_code",
             "phone_number",
-            "ID_photo",
+            # "ID_photo",
             "clinic",
             "expertise",
-            "profile",
+            # "profile",
             "age",
             "bio",
             "medical_code",
-            "parvaneh_tebabat",
+            # "parvaneh_tebabat",
         )
 
         labels = {

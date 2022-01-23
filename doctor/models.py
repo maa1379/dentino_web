@@ -51,8 +51,8 @@ class Doctor(models.Model):
     family = models.CharField(max_length=100)
     national_code = models.CharField(max_length=11)
     phone_number = models.CharField(max_length=11)
-    ID_photo = models.ImageField(upload_to="images/doctor/ID_photo/")
-    profile = models.ImageField(upload_to="images/doctor/profile/")
+    # ID_photo = models.ImageField(upload_to="images/doctor/ID_photo/")
+    # profile = models.ImageField(upload_to="images/doctor/profile/")
     medical_code = models.CharField(max_length=11)
     # service = models.ForeignKey(Service, on_delete=models.CASCADE)
     insurance = models.ManyToManyField(Insurance)
@@ -65,9 +65,9 @@ class Doctor(models.Model):
     bio = models.TextField(blank=True, null=True)
     age = IntegerRangeField(min_value=20, max_value=100)
     star = models.PositiveIntegerField(blank=True, null=True)
-    parvaneh_tebabat = models.ImageField(
-        upload_to="images/doctor/", null=True, blank=True
-    )
+    # parvaneh_tebabat = models.ImageField(
+    #     upload_to="images/doctor/", null=True, blank=True
+    # )
     verified = models.BooleanField(default=False)
 
     def __str__(self):

@@ -27,7 +27,8 @@ from clinic.models import Clinic, Winner
 from commoncourse.models import Common_Course
 from config.models import About_Us, Contact_Us, Slider
 from doctor.api.serailizers import DoctorSer, VisitTimeSerializer
-from doctor.models import Discount, Doctor, DoctorDate, Expertise, Insurance, VisitTime
+from doctor.models import Discount, Doctor, DoctorDate, Expertise, Insurance, VisitTime, Insurance, Expertise
+from clinic.models import Clinic
 from location.models import City, Province, Zone
 from order.models import Order, OrderItem
 from partial.models import Company, Complaint, DoctorDictionary, Prescriptions, Price
@@ -152,23 +153,75 @@ class DiscountDeleteView(GenericAPIView):
         except Exception as e:
             return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST).send()
 
+from rest_framework import viewsets
 
-class DoctorCreateApiView(generics.CreateAPIView):
+
+class DoctorCreateApiView(viewsets.ModelViewSet):
     serializer_class = DoctorCreateSerializer
     queryset = Doctor.objects.all()
 
+    def perform_create(self, serializer):
+        doctor_obj = Doctor()
+        doctor_obj.name = self.request.data['name']
+        doctor_obj.family = self.request.data['family']
+        doctor_obj.national_code = self.request.data['national_code']
+        doctor_obj.phone_number = self.request.data['phone_number']
+        doctor_obj.medical_code = self.request.data['medical_code']
+        doctor_obj.bio = self.request.data['bio']
+        doctor_obj.age = self.request.data['age']
+        doctor_obj.save()
 
-    def post(self,request):
-        ser_data=self.serializer_class(data=request.data)
-        if ser_data.is_valid():
-            ser_data.save()
-            return SuccessResponse(data=ser_data.data,status=status.HTTP_201_CREATED).send()
-        else:
-            return ErrorResponse(message=ser_data.errors,status=status.HTTP_400_BAD_REQUEST).send()
+        insurance = self.request.data['insurance'].split(',')
+        for id in insurance:
+            target = Insurance.objects.get(id=int(id))
+            doctor_obj.insurance.add(target)
+        clinic = self.request.data['clinic'].split(',')
+        for id in clinic:
+            target = Clinic.objects.get(id=int(id))
+            doctor_obj.clinic.add(target)
+        expertise = self.request.data['expertise'].split(',')
+        for id in expertise:
+            target = Expertise.objects.get(id=int(id))
+            doctor_obj.expertise.add(target)
+
+        print(self.request.data)
+
+
+    def post(self, request):
+        # name=request.POST.get("name")
+        # family=request.POST.get("family")
+        # national_code=request.POST.get("national_code")
+        # medical_code=request.POST.get("medical_code")
+        # phone_number=request.POST.get("phone_number")
+        # expertise=request.POST.get("expertise")
+        # insurance=request.POST.get("insurance")
+        # clinic=request.POST.get("clinic")
+        # age=request.POST.get("age")
+        # bio=request.POST.get("bio")
+        #
+        # doctor=Doctor(name=name,family=family,national_code=national_code,medical_code=medical_code,phone_number=phone_number,
+        #                       age=age,bio=bio).save()
+        # for cli in  clinic:
+        #     doctor.clinic.add(Clinic.objects.get(id=cli))
+        # for exp in expertise:
+        # doctor.expertise.add(Expertise.objects.get(id=exp))
+        # # for ins in insurance:
+        #     # doctor.insurance.add(Insurance.objects.get(id=ins))
+        # doctor.save()
+
+        # ser_data = self.serializer_class(data=request.data)
+        # if ser_data.is_valid():
+        #     print(ser_data.validated_data)
+        #     print("*" * 100)
+        #     ser_data.save()
+        return SuccessResponse(data="created", status=status.HTTP_201_CREATED).send()
+        # else:
+        # return ErrorResponse(message=ser_data.errors,status=status.HTTP_400_BAD_REQUEST).send()
 
     # def perform_create(self, serializer):
-    #     clinic=Profile.objects.filter(type="کلینیک").first()
-    #     return serializer.save(clinic_id=clinic.id)
+    #     # clinic=Profile.objects.filter(type="کلینیک").first()
+    #     print(self.request.user.profile.clinic)
+    #     return serializer.save(clinic=self.request.user.profile.clinic)
 
 
 class DoctorUpdateApiView(generics.UpdateAPIView):
@@ -448,7 +501,7 @@ class TimeListApiView(generics.ListAPIView):
                     a = a + timedelta(minutes=30)
                     my_list.append(
                         str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
-                            :5
+                        :5
                         ]
                     )
                     name = DoctorDate.objects.create(
@@ -467,7 +520,7 @@ class TimeListApiView(generics.ListAPIView):
                     a = a + timedelta(minutes=30)
                     my_list.append(
                         str(a.time().replace(hour=a.hour, minute=a.minute, second=00))[
-                            :5
+                        :5
                         ]
                     )
                     DoctorDate.objects.create(
@@ -1314,6 +1367,7 @@ class ToBank(GenericAPIView):
 
 
 from django.views.generic import View
+
 
 # return HttpResponseRedirect(redirect_to=f'{star_pay_url}{authority}')
 

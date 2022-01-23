@@ -611,6 +611,9 @@ class ClinicDetailSerializer(serializers.ModelSerializer):
 
 
 class DoctorCreateSerializer(serializers.ModelSerializer):
+    expertise=serializers.CharField()
+    insurance=serializers.CharField()
+    clinic=serializers.CharField()
     class Meta:
         model = Doctor
         fields = (
@@ -618,13 +621,33 @@ class DoctorCreateSerializer(serializers.ModelSerializer):
             "family",
             "national_code",
             "phone_number",
-            "ID_photo",
-            "profile",
+            # "ID_photo",
+            # "profile",
             "medical_code",
             "insurance",
             "expertise",
             "bio",
             "age",
-            "parvaneh_tebabat",
+            # "parvaneh_tebabat",
             "clinic"
         )
+
+        # def create(self, validated_data):
+        #     clinic = validated_data.pop('clinic', None)
+        #     insurance=validated_data.pop('insurance',None)
+        #     expertise=validated_data.pop('expertise',None)
+        # # Create relations
+        #     for cli in clinic:
+        #         Doctor.clinic.add(Clinic.objects.get(id=cli), **validated_data)
+        #     return clinic
+        #
+        #     for insu in insurance:
+        #         Doctor.insurance.add(Insurance.objects.get(id=insu),**validated_data)
+        #     return insurance
+        #
+        #     for exp in expertise:
+        #         Doctor.expertise.add(Expertise.objects.get(id=exp),**validated_data)
+        #     return expertise
+
+
+
