@@ -150,16 +150,25 @@ class DiscountDeleteView(GenericAPIView):
                 data="object deleted", status=status.HTTP_200_OK
             ).send()
         except Exception as e:
-            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST)
+            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST).send()
 
 
 class DoctorCreateApiView(generics.CreateAPIView):
     serializer_class = DoctorCreateSerializer
     queryset = Doctor.objects.all()
 
-    def perform_create(self, serializer):
-        clinic = self.request.user.profile.clinic
-        return serializer.save(clinic=clinic)
+
+    def post(self,request):
+        ser_data=self.serializer_class(data=request.data)
+        if ser_data.is_valid():
+            ser_data.save()
+            return SuccessResponse(data=ser_data.data,status=status.HTTP_201_CREATED).send()
+        else:
+            return ErrorResponse(message=ser_data.errors,status=status.HTTP_400_BAD_REQUEST).send()
+
+    # def perform_create(self, serializer):
+    #     clinic=Profile.objects.filter(type="کلینیک").first()
+    #     return serializer.save(clinic_id=clinic.id)
 
 
 class DoctorUpdateApiView(generics.UpdateAPIView):
@@ -202,7 +211,7 @@ class DoctorDeleteApiView(GenericAPIView):
                 data="object deleted", status=status.HTTP_200_OK
             ).send()
         except Exception as e:
-            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST)
+            return ErrorResponse(message=e, status=status.HTTP_400_BAD_REQUEST).send()
 
 
 from rest_framework.permissions import AllowAny

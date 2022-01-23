@@ -61,12 +61,16 @@ from .views import (
     paymentok,
     DoctorCreateApiView,
     DoctorUpdateApiView,
-    DoctorDeleteApiView
+    DoctorDeleteApiView,
+    DiscountCreateApiView,DiscountDeleteView
 )
 
 app_name = "api"
 
 urlpatterns = [
+
+    path("discount_delete/",DiscountDeleteView.as_view(),name="discount_delete"),
+    path("discount_create/",DiscountCreateApiView.as_view(),name="discount_create"),
     path("panel/doctor/create/", DoctorCreateApiView.as_view(), name="doctor_create"),
     path("clinic_panel/", ClinicPanelView.as_view(), name="clinic_panel"),
     path("doctor_create/", DoctorCreateApiView.as_view(), name="doctor_create"),

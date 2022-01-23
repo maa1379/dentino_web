@@ -483,4 +483,4 @@ MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 
 FRONT_END_URL = "dentino.app/app/"
 APP_SCHEME = "dentino"
-
+#

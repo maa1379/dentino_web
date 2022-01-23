@@ -626,4 +626,5 @@ class DoctorCreateSerializer(serializers.ModelSerializer):
             "bio",
             "age",
             "parvaneh_tebabat",
+            "clinic"
         )
