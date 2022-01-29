@@ -1,5 +1,7 @@
 asgiref==3.3.1
+attrs==21.4.0
 black==21.11b1
+cached-property==1.5.2
 certifi==2021.10.8
 charset-normalizer==2.0.7
 click==8.0.3
@@ -23,9 +25,11 @@ drf-extra-fields==3.2.1
 flake8==4.0.1
 gunicorn==20.1.0
 idna==3.3
+isodate==0.6.1
 isort==5.10.1
 jdatetime==3.6.4
 kavenegar==1.1.2
+lxml==4.7.1
 mccabe==0.6.1
 minio==6.0.2
 mypy-extensions==0.4.3
@@ -42,6 +46,8 @@ pytz==2021.1
 redis==4.0.2
 regex==2021.11.10
 requests==2.26.0
+requests-file==1.5.1
+requests-toolbelt==0.9.1
 six==1.16.0
 sqlparse==0.4.1
 tomli==1.2.2
@@ -49,3 +55,4 @@ typing-extensions==4.0.0
 tzdata==2021.5
 urllib3==1.26.7
 wrapt==1.13.3
+zeep==4.1.0
