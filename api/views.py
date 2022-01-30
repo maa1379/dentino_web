@@ -577,7 +577,7 @@ class ReserveCreateView(generics.CreateAPIView):
     serializer_class = RseSerializer
 
     def perform_create(self, serializer):
-        doctor_id = (self.request.POST.get("doctor_id")
+        doctor_id = self.request.POST.get("doctor_id")
         day = self.request.POST.get("date")
         DoctorDate.objects.get(doctor=doctor_id, day=day, name=day)
         DoctorDate.delete()
