@@ -474,7 +474,7 @@ class UserReservationSerializer(serializers.ModelSerializer):
 #     dr_cl = serializers.SerializerMethodField()
     dr_cl_name = serializers.SerializerMethodField()
     doctor_name = serializers.SerializerMethodField()
-#     doctor_id = serializers.SerializerMethodField()
+    doctor_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Reservation
@@ -496,7 +496,7 @@ class UserReservationSerializer(serializers.ModelSerializer):
 
 #     def get_dr_cl(self, obj):
 #         doctor_clinic = Clinic.objects.filter(name=obj.doctor.clinic.name)
-#         return ClinicSerializer(doctor_clinic).data
+        return ClinicSerializer(doctor_clinic).data
 
     def get_dr_cl_name(self, obj):
         return obj.doctor.clinic.name
@@ -504,9 +504,8 @@ class UserReservationSerializer(serializers.ModelSerializer):
     def get_doctor_name(self, obj):
         return obj.doctor.full_name
 
-#     def get_doctor_id(self, obj):
-#         doctor= Doctor.objects.filter(id=obj.doctor)
-#         return DoctorSerializer(doctor).data
+    def get_doctor_id(self, obj):
+        return object.doctor
 
 
 from rest_framework import serializers
