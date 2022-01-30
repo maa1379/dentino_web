@@ -491,7 +491,7 @@ class UserReservationSerializer(serializers.ModelSerializer):
 #             "dr_cl",
             "dr_cl_name",
             "doctor_name",
-#             "doctor_id",
+            "doctor_id",
         )
 
 #     def get_dr_cl(self, obj):
