@@ -342,7 +342,7 @@ class ComplimentCreateView(GenericAPIView):
             clinic = self.request.POST.get("clinic")
             doctor = self.request.POST.get("doctor")
             Complaint.objects.create(
-                text=text, user_id=user, clinic=clinic, doctor=doctor
+                text=text, user=request.user, clinic=clinic, doctor=doctor
             )
             return SuccessResponse(data="success").send()
 
