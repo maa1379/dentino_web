@@ -339,10 +339,10 @@ class ComplimentCreateView(GenericAPIView):
         if serialized_data.is_valid(raise_exception=True):
             text = serialized_data.validated_data["text"]
             user = self.request.user.id
-            clinic = self.request.POST.get("clinic_id")
-            doctor = self.request.POST.get("doctor_id")
+            clinic = self.request.POST.get("clinic")
+            doctor = self.request.POST.get("doctor")
             Complaint.objects.create(
-                text=text, user_id=user, clinic_id=clinic, doctor_id=doctor
+                text=text, user_id=user, clinic=clinic, doctor=doctor
             )
             return SuccessResponse(data="success").send()
 
