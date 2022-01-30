@@ -579,8 +579,8 @@ class ReserveCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         doctor_id = self.request.POST.get("doctor_id")
         date = self.request.POST.get("date")
-        time=self.request.POST.get("name")
-        DoctorDate.objects.get(doctor=doctor_id, date=date, name=time).delete()
+        clock=self.request.POST.get("clock")
+        DoctorDate.objects.get(doctor=doctor_id, date=date, name=clock).delete()
         
         serializer.save(
             day=self.request.POST.get("day"),
