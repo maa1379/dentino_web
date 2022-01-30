@@ -495,7 +495,8 @@ class UserReservationSerializer(serializers.ModelSerializer):
         )
 
     def get_dr_cl(self, obj):
-        return obj.doctor.clinic
+        doctor_clinic = Clinic.objects.filter(name=obj.doctor.clinic.name)
+        return ClinicSerializer(doctor_clinic).data
 
     def get_dr_cl_name(self, obj):
         return obj.doctor.clinic.name
@@ -504,7 +505,8 @@ class UserReservationSerializer(serializers.ModelSerializer):
         return obj.doctor.full_name
 
     def get_doctor_id(self, obj):
-        return obj.doctor
+        doctor= Doctor.objects.filter(id=obj.doctor)
+        return DoctorSerializer(doctor).data
 
 
 from rest_framework import serializers
