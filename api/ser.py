@@ -496,7 +496,7 @@ class UserReservationSerializer(serializers.ModelSerializer):
 
 #     def get_dr_cl(self, obj):
 #         doctor_clinic = Clinic.objects.filter(name=obj.doctor.clinic.name)
-        return ClinicSerializer(doctor_clinic).data
+#         return ClinicSerializer(doctor_clinic).data
 
     def get_dr_cl_name(self, obj):
         return obj.doctor.clinic.name
