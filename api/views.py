@@ -1220,13 +1220,10 @@ class UserReserveList(GenericAPIView):
     model = Reservation
 
     def get(self, request, *args, **kwargs):
-        try:
-            user = request.user.id
-            instance = self.model.objects.filter(user=user)
-            serialize_data = self.get_serializer(instance, many=True).data
-            return SuccessResponse(data=serialize_data, status=201).send()
-        except:
-            return ErrorResponse(message="failed").send()
+           user = request.user.id
+           instance = self.model.objects.filter(user=user)
+           serialize_data = self.get_serializer(instance, many=True).data
+           return SuccessResponse(data=serialize_data, status=201).send()
 
 
 # class ProductDetail(GenericAPIView):
