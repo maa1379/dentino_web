@@ -1251,12 +1251,10 @@ class ProductDetail(generics.ListAPIView):
 
     def post(self, request, *args, **kwargs):
         id = request.POST.get("id")
-        try:
-            instance = self.model.objects.get(id=id)
-            serialize_data = self.get_serializer(instance).data
-            return SuccessResponse(serialize_data).send()
-        except:
-            return ErrorResponse(message="Instance does not Found.", status=401).send()
+        instance = self.model.objects.get(id=id)
+        serialize_data = self.get_serializer(instance).data
+        return SuccessResponse(serialize_data).send()
+
 
 
 from rest_framework.permissions import AllowAny
